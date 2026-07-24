@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NepFit</title>
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+<body class="bg-[#FFFFFF] font-sans min-h-screen flex flex-col text-[#111827]">
+
+    {% include 'components/_navbar.html' %}
+
+    {% include 'components/_messages.html' %}
+
+    <main class="flex-grow flex items-center justify-center p-4 bg-[#FFFFFF] py-20 lg:py-28">
+        <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-8 rounded-2xl shadow-sm max-w-md w-full">
+            
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-white rounded-xl mb-2 border border-[#E5E7EB] shadow-xs">
+                    <i data-lucide="dumbbell" class="w-6 h-6 text-[#C1121F]"></i>
+                </div>
+                <h1 class="text-2xl font-extrabold tracking-tight text-[#111827]">Nep<span class="text-[#C1121F]">Fit</span></h1>
+                <p class="text-sm text-[#4B5563] mt-1 font-medium">Sign in to your account</p>
+            </div>
+
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="username" class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111827] mb-1">
+                        <i data-lucide="user" class="w-3.5 h-3.5 text-[#4B5563]"></i>
+                        Username
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="username" name="username" value="{{ data.username }}" 
+                            class="block w-full px-3 py-2 bg-white border border-[#E5E7EB] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#C1121F] focus:border-[#C1121F] text-[#111827] transition-all">
+                        {% if errors.username %}
+                            <p class="text-[#C1121F] text-xs mt-1 font-medium">{{ errors.username }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <label for="password" class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#111827] mb-1">
+                            <i data-lucide="lock" class="w-3.5 h-3.5 text-[#4B5563]"></i>
+                            Password
+                        </label>
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" value="{{ data.password }}"    
+                            class="block w-full px-3 py-2 bg-white border border-[#E5E7EB] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#C1121F] focus:border-[#C1121F] text-[#111827] transition-all">
+                        {% if errors.password %}
+                            <p class="text-[#C1121F] text-xs mt-1 font-medium">{{ errors.password }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <button type="submit" 
+                    class="w-full bg-[#C1121F] text-white font-bold py-2.5 px-4 rounded-xl shadow-sm hover:bg-[#9B0D18] transition-all flex items-center justify-center space-x-2 mt-2">
+                    <span>Log In</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </form>
+
+            <div class="mt-4 text-center text-sm text-[#4B5563]">
+                Don't have an account? 
+                <a href="/register/" class="text-[#111827] font-bold hover:text-[#C1121F] transition-colors underline decoration-2 underline-offset-4">Register</a>
+            </div>
+        </div>
+    </main>
+
+    {% include 'components/_footer.html' %}
+
+    <script src="{% static 'js/lucide.min.js' %}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
