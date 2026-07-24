@@ -31,3 +31,9 @@ def login_view(request):
             messages.error(request, "Invalid username or password.")
             
     return render(request, 'auth/login_page.html')
+
+@login_required
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have successfully logged out.")
+    return redirect('login')
