@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | NepFit</title>
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+<body class="bg-[#FFFFFF] font-sans min-h-screen flex flex-col text-[#111827]">
+
+    {% include 'components/_navbar.html' %}
+
+    {% include 'components/_messages.html' %}
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-6 border-b border-[#E5E7EB]">
+                <div class="flex items-center gap-5">
+                    <div class="relative w-24 h-24 shrink-0 group">
+                        <div class="absolute inset-0 bg-[#C1121F] rounded-full rotate-6 opacity-10 group-hover:rotate-12 transition-transform"></div>
+                        
+                        <div class="relative w-24 h-24 rounded-full bg-[#F8F7F4] border border-[#E5E7EB] overflow-hidden flex items-center justify-center text-[#4B5563] shadow-sm">
+                            <img id="avatar-preview" 
+                                 src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% endif %}" 
+                                 alt="{{ user.username }}" 
+                                 class="w-full h-full object-cover opacity-90 {% if not user.profile_picture %}hidden{% endif %}">
+                            
+                            <i id="avatar-placeholder" 
+                               data-lucide="user" 
+                               class="w-8 h-8 text-[#4B5563] {% if user.profile_picture %}hidden{% endif %}"></i>
+                            
+                            <label for="profile_picture" class="absolute inset-0 bg-[#111827]/70 flex flex-col items-center justify-center gap-0.5 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity text-white text-[10px] font-bold uppercase tracking-wider">
+                                <i data-lucide="camera" class="w-4 h-4 text-[#C1121F]"></i>
+                                Edit
+                            </label>
+                            <input type="file" id="profile_picture" name="profile_picture" class="hidden" accept="image/*" onchange="previewImage(event)">
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-extrabold text-[#111827] tracking-tight">Modify Profile</h1>
+                        <p class="text-sm font-semibold text-[#C1121F] mt-0.5">Updating @{{ user.username|default:"nepfit_athlete" }}</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <button type="submit" class="bg-[#C1121F] hover:bg-[#9B0D18] text-white font-semibold py-2 px-4 rounded-xl transition-colors text-sm flex items-center gap-2 shadow-sm">
+                        <i data-lucide="save" class="w-4 h-4"></i>
+                        Save Changes
+                    </button>
+                    <a href="/profile/" class="bg-white hover:bg-[#F8F7F4] text-[#111827] font-semibold py-2 px-4 rounded-xl transition-colors text-sm border border-[#E5E7EB] flex items-center gap-2 shadow-xs">
+                        <i data-lucide="x" class="w-4 h-4 text-[#4B5563]"></i>
+                        Cancel
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-6 rounded-2xl shadow-sm space-y-4">
+                        <h3 class="text-sm font-bold text-[#111827] border-b border-[#E5E7EB] pb-2">Overview</h3>
+                        
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-[#4B5563]">Account Type</span>
+                            <span class="font-semibold text-[#111827]">
+                                {% if user.is_staff %}Staff{% else %}Customer{% endif %}
+                            </span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-[#4B5563]">Registry Status</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-[#F8F7F4] border border-[#E5E7EB] p-8 rounded-2xl shadow-sm">
+                    <h2 class="text-xs font-extrabold uppercase tracking-widest text-[#4B5563] mb-6">Edit Details</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="border-b border-[#E5E7EB] pb-2 focus-within:border-[#C1121F] transition-colors">
+                                <label for="first_name" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">First Name</label>
+                                <input type="text" id="first_name" name="first_name" {% if data %}value="{{ data.first_name }}"{% else %}value="{{ user.first_name|default:'' }}"{% endif %} placeholder="Enter first name" class="w-full bg-transparent text-base font-semibold text-[#111827] focus:outline-none placeholder-[#4B5563]/50">
+                            </div>
+
+                            <div class="border-b border-[#E5E7EB] pb-2 focus-within:border-[#C1121F] transition-colors">
+                                <label for="last_name" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" {% if data %}value="{{ data.last_name }}"{% else %}value="{{ user.last_name|default:'' }}"{% endif %} placeholder="Enter last name" class="w-full bg-transparent text-base font-semibold text-[#111827] focus:outline-none placeholder-[#4B5563]/50">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-4 border-b border-[#E5E7EB] pb-2 focus-within:border-[#C1121F] transition-colors">
+                            <div class="flex-grow">
+                                <label for="username" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Username</label>
+                                <input type="text" id="username" name="username" {% if data %}value="{{ data.username }}"{% else %}value="{{ user.username|default:'' }}"{% endif %} placeholder="Enter username" class="w-full bg-transparent text-base font-semibold text-[#111827] focus:outline-none placeholder-[#4B5563]/50">
+                                {% if errors.username %}
+                                    <p class="text-[#C1121F] text-xs mt-1 font-medium">{{ errors.username }}</p>
+                                {% endif %}
+                            </div>
+                            <i data-lucide="user" class="w-5 h-5 text-[#4B5563] shrink-0"></i>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-4 border-b border-[#E5E7EB] pb-2 focus-within:border-[#C1121F] transition-colors">
+                            <div class="flex-grow">
+                                <label for="email" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Email Address</label>
+                                <input type="email" id="email" name="email" {% if data %}value="{{ data.email }}"{% else %}value="{{ user.email|default:'' }}"{% endif %} placeholder="Enter email address" class="w-full bg-transparent text-base font-semibold text-[#111827] focus:outline-none placeholder-[#4B5563]/50">
+                                {% if errors.email %}
+                                    <p class="text-[#C1121F] text-xs mt-1 font-medium">{{ errors.email }}</p>
+                                {% endif %}
+                            </div>
+                            <i data-lucide="mail" class="w-5 h-5 text-[#4B5563] shrink-0"></i>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-4 border-b border-[#E5E7EB] pb-2 focus-within:border-[#C1121F] transition-colors">
+                            <div class="flex-grow">
+                                <label for="phone" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Phone Number</label>
+                                <input type="text" id="phone" name="phone" {% if data %}value="{{ data.phone }}"{% else %}value="{{ user.phone|default:'' }}"{% endif %} placeholder="Enter phone number" class="w-full bg-transparent text-base font-semibold text-[#111827] focus:outline-none placeholder-[#4B5563]/50">
+                            </div>
+                            <i data-lucide="smartphone" class="w-5 h-5 text-[#4B5563] shrink-0"></i>
+                        </div>
+
+                        <div class="flex items-start justify-between gap-4 border-b border-[#E5E7EB] pb-2 focus-within:border-[#C1121F] transition-colors">
+                            <div class="flex-grow">
+                                <label for="address" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Address</label>
+                                <textarea id="address" name="address" rows="2" placeholder="Enter address" class="w-full bg-transparent text-base font-semibold text-[#111827] focus:outline-none placeholder-[#4B5563]/50 resize-none leading-relaxed">{% if data %}{{ data.address }}{% else %}{{ user.address|default:'' }}{% endif %}</textarea>
+                            </div>
+                            <i data-lucide="map-pin" class="w-5 h-5 text-[#4B5563] shrink-0 mt-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </main>
+
+    {% include 'components/_footer.html' %}
+
+    <script src="{% static 'js/lucide.min.js' %}"></script>
+    <script>
+        lucide.createIcons();
+
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('avatar-preview');
+            const placeholder = document.getElementById('avatar-placeholder');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    if (placeholder) {
+                        placeholder.classList.add('hidden');
+                    }
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
