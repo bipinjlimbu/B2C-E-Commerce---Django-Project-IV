@@ -47,4 +47,21 @@ def edit_profile_view(request):
         messages.success(request, "Profile updated successfully.")
         return redirect('profile')
 
-    return render(request, 'main/edit_profile_page.html', {'user': user})
+    return render(request, 'main/edit_profile_page.html')
+
+@login_required
+def delete_profile_view(request, user_id):
+    if request.user.pk != user_id and not request.user.is_staff:
+        messages.error(request, "You are not authorized to delete this profile.")
+        return redirect('profile')
+    
+    user = User.objects.get(pk=user_id)
+    user.delete()
+    messages.success(request, "Profile deleted successfully.")
+    
+    if request.user.is_staff:
+        return redirect('/dashboard/admin/?section=customer-management')
+    else:
+        return redirect('logout')
+    
+    return render(request, 'main/delete_profile_page.html', {'user': user})
