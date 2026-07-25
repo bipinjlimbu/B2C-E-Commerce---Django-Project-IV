@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bag | NepFit</title>
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+<body class="bg-[#F8F7F4] text-[#4B5563] font-sans min-h-screen flex flex-col antialiased">
+
+    {% include 'components/_navbar.html' %}
+
+    {% include 'components/_messages.html' %}
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+        <div class="mb-8">
+            <h1 class="text-xs font-extrabold uppercase tracking-widest text-[#C1121F] mb-1">Shopping Bag</h1>
+            <p class="text-2xl lg:text-3xl font-black tracking-tight text-[#111827] uppercase">Selected Gear</p>
+        </div>
+
+        {% if cart_items %}
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div class="lg:col-span-2 space-y-4">
+                    {% for item in cart_items %}
+                        <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-5 hover:border-[#1F2937]/30 transition-all shadow-sm">
+                            <div class="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
+                                <div class="w-20 h-20 bg-[#F8F7F4] border border-[#E5E7EB] rounded-xl overflow-hidden flex items-center justify-center p-2 shrink-0">
+                                    {% if item.product.product_image %}
+                                        <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" class="max-w-full max-h-full object-contain rounded-lg">
+                                    {% else %}
+                                        <i data-lucide="image-off" class="w-6 h-6 text-[#E5E7EB]"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="space-y-1 text-center sm:text-left">
+                                    <span class="text-[9px] font-extrabold uppercase tracking-widest text-[#C1121F] bg-[#F8F7F4] border border-[#E5E7EB] px-2 py-0.5 rounded-md">
+                                        {{ item.product.get_category_display }}
+                                    </span>
+                                    <h3 class="font-extrabold text-[#111827] text-sm tracking-tight line-clamp-1 mt-1">
+                                        {{ item.product.name }}
+                                    </h3>
+                                    <p class="text-xs font-bold text-[#4B5563]">
+                                        Rs. {{ item.product.price|floatformat:2 }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-[#E5E7EB] pt-4 sm:pt-0">
+                                <div class="flex items-center border border-[#E5E7EB] rounded-xl overflow-hidden bg-[#FFFFFF] shadow-sm">
+                                    <a href="/cart/decrease/{{ item.product.id }}/" class="w-8 h-8 flex items-center justify-center text-[#4B5563] hover:text-[#C1121F] hover:bg-[#F8F7F4] transition-colors">
+                                        <i data-lucide="minus" class="w-3.5 h-3.5"></i>
+                                    </a>
+                                    <span class="w-10 text-center text-xs font-extrabold text-[#111827]">
+                                        {{ item.quantity }}
+                                    </span>
+                                    <a href="/cart/increase/{{ item.product.id }}/" class="w-8 h-8 flex items-center justify-center text-[#4B5563] hover:text-[#C1121F] hover:bg-[#F8F7F4] transition-colors">
+                                        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                    </a>
+                                </div>
+
+                                <div class="flex items-center gap-4 shrink-0">
+                                    <div class="text-right hidden sm:block shrink-0 min-w-[100px]">
+                                        <span class="text-[9px] text-[#4B5563] block uppercase font-bold tracking-wider whitespace-nowrap">Subtotal</span>
+                                        <span class="text-sm font-black text-[#111827] whitespace-nowrap">Rs. {{ item.total_price|floatformat:2 }}</span>
+                                    </div>
+                                    <a href="/cart/remove/{{ item.product.id }}/" class="w-9 h-9 bg-[#FFFFFF] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 text-[#4B5563] hover:text-[#B91C1C] rounded-xl transition-all flex items-center justify-center shadow-sm" title="Remove Item">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 space-y-6 lg:sticky lg:top-24 shadow-sm">
+                    <h2 class="text-xs font-extrabold uppercase tracking-widest text-[#4B5563] border-b border-[#E5E7EB] pb-3">Order Summary</h2>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-[#4B5563] font-medium">Subtotal</span>
+                            <span class="font-bold text-[#111827]">Rs. {{ total_price|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-[#4B5563] font-medium">Shipping</span>
+                            <span class="font-extrabold text-[#16A34A] uppercase tracking-wider text-[10px]">Free Delivery</span>
+                        </div>
+                        <div class="border-t border-[#E5E7EB] pt-3 flex justify-between items-baseline">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-[#4B5563]">Total Amount</span>
+                            <span class="text-xl font-black text-[#111827]">Rs. {{ total_price|floatformat:2 }}</span>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="/payment/initiate/" class="space-y-4 pt-2">
+                        {% csrf_token %}
+                        <input type="hidden" name="total_amount" value="{{ total_price }}">
+                        <input type="hidden" name="payment_method" id="id_payment_method" value="esewa">
+                        
+                        <div id="checkout_fields" class="hidden space-y-4 border-t border-[#E5E7EB] pt-4 transition-all duration-300">
+                            <div class="space-y-1.5 relative">
+                                <label class="text-[10px] font-extrabold uppercase tracking-widest text-[#4B5563] block">Payment Method</label>
+                                
+                                <button type="button" id="custom_dropdown_btn" class="w-full bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-3.5 flex items-center justify-between text-xs font-extrabold text-[#111827] uppercase tracking-wider focus:outline-none focus:border-[#C1121F] transition-colors shadow-sm">
+                                    <span id="selected_option_text">eSewa Wallet</span>
+                                    <i data-lucide="chevron-down" id="dropdown_arrow" class="w-4 h-4 text-[#4B5563] transition-transform duration-200"></i>
+                                </button>
+
+                                <div id="custom_dropdown_menu" class="hidden absolute left-0 right-0 mt-1.5 bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl overflow-hidden shadow-xl z-50 divide-y divide-[#E5E7EB]">
+                                    <div data-value="esewa" class="dropdown-item p-3.5 text-xs font-extrabold text-[#111827] hover:bg-[#F8F7F4] cursor-pointer uppercase tracking-wider transition-colors">
+                                        eSewa Wallet
+                                    </div>
+                                    <div data-value="cod" class="dropdown-item p-3.5 text-xs font-extrabold text-[#111827] hover:bg-[#F8F7F4] cursor-pointer uppercase tracking-wider transition-colors">
+                                        Cash On Delivery (COD)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label for="shipping_address" class="text-[10px] font-extrabold uppercase tracking-widest text-[#4B5563] block">Delivery Address</label>
+                                <div id="address_container" class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-3.5 focus-within:border-[#C1121F] focus-within:ring-1 focus-within:ring-[#C1121F]/20 transition-all duration-200 shadow-sm">
+                                    <input type="text" id="shipping_address" name="shipping_address" required placeholder="Street, City, Area Details" class="w-full bg-transparent text-xs font-bold text-[#111827] focus:outline-none placeholder-[#4B5563]/60">
+                                </div>
+                                <p id="client_address_error" class="text-[11px] font-bold text-[#B91C1C] tracking-wide mt-1 uppercase hidden">Please provide a delivery address.</p>
+                            </div>
+                        </div>
+
+                        <button type="button" id="action_button" class="w-full bg-[#C1121F] hover:bg-[#9B0D18] text-[#FFFFFF] font-extrabold py-4 px-6 rounded-xl text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:-translate-y-0.5 cursor-pointer">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            <span id="button_text">Proceed to Checkout</span>
+                        </button>
+                        
+                        <a href="/products/" class="w-full bg-transparent hover:bg-[#E5E7EB]/50 text-[#4B5563] hover:text-[#111827] font-bold py-4 px-6 rounded-xl text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 border border-[#E5E7EB]">
+                            Continue Browsing Gear
+                        </a>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <div class="flex flex-col items-center justify-center text-center py-24 border border-dashed border-[#E5E7EB] rounded-3xl bg-[#FFFFFF] shadow-sm">
+                <div class="w-16 h-16 bg-[#F8F7F4] rounded-2xl flex items-center justify-center border border-[#E5E7EB] mb-4">
+                    <i data-lucide="shopping-bag" class="w-7 h-7 text-[#C1121F]"></i>
+                </div>
+                <h3 class="text-[#111827] font-black text-base tracking-tight uppercase">Your Bag is Empty</h3>
+                <p class="text-xs text-[#4B5563] mt-1 max-w-xs leading-relaxed mb-6">You haven't added any performance gear to your bag yet.</p>
+                <a href="/products/" class="bg-[#FFFFFF] hover:bg-[#F8F7F4] border border-[#E5E7EB] text-[#111827] font-extrabold px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest transition-all flex items-center gap-2 shadow-sm">
+                    <i data-lucide="arrow-left" class="w-4 h-4 text-[#C1121F]"></i>
+                    Return to Shop
+                </a>
+            </div>
+        {% endif %}
+    </main>
+
+    {% include 'components/_footer.html' %}
+
+    <script src="{% static 'js/lucide.min.js' %}"></script>
+    <script>
+        lucide.createIcons();
+
+        const actionButton = document.getElementById('action_button');
+        const checkoutFields = document.getElementById('checkout_fields');
+        const buttonText = document.getElementById('button_text');
+        const shippingInput = document.getElementById('shipping_address');
+        const addressContainer = document.getElementById('address_container');
+        const clientAddressError = document.getElementById('client_address_error');
+        
+        const dropdownBtn = document.getElementById('custom_dropdown_btn');
+        const dropdownMenu = document.getElementById('custom_dropdown_menu');
+        const dropdownArrow = document.getElementById('dropdown_arrow');
+        const selectedText = document.getElementById('selected_option_text');
+        const hiddenPaymentInput = document.getElementById('id_payment_method');
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+        dropdownBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('hidden');
+            dropdownArrow.classList.toggle('rotate-180');
+        });
+
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const val = this.getAttribute('data-value');
+                const txt = this.textContent.trim();
+                
+                hiddenPaymentInput.value = val;
+                selectedText.textContent = txt;
+                
+                dropdownMenu.classList.add('hidden');
+                dropdownArrow.classList.remove('rotate-180');
+            });
+        });
+
+        document.addEventListener('click', function() {
+            dropdownMenu.classList.add('hidden');
+            dropdownArrow.classList.remove('rotate-180');
+        });
+
+        actionButton.addEventListener('click', function(e) {
+            if (checkoutFields.classList.contains('hidden')) {
+                checkoutFields.classList.remove('hidden');
+                buttonText.textContent = "Place Order";
+            } else {
+                if (shippingInput.value.trim() === "") {
+                    shippingInput.focus();
+                    addressContainer.classList.remove('border-[#E5E7EB]');
+                    addressContainer.classList.add('border-[#B91C1C]', 'ring-1', 'ring-[#B91C1C]/20');
+                    clientAddressError.classList.remove('hidden');
+                } else {
+                    this.closest('form').submit();
+                }
+            }
+        });
+
+        shippingInput.addEventListener('input', function() {
+            if (this.value.trim() !== "") {
+                addressContainer.classList.remove('border-[#B91C1C]', 'ring-1', 'ring-[#B91C1C]/20');
+                addressContainer.classList.add('border-[#E5E7EB]');
+                clientAddressError.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

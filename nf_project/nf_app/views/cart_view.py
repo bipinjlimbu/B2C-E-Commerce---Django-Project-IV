@@ -6,6 +6,11 @@ from ..models import User, Product, Cart, CartItem
 @login_required
 def add_to_cart_view(request, product_id):
     product = Product.objects.get(id=product_id)
+    
+    if CartItem.objects.filter(cart__customer=request.user, product=product).exists():
+        messages.info(request, f"{product.name} is already in your cart.")
+        return redirect(f'/products/{product_id}/')
+    
     cart, created = Cart.objects.get_or_create(customer=request.user)
     cart_item, item_created = CartItem.objects.get_or_create(cart=cart, product=product)
 
@@ -15,3 +20,11 @@ def add_to_cart_view(request, product_id):
 
     messages.success(request, f"{product.name} has been added to your cart.")
     return redirect(f'/products/{product_id}/')
+
+@login_required
+def cart_view(request):
+    cart, created = Cart.objects.get_or_create(customer=request.user)
+    cart_items = CartItem.objects.filter(cart=cart)
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    return render(request, 'main/cart_page.html', {'cart_items': cart_items, 'total_price': total_price})
