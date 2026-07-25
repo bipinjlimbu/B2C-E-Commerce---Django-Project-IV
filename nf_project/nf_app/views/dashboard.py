@@ -18,6 +18,7 @@ def admin_dashboard_view(request):
         'delivered_count': Order.objects.filter(status=Order.Status.DELIVERED).count(),
         'completed_count': Order.objects.filter(status=Order.Status.COMPLETED).count(),
         'cancelled_count': Order.objects.filter(status=Order.Status.CANCELLED).count(),
+        'total_gross_revenue': Order.objects.filter(status=Order.Status.COMPLETED).aggregate(total=models.Sum('total_amount'))['total'] or 0,
     }
     
     if section == 'customer-management':
@@ -28,8 +29,8 @@ def admin_dashboard_view(request):
         context['orders'] = Order.objects.all().order_by('-created_at')
     elif section == 'product-reviews':
         context['reviews'] = None
-    elif section == 'revenue_logs':
-        context['revenue_logs'] = None
+    elif section == 'revenue-logs':
+        context['revenue_logs'] = Order.objects.filter(status=Order.Status.COMPLETED).order_by('-created_at')
     
     return render(request, 'dashboard/admin_dashboard.html', context)
 
