@@ -1,0 +1,73 @@
+<div class="space-y-6">
+    <div>
+        <h2 class="text-xs font-extrabold uppercase tracking-widest text-[#C1121F] mb-1">Gear History</h2>
+        <h1 class="text-2xl font-black tracking-tight text-[#111827] uppercase">Purchase History</h1>
+    </div>
+
+    <div class="space-y-4">
+        {% for order in orders %}
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 min-h-[140px] flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:border-[#1F2937]/30 transition-all shadow-sm group">
+                
+                <div class="space-y-4 flex-grow w-full">
+                    
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="font-black text-base text-[#111827]">#ORDER-{{ order.id }}</span>
+                        <span class="text-xs text-[#4B5563] font-bold">| Registered: {{ order.created_at }}</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-4xl">
+                        
+                        {% for item in order.items.all %}
+                            <div class="flex items-center gap-3 bg-[#F8F7F4] border border-[#E5E7EB] p-2 rounded-xl">
+                                <div class="w-10 h-10 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg overflow-hidden flex items-center justify-center p-1 shrink-0">
+                                    {% if item.product.product_image %}
+                                        <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover rounded-sm">
+                                    {% else %}
+                                        <i data-lucide="dumbbell" class="w-5 h-5 text-[#E5E7EB]"></i>
+                                    {% endif %}
+                                </div>
+                                <span class="text-[#111827] text-xs font-extrabold tracking-tight truncate">
+                                    {{ item.product.name }} <span class="text-[#C1121F] font-extrabold ml-1">× {{ item.quantity }}</span>
+                                </span>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap sm:flex-nowrap items-center justify-between lg:justify-end gap-6 border-t lg:border-t-0 border-[#E5E7EB] pt-4 lg:pt-0 shrink-0 w-full lg:w-auto">
+                    
+                    <div class="flex flex-col lg:text-right">
+                        <span class="text-[9px] uppercase font-extrabold tracking-wider text-[#4B5563]">Total Price</span>
+                        <div class="flex items-baseline gap-0.5">
+                            <span class="text-xs font-extrabold text-[#4B5563] mr-0.5">Rs.</span>
+                            <span class="text-base font-black text-[#111827]">{{ order.total_amount }}</span>
+                        </div>
+                    </div>
+
+                    <div class="shrink-0">
+                        {% if order.status == 'completed' %}
+                            <div class="bg-[#16A34A]/10 border border-[#16A34A]/20 text-[#16A34A] font-extrabold h-10 px-5 rounded-xl flex items-center justify-center text-[10px] uppercase tracking-widest select-none min-w-[110px]">
+                                Completed
+                            </div>
+                        {% else %}
+                            <div class="bg-[#B91C1C]/10 border border-[#B91C1C]/20 text-[#B91C1C] font-extrabold h-10 px-5 rounded-xl flex items-center justify-center text-[10px] uppercase tracking-widest select-none min-w-[110px]">
+                                Cancelled
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+
+            </div>
+        {% empty %}
+            <div class="flex flex-col items-center justify-center text-center p-12 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl min-h-[220px]">
+                <div class="w-12 h-12 rounded-xl bg-[#F8F7F4] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#4B5563]">
+                    <i data-lucide="history" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-sm font-black text-[#111827] uppercase tracking-wider mb-1">No Past Orders</h3>
+                <p class="text-xs text-[#4B5563] max-w-xs font-bold">You have no completed or archived fitness gear orders in your history.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
