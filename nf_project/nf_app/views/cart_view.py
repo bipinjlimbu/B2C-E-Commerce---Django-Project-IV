@@ -76,3 +76,16 @@ def decrease_cart_item_quantity(request, product_id):
         messages.error(request, "Quantity cannot be less than 1. To remove the item, please use the remove option.")
     
     return redirect('cart')
+
+@login_required
+def remove_cart_item_view(request, product_id):
+    if request.user.is_staff:
+        messages.error(request, "Staff members cannot modify the cart.")
+        return redirect('home')
+    
+    cart = Cart.objects.get(customer=request.user)
+    cart_item = CartItem.objects.get(cart=cart, product__id=product_id)
+    cart_item.delete()
+    
+    messages.success(request, f"{cart_item.product.name} has been removed from your cart.")
+    return redirect('cart')
