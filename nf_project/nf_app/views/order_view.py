@@ -49,7 +49,7 @@ def deliver_order_view(request, order_id):
 
 @login_required
 def complete_order_view(request, order_id):
-    if not request.user.is_staff:
+    if request.user.is_staff:
         messages.error(request, "You are not authorized to access this page.")
         return redirect('home')
 
@@ -67,4 +67,32 @@ def complete_order_view(request, order_id):
     order.save()
 
     messages.success(request, "Order marked as completed successfully.")
-    return redirect('/dashboard/admin/?section=order-fulfillment')
+    return redirect('/dashboard/?section=pending-orders')
+
+@login_required
+def cancel_order_view(request, order_id):
+    if request.user.is_staff:
+        messages.error(request, "You are not authorized to access this page.")
+        return redirect('home')
+
+    try:
+        order = Order.objects.get(id=order_id)
+    except Order.DoesNotExist:
+        messages.error(request, "Order not found.")
+        return redirect('home')
+
+    if order.status in [Order.Status.COMPLETED, Order.Status.CANCELLED]:
+        messages.error(request, "You cannot cancel completed or already cancelled orders.")
+        return redirect('home')
+
+    order.status = Order.Status.CANCELLED
+    
+    for item in order.items.all():
+        product = item.product
+        product.stock += item.quantity
+        product.save()
+    
+    order.save()
+
+    messages.success(request, "Order cancelled successfully.")
+    return redirect('/dashboard/?section=pending-orders')
