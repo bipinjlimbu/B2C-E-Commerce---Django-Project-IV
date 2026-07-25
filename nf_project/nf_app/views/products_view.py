@@ -96,7 +96,7 @@ def edit_product_view(request, product_id):
             errors['price'] = "Product price is required."
         if not stock:
             errors['stock'] = "Product stock quantity is required."            
-            
+
         if errors:
             return render(request, 'main/edit_product_page.html', {'errors': errors, 'data': request.POST, 'product': product})
 
@@ -127,6 +127,23 @@ def delete_product_view(request, product_id):
         product = Product.objects.get(id=product_id)
         product.delete()
         messages.success(request, f"Product '{product.name}' deleted successfully.")
+    except Product.DoesNotExist:
+        messages.error(request, "Product not found.")
+
+    return redirect('/dashboard/admin/?section=product-management')
+
+@login_required
+def is_active_toggle_view(request, product_id):
+    if not request.user.is_staff:
+        messages.error(request, "You are not authorized to change product status.")
+        return redirect('home')
+
+    try:
+        product = Product.objects.get(id=product_id)
+        product.is_active = not product.is_active
+        product.save()
+        status = "activated" if product.is_active else "deactivated"
+        messages.success(request, f"Product '{product.name}' has been {status}.")
     except Product.DoesNotExist:
         messages.error(request, "Product not found.")
 

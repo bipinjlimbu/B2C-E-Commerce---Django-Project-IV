@@ -66,7 +66,7 @@
                             </td>
                             <td class="p-4">
                                 <label class="relative inline-flex items-center cursor-pointer select-none" title="Toggle Active Status">
-                                    <input type="checkbox" name="is_active" {% if product.is_active %}checked{% endif %} class="sr-only peer" onchange="window.location.href='/products/toggle-status/{{ product.id }}/'">
+                                    <input type="checkbox" name="is_active" {% if product.is_active %}checked{% endif %} class="sr-only peer" onchange="window.location.href='/products/toggle/status/{{ product.id }}/'">
                                     <div class="w-8 h-4 bg-[#E5E7EB] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#C1121F]"></div>
                                 </label>
                             </td>
