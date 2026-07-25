@@ -85,3 +85,7 @@ def initiate_payment_view(request):
         return render(request, 'main/esewa_redirect_page.html', context)
     
     return redirect('cart')
+
+def payment_failed_view(request):
+    messages.error(request, "Payment failed or was cancelled. Please try again.")
+    return render(request, 'main/payment_failed_page.html')

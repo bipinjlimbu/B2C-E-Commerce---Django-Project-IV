@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Failed | NepFit</title>
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+
+<body class="bg-[#F8F7F4] flex flex-col min-h-screen text-[#4B5563] font-sans antialiased">
+    {% include 'components/_navbar.html' %}
+
+    {% include 'components/_messages.html' %}
+
+    <main class="flex-grow flex items-center justify-center py-12 px-4">
+        <div class="max-w-md w-full bg-[#FFFFFF] p-10 rounded-3xl shadow-sm border border-[#E5E7EB] text-center">
+            
+            <div class="flex justify-center mb-6">
+                <div class="bg-[#B91C1C]/10 p-5 rounded-full border border-[#B91C1C]/20">
+                    <i data-lucide="alert-circle" class="w-16 h-16 text-[#B91C1C] stroke-[2px]"></i>
+                </div>
+            </div>
+            
+            <h2 class="text-3xl font-black text-[#111827] tracking-tight uppercase mb-2">
+                Checkout <span class="text-[#B91C1C]">Failed</span>
+            </h2>
+            
+            <p class="text-[#4B5563] mb-8 font-semibold leading-relaxed text-sm">
+                {% if messages %}
+                    {% for message in messages %}{{ message }}{% endfor %}
+                {% else %}
+                    The payment window timed out or your authorization was declined.
+                {% endif %}
+            </p>
+
+            <div class="space-y-4">
+                <a href="/cart/" class="w-full bg-[#C1121F] text-[#FFFFFF] font-extrabold py-4 rounded-xl hover:bg-[#9B0D18] shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-3 transition-all uppercase tracking-widest text-xs">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    Review Bag
+                </a>
+                
+                <a href="/" class="block text-[#4B5563] font-bold hover:text-[#111827] transition-colors uppercase text-xs tracking-widest">
+                    Return to Shop
+                </a>
+            </div>
+        </div>
+    </main>
+
+    {% include 'components/_footer.html' %}
+
+    <script src="{% static 'js/lucide.min.js' %}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

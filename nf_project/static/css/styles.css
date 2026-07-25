@@ -1467,6 +1467,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(193 18 31 / var(--tw-border-opacity));
 }
 
+.border-\[\#B91C1C\]\/20 {
+  border-color: rgb(185 28 28 / 0.2);
+}
+
 .border-t-transparent {
   border-top-color: transparent;
 }
@@ -1675,6 +1679,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   fill: currentColor;
 }
 
+.stroke-\[2px\] {
+  stroke-width: 2px;
+}
+
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1724,6 +1732,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-3\.5 {
   padding: 0.875rem;
+}
+
+.p-10 {
+  padding: 2.5rem;
 }
 
 .py-20 {
