@@ -431,7 +431,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-scroll-snap-strictness: proximity;
 }
 
-.divide-y > *, .border, .border-4, .border-t, .border-b, .border-b-2, .border-l, .border-r, .border-b-\[8px\], .file\:border-0::file-selector-button, .sm\:border-t-0, .lg\:border-t-0 {
+.divide-y > *, .border, .border-4, .border-2, .border-t, .border-b, .border-b-2, .border-l, .border-r, .border-b-\[8px\], .file\:border-0::file-selector-button, .sm\:border-t-0, .lg\:border-t-0 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
@@ -1162,6 +1162,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1408,6 +1412,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-width: 4px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .border-t {
   border-top-width: 1px;
 }
@@ -1492,6 +1500,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .border-\[\#4F46E5\]\/20 {
   border-color: rgb(79 70 229 / 0.2);
+}
+
+.border-\[\#C1121F\]\/30 {
+  border-color: rgb(193 18 31 / 0.3);
 }
 
 .border-t-transparent {
@@ -2212,6 +2224,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .opacity-90 {
   opacity: 0.9;
+}
+
+.opacity-5 {
+  opacity: 0.05;
 }
 
 .shadow-sm {
