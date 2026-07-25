@@ -1,0 +1,100 @@
+<div class="space-y-6">
+    <div>
+        <h2 class="text-xs font-extrabold uppercase tracking-widest text-[#C1121F] mb-1">Active Deliveries</h2>
+        <h1 class="text-2xl font-black tracking-tight text-[#111827] uppercase">Pending Orders</h1>
+    </div>
+
+    <div class="space-y-4">
+        {% for order in pending_orders %}
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 min-h-[140px] flex flex-col lg:flex-row lg:items-center justify-between gap-6 hover:border-[#1F2937]/30 transition-all shadow-sm group">
+                
+                <div class="space-y-4 flex-grow w-full">
+                    
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="font-black text-base text-[#111827]">#ORDER-{{ order.id }}</span>
+                        
+                        {% if order.status == 'confirmed' %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/20 text-[#2563EB] text-[10px] font-extrabold uppercase tracking-wider">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#2563EB]"></span> {{ order.get_status_display }}
+                            </span>
+                        {% elif order.status == 'shipping' %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#4F46E5]/10 border border-[#4F46E5]/20 text-[#4F46E5] text-[10px] font-extrabold uppercase tracking-wider">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#4F46E5]"></span> {{ order.get_status_display }}
+                            </span>
+                        {% elif order.status == 'completed' or order.status == 'delivered' %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#16A34A]/10 border border-[#16A34A]/20 text-[#16A34A] text-[10px] font-extrabold uppercase tracking-wider">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#16A34A]"></span> {{ order.get_status_display }}
+                            </span>
+                        {% else %}
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#F8F7F4] border border-[#E5E7EB] text-[#4B5563] text-[10px] font-extrabold uppercase tracking-wider">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#4B5563]"></span> {{ order.get_status_display }}
+                            </span>
+                        {% endif %}
+                        
+                        <span class="text-xs text-[#4B5563] font-bold">| Registered: {{ order.created_at|date:"Y-m-d H:i" }}</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-4xl">
+                        {% for item in order.items.all %}
+                            <div class="flex items-center gap-3 bg-[#F8F7F4] border border-[#E5E7EB] p-2 rounded-xl">
+                                <div class="w-10 h-10 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg overflow-hidden flex items-center justify-center p-1 shrink-0">
+                                    {% if item.product.product_image %}
+                                        <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover rounded-sm">
+                                    {% else %}
+                                        <i data-lucide="dumbbell" class="w-5 h-5 text-[#E5E7EB]"></i>
+                                    {% endif %}
+                                </div>
+                                <span class="text-[#111827] text-xs font-extrabold tracking-tight truncate">
+                                    {{ item.product.name }} <span class="text-[#C1121F] font-extrabold ml-1">× {{ item.quantity }}</span>
+                                </span>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <div class="flex items-center justify-between lg:justify-end gap-8 border-t lg:border-t-0 border-[#E5E7EB] pt-4 lg:pt-0 shrink-0">
+                    <div class="flex flex-col lg:text-right">
+                        <span class="text-[9px] uppercase font-extrabold tracking-wider text-[#4B5563]">Total Value</span>
+                        <div class="flex items-baseline gap-0.5">
+                            <span class="text-xs font-extrabold text-[#4B5563] mr-0.5">Rs.</span>
+                            <span class="text-base font-black text-[#111827]">{{ order.total_amount|floatformat:2 }}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        {% if order.status == "confirmed" %}
+                            <div class="bg-[#F8F7F4] border border-[#E5E7EB] text-[#4B5563] font-extrabold h-11 px-5 rounded-xl flex items-center justify-center gap-2 text-xs uppercase tracking-widest whitespace-nowrap">
+                                <i data-lucide="package" class="w-3.5 h-3.5 text-[#D97706]"></i>
+                                <span>Awaiting Dispatch</span>
+                            </div>
+                        {% elif order.status == "shipping" %}
+                            <div class="bg-[#F8F7F4] border border-[#E5E7EB] text-[#4B5563] font-extrabold h-11 px-5 rounded-xl flex items-center justify-center gap-2 text-xs uppercase tracking-widest whitespace-nowrap">
+                                <i data-lucide="truck" class="w-3.5 h-3.5 text-[#C1121F]"></i>
+                                <span>In Transit</span>
+                            </div>
+                        {% elif order.status == "delivered" %}
+                            <a href="/order/complete/{{ order.id }}" class="bg-[#C1121F] hover:bg-[#9B0D18] text-[#FFFFFF] font-extrabold h-11 px-5 rounded-xl transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-widest shadow-md whitespace-nowrap active:scale-95">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-[#FFFFFF]"></i>
+                                <span>Mark as Received</span>
+                            </a>
+                        {% endif %}
+
+                        <a href="/order/cancel/{{ order.id }}" class="bg-[#FFFFFF] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 text-[#4B5563] hover:text-[#B91C1C] h-11 w-11 rounded-xl transition-all flex items-center justify-center active:scale-95" title="Cancel Order">
+                            <i data-lucide="x-circle" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        {% empty %}
+            <div class="flex flex-col items-center justify-center text-center p-12 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl min-h-[220px]">
+                <div class="w-12 h-12 rounded-xl bg-[#F8F7F4] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#4B5563]">
+                    <i data-lucide="inbox" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-sm font-black text-[#111827] uppercase tracking-wider mb-1">No Pending Orders</h3>
+                <p class="text-xs text-[#4B5563] max-w-xs font-bold">Your order queue is empty. All gear orders are up to date.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>

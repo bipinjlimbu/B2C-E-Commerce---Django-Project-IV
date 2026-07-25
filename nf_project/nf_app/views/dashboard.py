@@ -44,7 +44,7 @@ def customer_dashboard_view(request):
     }
     
     if section == 'pending-orders':
-        context['pending_orders'] = None
+        context['pending_orders'] = Order.objects.exclude(customer=request.user, status__in=[Order.Status.COMPLETED, Order.Status.CANCELLED]).order_by('-created_at')
     elif section == 'my-orders':
         context['my_orders'] = None
     elif section == 'my-reviews':
