@@ -431,7 +431,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-scroll-snap-strictness: proximity;
 }
 
-.divide-y > *, .border, .border-2, .border-t, .border-b, .border-b-2, .border-l, .border-r, .file\:border-0::file-selector-button, .sm\:border-b-0, .sm\:border-r, .sm\:border-t-0 {
+.divide-y > *, .border, .border-2, .border-4, .border-t, .border-b, .border-b-2, .border-l, .border-r, .file\:border-0::file-selector-button, .sm\:border-b-0, .sm\:border-r, .sm\:border-t-0 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
@@ -525,6 +525,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 0px;
   bottom: 0px;
   left: 0px;
+}
+
+.inset-4 {
+  top: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
 }
 
 .inset-y-0 {
@@ -999,6 +1006,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 100%;
 }
 
+.max-w-sm {
+  max-width: 24rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1051,6 +1062,26 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .transform {
   transform: var(--tw-transform);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .cursor-pointer {
@@ -1337,6 +1368,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-width: 2px;
 }
 
+.border-4 {
+  border-width: 4px;
+}
+
 .border-t {
   border-top-width: 1px;
 }
@@ -1425,6 +1460,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-\[\#B91C1C\] {
   --tw-border-opacity: 1;
   border-color: rgb(185 28 28 / var(--tw-border-opacity));
+}
+
+.border-\[\#C1121F\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(193 18 31 / var(--tw-border-opacity));
+}
+
+.border-t-transparent {
+  border-top-color: transparent;
 }
 
 .bg-\[\#FFFFFF\] {
