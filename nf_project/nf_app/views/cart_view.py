@@ -28,3 +28,17 @@ def cart_view(request):
     total_price = sum(item.product.price * item.quantity for item in cart_items)
 
     return render(request, 'main/cart_page.html', {'cart_items': cart_items, 'total_price': total_price})
+
+@login_required
+def increase_cart_item_quantity(request, product_id):
+    cart = Cart.objects.get(customer=request.user)
+    cart_item = CartItem.objects.get(cart=cart, product__id=product_id)
+    
+    if cart_item.quantity < cart_item.product.stock:
+        cart_item.quantity += 1
+        cart_item.save()
+        messages.success(request, f"Quantity of {cart_item.product.name} increased.")
+    else:
+        messages.error(request, f"Cannot increase quantity. Only {cart_item.product.stock} items in stock.")
+    
+    return redirect('cart')
