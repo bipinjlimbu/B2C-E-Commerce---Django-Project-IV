@@ -63,5 +63,3 @@ def delete_profile_view(request, user_id):
         return redirect('/dashboard/admin/?section=customer-management')
     else:
         return redirect('logout')
-    
-    return render(request, 'main/delete_profile_page.html', {'user': user})
