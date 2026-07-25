@@ -197,3 +197,13 @@ def is_active_toggle_view(request, product_id):
         messages.error(request, "Product not found.")
 
     return redirect('/dashboard/admin/?section=product-management')
+
+@login_required
+def product_detail_view(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+    except Product.DoesNotExist:
+        messages.error(request, "Product not found.")
+        return redirect('products')
+
+    return render(request, 'main/product_detail_page.html', {'product': product})
