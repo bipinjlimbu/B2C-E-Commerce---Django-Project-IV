@@ -416,7 +416,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
-.translate-x-\[120\%\], .translate-x-1, .-translate-y-1, .-translate-y-1\/2, .rotate-180, .rotate-6, .transform, .hover\:-translate-y-0\.5, .hover\:-translate-y-0, .active\:scale-95, .group-hover\:translate-x-1, .group-hover\:rotate-12, .group-hover\:scale-105, .peer-checked\:after\:translate-x-full::after {
+.translate-x-\[120\%\], .translate-x-1, .-translate-y-1, .-translate-y-1\/2, .rotate-180, .rotate-6, .transform, .hover\:-translate-y-0\.5, .hover\:-translate-y-0, .hover\:scale-110, .active\:scale-95, .group-hover\:translate-x-1, .group-hover\:rotate-12, .group-hover\:scale-105, .peer-checked\:after\:translate-x-full::after {
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -2506,6 +2506,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(193 18 31 / var(--tw-border-opacity));
 }
 
+.focus-within\:border-\[\#1F2937\]\/30:focus-within {
+  border-color: rgb(31 41 55 / 0.3);
+}
+
 .focus-within\:outline-none:focus-within {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -2528,6 +2532,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .hover\:-translate-y-0:hover {
   --tw-translate-y: -0px;
+  transform: var(--tw-transform);
+}
+
+.hover\:scale-110:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
   transform: var(--tw-transform);
 }
 
@@ -2624,6 +2634,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-\[\#A10E19\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(161 14 25 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-\[\#E5E7EB\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .hover\:text-\[\#C1121F\]:hover {
