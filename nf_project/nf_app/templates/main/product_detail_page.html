@@ -108,7 +108,7 @@
 
                     <div class="flex gap-2 w-full sm:w-auto">
                         {% if not request.user.is_staff %}
-                            <a href="/products/wishlist-toggle/{{ product.id }}/" class="bg-[#FFFFFF] hover:bg-[#F8F7F4] text-[#C1121F] w-12 h-12 rounded-xl transition-all flex items-center justify-center border border-[#E5E7EB] shadow-sm" title="Wishlist">
+                            <a href="/wishlist/toggle/{{ product.id }}/" class="bg-[#FFFFFF] hover:bg-[#F8F7F4] text-[#C1121F] w-12 h-12 rounded-xl transition-all flex items-center justify-center border border-[#E5E7EB] shadow-sm" title="Wishlist">
                                 {% if product.in_wishlist %}
                                     <i data-lucide="heart" class="w-4 h-4 fill-current text-[#C1121F]"></i>
                                 {% else %}
