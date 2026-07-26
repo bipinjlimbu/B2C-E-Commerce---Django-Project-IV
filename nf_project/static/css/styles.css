@@ -2255,6 +2255,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   opacity: 0.05;
 }
 
+.opacity-60 {
+  opacity: 0.6;
+}
+
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
@@ -2357,6 +2361,46 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ease-\[cubic-bezier\(0\.18\2c 0\.89\2c 0\.32\2c 1\.28\)\] {
   transition-timing-function: cubic-bezier(0.18,0.89,0.32,1.28);
+}
+
+.selection\:bg-\[\#C1121F\] *::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(193 18 31 / var(--tw-bg-opacity));
+}
+
+.selection\:bg-\[\#C1121F\] *::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(193 18 31 / var(--tw-bg-opacity));
+}
+
+.selection\:text-white *::-moz-selection {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.selection\:text-white *::selection {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.selection\:bg-\[\#C1121F\]::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(193 18 31 / var(--tw-bg-opacity));
+}
+
+.selection\:bg-\[\#C1121F\]::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(193 18 31 / var(--tw-bg-opacity));
+}
+
+.selection\:text-white::-moz-selection {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.selection\:text-white::selection {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .file\:mr-3::file-selector-button {
@@ -2509,6 +2553,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(185 28 28 / var(--tw-border-opacity));
 }
 
+.hover\:border-\[\#B91C1C\]\/20:hover {
+  border-color: rgb(185 28 28 / 0.2);
+}
+
 .hover\:bg-\[\#9B0D18\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(155 13 24 / var(--tw-bg-opacity));
@@ -2571,6 +2619,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .hover\:bg-\[\#F8F7F4\]\/80:hover {
   background-color: rgb(248 247 244 / 0.8);
+}
+
+.hover\:bg-\[\#A10E19\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(161 14 25 / var(--tw-bg-opacity));
 }
 
 .hover\:text-\[\#C1121F\]:hover {
@@ -2747,6 +2800,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:flex-nowrap {
     flex-wrap: nowrap;
+  }
+
+  .sm\:items-start {
+    align-items: flex-start;
   }
 
   .sm\:items-end {
@@ -2927,6 +2984,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   .lg\:py-36 {
     padding-top: 9rem;
     padding-bottom: 9rem;
+  }
+
+  .lg\:py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 
   .lg\:pt-0 {

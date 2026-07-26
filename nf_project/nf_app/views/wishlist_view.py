@@ -4,6 +4,11 @@ from django.contrib import messages
 from ..models import Wishlist, Product
 
 @login_required
+def wishlist_view(request):
+    wishlist_items = Wishlist.objects.filter(customer=request.user).select_related('product')
+    return render(request, 'main/wishlist_page.html', {'wishlist_items': wishlist_items})
+
+@login_required
 def wishlist_toggle_view(request, product_id):
     product = Product.objects.get(id=product_id)
     wishlist_item, created = Wishlist.objects.get_or_create(customer=request.user, product=product)
