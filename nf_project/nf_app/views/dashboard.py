@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import models
-from ..models import User, Product, Order
+from ..models import Review, User, Product, Order
 
 @login_required
 def admin_dashboard_view(request):
@@ -28,7 +28,7 @@ def admin_dashboard_view(request):
     elif section == 'order-fulfillment':
         context['orders'] = Order.objects.all().order_by('-created_at')
     elif section == 'product-reviews':
-        context['reviews'] = None
+        context['reviews'] = Review.objects.all().order_by('-created_at')
     elif section == 'revenue-logs':
         context['revenue_logs'] = Order.objects.filter(status=Order.Status.COMPLETED).order_by('-created_at')
     

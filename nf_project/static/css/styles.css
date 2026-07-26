@@ -2541,6 +2541,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   transform: var(--tw-transform);
 }
 
+.hover\:text-clip:hover {
+  text-overflow: clip;
+}
+
+.hover\:whitespace-normal:hover {
+  white-space: normal;
+}
+
 .hover\:border-\[\#1F2937\]\/30:hover {
   border-color: rgb(31 41 55 / 0.3);
 }
