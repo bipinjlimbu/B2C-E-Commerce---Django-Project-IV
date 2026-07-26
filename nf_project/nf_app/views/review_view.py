@@ -42,3 +42,40 @@ def add_review_view(request, product_id):
         return redirect(f'/products/{product_id}/')
         
     return render(request, 'main/add_review_page.html', {'product': product})
+
+@login_required
+def edit_review_view(request, review_id):
+    review = Review.objects.get(id=review_id)
+    
+    if request.user.is_staff:
+        messages.error(request, "You are not authorized to edit reviews.")
+        return redirect('home')
+    
+    if not review:
+        messages.error(request, "Review not found.")
+        return redirect('customer_dashboard')
+    
+    if review.customer != request.user:
+        messages.error(request, "You are not authorized to edit this review.")
+        return redirect('customer_dashboard')
+    
+    errors = {}
+    if request.method == 'POST':
+        rating = request.POST.get('rating')
+        comment = request.POST.get('comment', '').strip()
+        
+        if not rating:
+            errors['rating'] = "Rating is required."
+        if not comment:
+            errors['comment'] = "Comment is required."
+        
+        if errors:
+            return render(request, 'main/edit_review_page.html', {'review': review, 'errors': errors, 'data': request.POST})
+        
+        review.rating = rating
+        review.comment = comment
+        review.save()
+        messages.success(request, "Your review has been updated successfully.")
+        return redirect('/dashboard/?section=my-reviews')
+    
+    return render(request, 'main/edit_review_page.html', {'review': review})

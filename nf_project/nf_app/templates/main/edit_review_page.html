@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Review | ApexStriker</title>
+    {% load static %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+<body class="bg-[#F8F7F4] font-sans min-h-screen flex flex-col text-[#111827] selection:bg-[#C1121F] selection:text-white">
+
+    {% include 'components/_navbar.html' %}
+
+    {% include 'components/_messages.html' %}
+
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <form method="POST" class="w-full max-w-2xl bg-[#FFFFFF] border border-[#E5E7EB] rounded-3xl overflow-hidden shadow-sm p-8 lg:p-12 space-y-8">
+            {% csrf_token %}
+            
+            <div>
+                <h2 class="text-xs font-extrabold uppercase tracking-widest text-[#C1121F] mb-1">Modify Feedback</h2>
+                <h1 class="text-xl font-black text-[#111827] tracking-tight uppercase">Edit Your Review</h1>
+                <p class="text-xs text-[#4B5563] mt-2 font-bold">Updating your experience for <span class="text-[#C1121F] font-black">{{ review.product.name }}</span></p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-2xl">
+                    <label class="text-[10px] font-extrabold uppercase tracking-widest text-[#4B5563] block mb-2">Adjust Rating</label>
+                    <div class="flex items-center gap-1.5 bg-[#FFFFFF] border border-[#E5E7EB] p-3 rounded-xl inline-flex">
+                        <input type="hidden" name="rating" id="id_rating" {% if data %} value="{{ data.rating|default:5 }}" {% else %} value="{{ review.rating|default:5 }}" {% endif %}>
+                        <div class="flex items-center gap-1">
+                            <button type="button" data-star="1" class="star-btn text-[#E5E7EB] hover:scale-110 transition-transform focus:outline-none">
+                                <i data-lucide="star" class="w-5 h-5"></i>
+                            </button>
+                            <button type="button" data-star="2" class="star-btn text-[#E5E7EB] hover:scale-110 transition-transform focus:outline-none">
+                                <i data-lucide="star" class="w-5 h-5"></i>
+                            </button>
+                            <button type="button" data-star="3" class="star-btn text-[#E5E7EB] hover:scale-110 transition-transform focus:outline-none">
+                                <i data-lucide="star" class="w-5 h-5"></i>
+                            </button>
+                            <button type="button" data-star="4" class="star-btn text-[#E5E7EB] hover:scale-110 transition-transform focus:outline-none">
+                                <i data-lucide="star" class="w-5 h-5"></i>
+                            </button>
+                            <button type="button" data-star="5" class="star-btn text-[#E5E7EB] hover:scale-110 transition-transform focus:outline-none">
+                                <i data-lucide="star" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <span id="rating_display" class="text-xs font-bold text-[#4B5563] ml-2">{{ review.rating|default:5 }} / 5</span>
+                    </div>
+                    {% if errors.rating %}
+                        <p class="text-[#B91C1C] text-xs mt-1 font-bold">{{ errors.rating }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-2xl focus-within:border-[#1F2937]/30 transition-colors">
+                    <label class="text-[10px] font-extrabold uppercase tracking-widest text-[#4B5563] block mb-1">Modify Comment</label>
+                    <textarea id="id_comment" name="comment" rows="5" placeholder="Update what you liked or disliked about this gear..." class="w-full bg-transparent text-sm font-bold text-[#111827] focus:outline-none placeholder-[#4B5563]/60 resize-none leading-relaxed">{% if data %}{{ data.comment|default:'' }}{% else %}{{ review.comment|default:'' }}{% endif %}</textarea>
+                    {% if errors.comment %}
+                        <p class="text-[#B91C1C] text-xs mt-1 font-bold">{{ errors.comment }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 pt-4 border-t border-[#E5E7EB]">
+                <button type="submit" class="flex-grow sm:flex-none bg-[#C1121F] hover:bg-[#A10E19] text-white font-extrabold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wider shadow-sm">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    Update Review
+                </button>
+                <a href="javascript:history.back()" class="flex-grow sm:flex-none bg-[#F8F7F4] hover:bg-[#E5E7EB] text-[#111827] font-extrabold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wider border border-[#E5E7EB]">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </main>
+
+    {% include 'components/_footer.html' %}
+
+    <script src="{% static 'js/lucide.min.js' %}"></script>
+    <script>
+        lucide.createIcons();
+
+        const ratingInput = document.getElementById('id_rating');
+        const ratingDisplay = document.getElementById('rating_display');
+        const starButtons = document.querySelectorAll('.star-btn');
+
+        function updateStars(rating) {
+            ratingDisplay.textContent = `${rating} / 5`;
+            starButtons.forEach(btn => {
+                const btnStarValue = parseInt(btn.getAttribute('data-star'));
+                const icon = btn.querySelector('[data-lucide="star"]');
+                if (btnStarValue <= rating) {
+                    icon.classList.add('fill-current', 'text-[#C1121F]');
+                    icon.classList.remove('text-[#E5E7EB]');
+                } else {
+                    icon.classList.remove('fill-current', 'text-[#C1121F]');
+                    icon.classList.add('text-[#E5E7EB]');
+                }
+            });
+        }
+
+        const currentRating = parseInt(ratingInput.value) || 5;
+        updateStars(currentRating);
+
+        starButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const selectedRating = parseInt(this.getAttribute('data-star'));
+                ratingInput.value = selectedRating;
+                updateStars(selectedRating);
+            });
+        });
+    </script>
+</body>
+</html>
