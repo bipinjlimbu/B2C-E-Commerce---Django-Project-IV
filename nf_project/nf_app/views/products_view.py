@@ -210,5 +210,7 @@ def product_detail_view(request, product_id):
         product.in_wishlist = True
     else:
         product.in_wishlist = False
+        
+    reviews = product.reviews.all().order_by('-created_at')
 
-    return render(request, 'main/product_detail_page.html', {'product': product})
+    return render(request, 'main/product_detail_page.html', {'product': product, 'reviews': reviews})
