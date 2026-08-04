@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Terminal | NepFit</title>
+    <title>Admin Dashboard | NepFit</title>
     {% load static %}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
     <style>
         .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
             background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #E5E7EB;
+            background: #374151;
             border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -23,110 +23,121 @@
     </style>
 </head>
 
-<body class="bg-[#FFFFFF] flex min-h-screen overflow-hidden text-[#111827] font-sans">
+<body class="bg-[#FAFAF9] flex min-h-screen text-[#111827] font-sans antialiased selection:bg-[#C1121F] selection:text-white">
 
     {% include 'components/_messages.html' %}
 
-    <aside class="w-72 bg-[#F8F7F4] flex flex-col shadow-sm relative z-30 border-r border-[#E5E7EB]">
-        <div class="p-6 border-b border-[#E5E7EB]">
-            <div class="flex items-center gap-3">
-                <div class="h-9 w-9 bg-white border border-[#E5E7EB] rounded-xl flex items-center justify-center shadow-xs">
-                    <i data-lucide="dumbbell" class="w-5 h-5 text-[#C1121F]"></i>
+    <div id="sidebar-overlay" class="fixed inset-0 bg-[#111827]/60 backdrop-blur-xs z-40 lg:hidden hidden" onclick="toggleSidebar()"></div>
+
+    <aside id="admin-sidebar" class="fixed lg:static inset-y-0 left-0 w-72 bg-[#1F2937] text-white flex flex-col z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out border-r border-[#374151] shadow-2xl lg:shadow-none">
+        
+        <div class="p-6 border-b border-[#374151] flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#C1121F] to-[#9B0D18] flex items-center justify-center text-white font-extrabold text-xl shadow-md border border-[#D4A017]/30">
+                    N
                 </div>
-                <h1 class="text-xl font-extrabold tracking-tight text-[#111827]">
-                    NEP<span class="text-[#C1121F] font-black">FIT</span>
-                </h1>
-            </div>
-            <div class="flex items-center justify-between mt-3">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563]">Admin Control Center</p>
-                <span class="inline-block w-2 h-2 rounded-full bg-[#D4A017]" title="Gold Accent Indicator"></span>
-            </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-white block leading-none">
+                        NEP<span class="text-[#C1121F]">FIT</span>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#D4A017] block mt-1">
+                        Admin Dashboard
+                    </span>
+                </div>
+            </a>
+            <button onclick="toggleSidebar()" class="lg:hidden text-[#9CA3AF] hover:text-white p-1 rounded-lg">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
         </div>
 
         <nav class="flex-grow p-4 space-y-6 overflow-y-auto custom-scrollbar">
             
-            <div class="space-y-1">
-                <span class="px-3 text-[10px] font-bold text-[#4B5563] uppercase tracking-widest block mb-2">Identity Control</span>
-                
-                <a href="?section=customer-management" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors {% if section == 'customer-management' or not section %}bg-[#1F2937] text-white shadow-sm{% else %}text-[#4B5563] hover:bg-white hover:text-[#111827]{% endif %}">
+            <div>
+                <span class="px-3 text-[10px] font-extrabold text-[#9CA3AF] uppercase tracking-widest block mb-2">Customers</span>
+                <a href="?section=customer-management" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'customer-management' or not section %}bg-[#C1121F] text-white shadow-md{% else %}text-[#9CA3AF] hover:bg-[#374151] hover:text-white{% endif %}">
                     <i data-lucide="users" class="w-4 h-4 shrink-0"></i>
-                    <span>Customer Directory</span>
+                    <span>Customer List</span>
                 </a>
             </div>
 
-            <div class="space-y-1">
-                <span class="px-3 text-[10px] font-bold text-[#4B5563] uppercase tracking-widest block mb-2">Catalog Architecture</span>
-                
-                <a href="?section=product-management" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors {% if section == 'product-management' %}bg-[#1F2937] text-white shadow-sm{% else %}text-[#4B5563] hover:bg-white hover:text-[#111827]{% endif %}">
-                    <i data-lucide="package-open" class="w-4 h-4 shrink-0"></i>
-                    <span>Product Master</span>
+            <div>
+                <span class="px-3 text-[10px] font-extrabold text-[#9CA3AF] uppercase tracking-widest block mb-2">Catalog</span>
+                <a href="?section=product-management" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'product-management' %}bg-[#C1121F] text-white shadow-md{% else %}text-[#9CA3AF] hover:bg-[#374151] hover:text-white{% endif %}">
+                    <i data-lucide="package" class="w-4 h-4 shrink-0"></i>
+                    <span>Products</span>
                 </a>
             </div>
 
-            <div class="space-y-1">
-                <span class="px-3 text-[10px] font-bold text-[#4B5563] uppercase tracking-widest block mb-2">Orders & Logistics</span>
-                
-                <a href="?section=order-fulfillment" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors {% if section == 'order-fulfillment' %}bg-[#1F2937] text-white shadow-sm{% else %}text-[#4B5563] hover:bg-white hover:text-[#111827]{% endif %}">
-                    <i data-lucide="truck" class="w-4 h-4 shrink-0"></i>
-                    <span>Order Fulfillment</span>
+            <div>
+                <span class="px-3 text-[10px] font-extrabold text-[#9CA3AF] uppercase tracking-widest block mb-2">Orders</span>
+                <a href="?section=order-fulfillment" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'order-fulfillment' %}bg-[#C1121F] text-white shadow-md{% else %}text-[#9CA3AF] hover:bg-[#374151] hover:text-white{% endif %}">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="shopping-cart" class="w-4 h-4 shrink-0"></i>
+                        <span>Order Management</span>
+                    </div>
                     {% if pending_orders_count > 0 %}
-                        <span class="ml-auto bg-[#C1121F] hover:bg-[#9B0D18] text-white px-2 py-0.5 rounded-full text-[11px] font-bold leading-none transition-colors"> {{ pending_orders_count }}</span>
+                        <span class="bg-[#D4A017] text-[#111827] px-2 py-0.5 rounded-full text-[10px] font-black leading-none">
+                            {{ pending_orders_count }}
+                        </span>
                     {% endif %}
                 </a>
             </div>
 
-            <div class="space-y-1">
-                <span class="px-3 text-[10px] font-bold text-[#4B5563] uppercase tracking-widest block mb-2">Platform Audit</span>
-                
-                <a href="?section=product-reviews" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors {% if section == 'product-reviews' %}bg-[#1F2937] text-white shadow-sm{% else %}text-[#4B5563] hover:bg-white hover:text-[#111827]{% endif %}">
-                    <i data-lucide="heart-handshake" class="w-4 h-4 shrink-0"></i>
-                    <span>Product Reviews</span>
-                </a>
-                
-                <a href="?section=revenue-logs" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors {% if section == 'revenue-logs' %}bg-[#1F2937] text-white shadow-sm{% else %}text-[#4B5563] hover:bg-white hover:text-[#111827]{% endif %}">
-                    <i data-lucide="line-chart" class="w-4 h-4 shrink-0"></i>
-                    <span>Revenue Logs</span>
-                </a>
+            <div>
+                <span class="px-3 text-[10px] font-extrabold text-[#9CA3AF] uppercase tracking-widest block mb-2">Store Activity</span>
+                <div class="space-y-1">
+                    <a href="?section=product-reviews" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'product-reviews' %}bg-[#C1121F] text-white shadow-md{% else %}text-[#9CA3AF] hover:bg-[#374151] hover:text-white{% endif %}">
+                        <i data-lucide="star" class="w-4 h-4 shrink-0"></i>
+                        <span>Customer Reviews</span>
+                    </a>
+                    
+                    <a href="?section=revenue-logs" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'revenue-logs' %}bg-[#C1121F] text-white shadow-md{% else %}text-[#9CA3AF] hover:bg-[#374151] hover:text-white{% endif %}">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0"></i>
+                        <span>Sales Report</span>
+                    </a>
+                </div>
             </div>
+
         </nav>
 
-        <div class="p-4 border-t border-[#E5E7EB] bg-[#F8F7F4] grid grid-cols-2 gap-2">
-            <a href="/profile/" 
-               class="flex flex-col items-center justify-center gap-1.5 border border-[#E5E7EB] bg-white text-[#111827] p-3 rounded-xl hover:bg-[#1F2937] hover:text-white transition-colors shadow-xs group">
-                <i data-lucide="user" class="w-4 h-4 text-[#4B5563] group-hover:text-white transition-colors"></i>
-                <span class="text-[10px] font-bold tracking-wide uppercase">Profile</span>
+        <div class="p-4 border-t border-[#374151] bg-[#111827]/50 grid grid-cols-2 gap-2">
+            <a href="/profile/" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-[#374151]/50 border border-[#4B5563]/30 text-white hover:bg-[#C1121F] transition-all text-center group">
+                <i data-lucide="user" class="w-4 h-4 text-[#D4A017] group-hover:text-white transition-colors"></i>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider">My Profile</span>
             </a>
 
-            <a href="/"
-               class="flex flex-col items-center justify-center gap-1.5 border border-[#E5E7EB] bg-white text-[#111827] p-3 rounded-xl hover:bg-[#1F2937] hover:text-white transition-colors shadow-xs group">
-                <i data-lucide="external-link" class="w-4 h-4 text-[#4B5563] group-hover:text-white transition-colors"></i>
-                <span class="text-[10px] font-bold tracking-wide uppercase">Live Site</span>
+            <a href="/" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-[#374151]/50 border border-[#4B5563]/30 text-white hover:bg-[#C1121F] transition-all text-center group">
+                <i data-lucide="globe" class="w-4 h-4 text-[#D4A017] group-hover:text-white transition-colors"></i>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider">View Store</span>
             </a>
         </div>
+
     </aside>
 
-    <main class="flex-grow flex flex-col h-screen overflow-y-auto bg-[#FFFFFF] p-6 lg:p-10">
-        
-        <div class="max-w-7xl w-full mx-auto">
-            {% if section == 'customer-management' or not section %}
-                {% include 'dashboard/admin/_customer_management.html' %}
+    <div class="flex-grow flex flex-col min-w-0 h-screen overflow-hidden">
 
-            {% elif section == 'product-management' %}
-                {% include 'dashboard/admin/_product_management.html' %}
+        <main class="flex-grow overflow-y-auto bg-[#FAFAF9] p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto">
+                {% if section == 'customer-management' or not section %}
+                    {% include 'dashboard/admin/_customer_management.html' %}
 
-            {% elif section == 'order-fulfillment' %}
-                {% include 'dashboard/admin/_order_fulfillment.html' %}
-                
-            {% elif section == 'product-reviews' %}
-                {% include 'dashboard/admin/_product_reviews.html' %}
+                {% elif section == 'product-management' %}
+                    {% include 'dashboard/admin/_product_management.html' %}
 
-            {% elif section == 'revenue-logs' %}
-                {% include 'dashboard/admin/_revenue_logs.html' %}
+                {% elif section == 'order-fulfillment' %}
+                    {% include 'dashboard/admin/_order_fulfillment.html' %}
+                    
+                {% elif section == 'product-reviews' %}
+                    {% include 'dashboard/admin/_product_reviews.html' %}
 
-            {% endif %}
-        </div>
+                {% elif section == 'revenue-logs' %}
+                    {% include 'dashboard/admin/_revenue_logs.html' %}
 
-    </main>
+                {% endif %}
+            </div>
+        </main>
+
+    </div>
 
     <script src="{% static 'js/lucide.min.js' %}"></script>
     <script>
