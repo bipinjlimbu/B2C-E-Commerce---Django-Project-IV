@@ -651,6 +651,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   bottom: -2.5rem;
 }
 
+.top-3\.5 {
+  top: 0.875rem;
+}
+
+.left-3\.5 {
+  left: 0.875rem;
+}
+
 .z-\[100\] {
   z-index: 100;
 }
@@ -1859,6 +1867,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-\[\#B91C1C\] {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#111827\]\/75 {
+  background-color: rgb(17 24 39 / 0.75);
 }
 
 .bg-gradient-to-br {
