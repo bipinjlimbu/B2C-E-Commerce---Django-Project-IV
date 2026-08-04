@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.db.models import Q
 from ..models import Product, Wishlist
 
-@login_required
 def products_view(request):
     products = Product.objects.all().order_by('-created_at')
     
@@ -198,7 +197,6 @@ def is_active_toggle_view(request, product_id):
 
     return redirect('/dashboard/admin/?section=product-management')
 
-@login_required
 def product_detail_view(request, product_id):
     try:
         product = Product.objects.get(id=product_id)
@@ -206,10 +204,11 @@ def product_detail_view(request, product_id):
         messages.error(request, "Product not found.")
         return redirect('products')
     
-    if Wishlist.objects.filter(customer=request.user, product=product).exists():
-        product.in_wishlist = True
-    else:
-        product.in_wishlist = False
+    if request.user.is_authenticated:
+        if Wishlist.objects.filter(customer=request.user, product=product).exists():
+            product.in_wishlist = True
+        else:
+            product.in_wishlist = False
         
     reviews = product.reviews.all().order_by('-created_at')
 
