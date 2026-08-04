@@ -436,7 +436,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
-.shadow-sm, .shadow-2xl, .shadow-md, .shadow-xl, .shadow-lg, .hover\:shadow-lg, .hover\:shadow-md, .hover\:shadow-xl {
+.shadow-sm, .shadow-2xl, .shadow-md, .shadow-xl, .shadow-lg, .shadow-inner, .hover\:shadow-lg, .hover\:shadow-md, .hover\:shadow-xl {
   --tw-ring-offset-shadow: 0 0 #0000;
   --tw-ring-shadow: 0 0 #0000;
   --tw-shadow: 0 0 #0000;
@@ -532,6 +532,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 1rem;
   bottom: 1rem;
   left: 1rem;
+}
+
+.inset-3 {
+  top: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
 }
 
 .inset-y-0 {
@@ -1301,6 +1308,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1750,6 +1768,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .border-white\/10 {
   border-color: rgb(255 255 255 / 0.1);
+}
+
+.border-\[\#D4A017\]\/50 {
+  border-color: rgb(212 160 23 / 0.5);
 }
 
 .border-t-transparent {
@@ -2700,6 +2722,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow-inner {
+  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .shadow-\[\#C1121F\]\/20 {
   --tw-shadow-color: rgb(193 18 31 / 0.2);
   --tw-shadow: var(--tw-shadow-colored);
@@ -2804,6 +2832,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ease-\[cubic-bezier\(0\.18\2c 0\.89\2c 0\.32\2c 1\.28\)\] {
   transition-timing-function: cubic-bezier(0.18,0.89,0.32,1.28);
+}
+
+.\[animation-duration\:3s\] {
+  animation-duration: 3s;
 }
 
 .selection\:bg-\[\#C1121F\] *::-moz-selection {
