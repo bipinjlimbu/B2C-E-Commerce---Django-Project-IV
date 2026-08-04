@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Workspace | NepFit</title>
+    <title>Customer Dashboard | NepFit</title>
     {% load static %}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
     <style>
@@ -23,87 +23,103 @@
     </style>
 </head>
 
-<body class="bg-[#F8F7F4] flex min-h-screen overflow-hidden text-[#4B5563] font-sans antialiased">
+<body class="bg-[#FAFAF9] flex min-h-screen text-[#4B5563] font-sans antialiased selection:bg-[#C1121F] selection:text-white">
 
     {% include 'components/_messages.html' %}
 
-    <aside class="w-80 bg-[#FFFFFF] flex flex-col shadow-sm relative z-30 border-r border-[#E5E7EB]">
-        <div class="p-8 border-b border-[#E5E7EB]">
-            <div class="flex items-center gap-3">
-                <div class="h-10 w-10 bg-[#C1121F] rounded-xl flex items-center justify-center shadow-sm">
-                    <i data-lucide="dumbbell" class="w-5 h-5 text-[#FFFFFF]"></i>
+    <div id="sidebar-overlay" class="fixed inset-0 bg-[#111827]/60 backdrop-blur-xs z-40 lg:hidden hidden" onclick="toggleSidebar()"></div>
+
+    <aside id="customer-sidebar" class="fixed lg:static inset-y-0 left-0 w-72 bg-[#FFFFFF] border-r border-[#E5E7EB] flex flex-col z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl lg:shadow-none">
+        
+        <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[#1F2937] flex items-center justify-center text-white font-extrabold text-lg shadow-md border border-[#D4A017]/30">
+                    <i data-lucide="dumbbell" class="w-5 h-5 text-[#D4A017]"></i>
                 </div>
-                <h1 class="text-xl font-black tracking-tight uppercase text-[#111827]">
-                    Nep<span class="text-[#C1121F]">Fit</span>
-                </h1>
-            </div>
-            <p class="text-[9px] text-[#4B5563] font-extrabold uppercase tracking-widest mt-4">Customer Account Panel</p>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-[#111827] block leading-none">
+                        NEP<span class="text-[#C1121F]">FIT</span>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mt-1">
+                        My Account
+                    </span>
+                </div>
+            </a>
+            <button onclick="toggleSidebar()" class="lg:hidden text-[#4B5563] hover:text-[#111827] p-1 rounded-lg">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
         </div>
 
-        <nav class="flex-grow p-6 space-y-6 overflow-y-auto custom-scrollbar">
+        <nav class="flex-grow p-4 space-y-6 overflow-y-auto custom-scrollbar">
             
-            <div class="space-y-1">
-                <h3 class="px-4 text-[9px] font-extrabold text-[#4B5563] uppercase tracking-widest mb-3">Orders & History</h3>
-                <a href="?section=pending-orders" class="flex items-center gap-4 px-4 py-3.5 rounded-xl {% if section == 'pending-orders' or not section %}bg-[#C1121F] text-[#FFFFFF] shadow-md font-extrabold{% else %}text-[#4B5563] hover:bg-[#F8F7F4] hover:text-[#111827] font-bold{% endif %} uppercase text-xs tracking-widest transition-all group">
-                    <i data-lucide="clock" class="w-4 h-4 transition-transform group-hover:scale-105"></i>
-                    Pending Orders
-                </a>
+            <div>
+                <span class="px-3 text-[10px] font-extrabold text-[#111827] uppercase tracking-widest block mb-2">Orders</span>
+                <div class="space-y-1">
+                    <a href="?section=pending-orders" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'pending-orders' or not section %}bg-[#C1121F] text-white shadow-md{% else %}text-[#4B5563] hover:bg-[#FAFAF9] hover:text-[#111827]{% endif %}">
+                        <i data-lucide="clock" class="w-4 h-4 shrink-0"></i>
+                        <span>Pending Orders</span>
+                    </a>
 
-                <a href="?section=my-orders" class="flex items-center gap-4 px-4 py-3.5 rounded-xl {% if section == 'my-orders' %}bg-[#C1121F] text-[#FFFFFF] shadow-md font-extrabold{% else %}text-[#4B5563] hover:bg-[#F8F7F4] hover:text-[#111827] font-bold{% endif %} uppercase text-xs tracking-widest transition-all group">
-                    <i data-lucide="shopping-bag" class="w-4 h-4 transition-transform group-hover:scale-105"></i>
-                    Purchase History
+                    <a href="?section=my-orders" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'my-orders' %}bg-[#C1121F] text-white shadow-md{% else %}text-[#4B5563] hover:bg-[#FAFAF9] hover:text-[#111827]{% endif %}">
+                        <i data-lucide="shopping-bag" class="w-4 h-4 shrink-0"></i>
+                        <span>My Orders</span>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <span class="px-3 text-[10px] font-extrabold text-[#111827] uppercase tracking-widest block mb-2">Shopping Overview</span>
+                <a href="?section=total-spent" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'total-spent' %}bg-[#C1121F] text-white shadow-md{% else %}text-[#4B5563] hover:bg-[#FAFAF9] hover:text-[#111827]{% endif %}">
+                    <i data-lucide="wallet" class="w-4 h-4 shrink-0"></i>
+                    <span>Total Spent</span>
                 </a>
             </div>
 
-            <div class="space-y-1">
-                <h3 class="px-4 text-[9px] font-extrabold text-[#4B5563] uppercase tracking-widest mb-3">Financial Metrics</h3>
-                <a href="?section=total-spent" class="flex items-center gap-4 px-4 py-3.5 rounded-xl {% if section == 'total-spent' %}bg-[#C1121F] text-[#FFFFFF] shadow-md font-extrabold{% else %}text-[#4B5563] hover:bg-[#F8F7F4] hover:text-[#111827] font-bold{% endif %} uppercase text-xs tracking-widest transition-all group">
-                    <i data-lucide="wallet" class="w-4 h-4 transition-transform group-hover:scale-105"></i>
-                    Total Investment
+            <div>
+                <span class="px-3 text-[10px] font-extrabold text-[#111827] uppercase tracking-widest block mb-2">Feedback</span>
+                <a href="?section=my-reviews" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all {% if section == 'my-reviews' %}bg-[#C1121F] text-white shadow-md{% else %}text-[#4B5563] hover:bg-[#FAFAF9] hover:text-[#111827]{% endif %}">
+                    <i data-lucide="star" class="w-4 h-4 shrink-0"></i>
+                    <span>My Reviews</span>
                 </a>
             </div>
 
-            <div class="space-y-1">
-                <h3 class="px-4 text-[9px] font-extrabold text-[#4B5563] uppercase tracking-widest mb-3">Gear Feedback</h3>
-                <a href="?section=my-reviews" class="flex items-center gap-4 px-4 py-3.5 rounded-xl {% if section == 'my-reviews' %}bg-[#C1121F] text-[#FFFFFF] shadow-md font-extrabold{% else %}text-[#4B5563] hover:bg-[#F8F7F4] hover:text-[#111827] font-bold{% endif %} uppercase text-xs tracking-widest transition-all group">
-                    <i data-lucide="star" class="w-4 h-4 transition-transform group-hover:scale-105"></i>
-                    My Reviews
-                </a>
-            </div>
         </nav>
 
-        <div class="p-6 border-t border-[#E5E7EB] bg-[#F8F7F4] flex flex-col gap-2">
-            <a href="/profile/" 
-               class="flex items-center justify-center gap-3 w-full bg-[#C1121F] text-[#FFFFFF] px-6 py-3.5 rounded-xl font-extrabold uppercase text-[10px] tracking-widest hover:bg-[#9B0D18] transition-all shadow-sm active:scale-95">
-                <i data-lucide="user" class="w-4 h-4"></i>
-                My Profile
+        <div class="p-4 border-t border-[#E5E7EB] bg-[#FAFAF9] grid grid-cols-2 gap-2">
+            <a href="/profile/" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-white border border-[#E5E7EB] text-[#111827] hover:bg-[#1F2937] hover:text-white transition-all text-center group shadow-2xs">
+                <i data-lucide="user" class="w-4 h-4 text-[#C1121F] group-hover:text-[#D4A017] transition-colors"></i>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider">My Profile</span>
             </a>
 
-            <a href="/" target="_blank" 
-               class="flex items-center justify-center gap-3 w-full bg-[#FFFFFF] border border-[#E5E7EB] text-[#4B5563] px-6 py-3.5 rounded-xl font-extrabold uppercase text-[10px] tracking-widest hover:bg-[#E5E7EB]/50 hover:text-[#111827] transition-all active:scale-95">
-                <i data-lucide="external-link" class="w-4 h-4"></i>
-                Live Website
+            <a href="/" target="_blank" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-white border border-[#E5E7EB] text-[#111827] hover:bg-[#1F2937] hover:text-white transition-all text-center group shadow-2xs">
+                <i data-lucide="store" class="w-4 h-4 text-[#C1121F] group-hover:text-[#D4A017] transition-colors"></i>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider">Back to Store</span>
             </a>
         </div>
+
     </aside>
 
-    <main class="flex-grow flex flex-col h-screen overflow-y-auto bg-[#F8F7F4] p-6 sm:p-8">
-        
-        {% if section == 'pending-orders' or not section %}
-            {% include 'dashboard/customer/_pending_orders.html' %}
+    <div class="flex-grow flex flex-col min-w-0 h-screen overflow-hidden">
 
-        {% elif section == 'my-orders' %}
-            {% include 'dashboard/customer/_my_orders.html' %}
+        <main class="flex-grow overflow-y-auto bg-[#FAFAF9] p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto">
+                {% if section == 'pending-orders' or not section %}
+                    {% include 'dashboard/customer/_pending_orders.html' %}
 
-        {% elif section == 'total-spent' %}
-            {% include 'dashboard/customer/_total_spent.html' %}
+                {% elif section == 'my-orders' %}
+                    {% include 'dashboard/customer/_my_orders.html' %}
 
-        {% elif section == 'my-reviews' %}
-            {% include 'dashboard/customer/_my_reviews.html' %}
+                {% elif section == 'total-spent' %}
+                    {% include 'dashboard/customer/_total_spent.html' %}
 
-        {% endif %}
+                {% elif section == 'my-reviews' %}
+                    {% include 'dashboard/customer/_my_reviews.html' %}
 
-    </main>
+                {% endif %}
+            </div>
+        </main>
+
+    </div>
 
     <script src="{% static 'js/lucide.min.js' %}"></script>
     <script>
