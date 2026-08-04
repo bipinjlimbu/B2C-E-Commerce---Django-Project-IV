@@ -1,39 +1,79 @@
-<footer class="bg-[#1F2937] border-t border-[#E5E7EB]/10 py-16 text-[#E5E7EB]">
+<footer class="bg-[#1F2937] text-[#FAFAF9] border-t border-[#D4A017]/20 pt-16 pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-[#E5E7EB]/10 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#E5E7EB]/10">
             
-            <div class="md:col-span-2 space-y-4 max-w-xl">
-                <div class="flex items-center">
-                    <i data-lucide="dumbbell" class="text-[#C1121F] mr-2 h-6 w-6"></i>
-                    <span class="text-xl font-extrabold tracking-tight text-white">NepFit</span>
-                </div>
-                <p class="text-[#E5E7EB]/80 text-base leading-relaxed font-normal">
-                    Premier fitness and athletic apparel engineered for strength, durability, and maximum performance. Built to withstand high-intensity training while keeping you comfortable every day.
+            <div class="lg:col-span-7 space-y-6">
+                <a href="/" class="inline-flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-[#111827] flex items-center justify-center border border-[#D4A017]/40 shadow-sm group-hover:border-[#C1121F] transition-colors">
+                        <i data-lucide="crown" class="w-5 h-5 text-[#D4A017] group-hover:text-[#C1121F] transition-colors"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-black tracking-tight text-white leading-none uppercase">Nep<span class="text-[#C1121F]">Fit</span></span>
+                        <span class="text-[9px] font-bold tracking-[0.2em] text-[#D4A017] uppercase mt-0.5">Men's Apparel</span>
+                    </div>
+                </a>
+                
+                <p class="text-[#E5E7EB]/80 text-sm leading-relaxed max-w-md font-normal">
+                    Premium men's clothing designed for confidence, comfort, and everyday style. Crafted with modern fits and built with quality materials inspired by the spirit of Nepal.
                 </p>
+
+                <div class="flex flex-wrap items-center gap-4 text-xs font-semibold text-[#D4A017]">
+                    <div class="flex items-center gap-2 bg-[#111827] px-3.5 py-2 rounded-lg border border-[#D4A017]/20">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-[#C1121F]"></i>
+                        <span>Guaranteed Quality</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-[#111827] px-3.5 py-2 rounded-lg border border-[#D4A017]/20">
+                        <i data-lucide="truck" class="w-4 h-4 text-[#D4A017]"></i>
+                        <span>Fast Delivery Across Nepal</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="md:justify-self-end">
-                <h4 class="font-bold text-xs tracking-wider uppercase mb-4 text-[#D4A017]">Explore Collections</h4>
-                <ul class="space-y-3 text-sm font-medium">
-                    <li><a href="/products/" class="text-[#E5E7EB]/80 hover:text-[#C1121F] transition flex items-center"><i data-lucide="layout-grid" class="w-4 h-4 mr-2 text-[#4B5563]"></i> Shop All Apparel</a></li>
-                    <li><a href="/products/?category=t_shirts" class="text-[#E5E7EB]/80 hover:text-[#C1121F] transition flex items-center"><i data-lucide="activity" class="w-4 h-4 mr-2 text-[#4B5563]"></i> Performance Tees</a></li>
-                    <li><a href="/products/?category=hoodies" class="text-[#E5E7EB]/80 hover:text-[#C1121F] transition flex items-center"><i data-lucide="sun" class="w-4 h-4 mr-2 text-[#4B5563]"></i> Hoodies & Outerwear</a></li>
-                    <li><a href="/products/?category=joggers" class="text-[#E5E7EB]/80 hover:text-[#C1121F] transition flex items-center"><i data-lucide="flame" class="w-4 h-4 mr-2 text-[#4B5563]"></i> Athletic Joggers</a></li>
+            <div class="lg:col-span-5 lg:justify-self-end w-full max-w-xs">
+                <h4 class="text-xs font-bold tracking-[0.15em] uppercase text-[#D4A017] mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#C1121F]"></span>
+                    Explore
+                </h4>
+                <ul class="space-y-3.5 text-sm font-medium">
+                    <li>
+                        <a href="/products/" class="text-[#E5E7EB]/80 hover:text-white hover:translate-x-1 transition-all flex items-center gap-2.5 group">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-[#C1121F] opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                            Shop All
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/products/?category=t_shirts" class="text-[#E5E7EB]/80 hover:text-white hover:translate-x-1 transition-all flex items-center gap-2.5 group">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-[#C1121F] opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                            T-Shirts
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/products/?category=hoodies" class="text-[#E5E7EB]/80 hover:text-white hover:translate-x-1 transition-all flex items-center gap-2.5 group">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-[#C1121F] opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                            Hoodies
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/products/?category=joggers" class="text-[#E5E7EB]/80 hover:text-white hover:translate-x-1 transition-all flex items-center gap-2.5 group">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-[#C1121F] opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                            Joggers
+                        </a>
+                    </li>
                 </ul>
             </div>
-            
+
         </div>
 
-        <div class="pt-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 text-xs text-[#E5E7EB]/60">
-            <div>
-                <span>© 2026 NepFit Apparel. Built for High Performance.</span>
-            </div>
-            <div class="flex flex-wrap gap-x-6 gap-y-2 justify-center">
-                <span class="flex items-center"><i data-lucide="shield-check" class="w-4 h-4 mr-1.5 text-[#C1121F]"></i> Guaranteed Premium Quality</span>
-                <span class="flex items-center"><i data-lucide="zap" class="w-4 h-4 mr-1.5 text-[#D4A017]"></i> Athletic Grade Performance</span>
+        <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#E5E7EB]/60">
+            <p>© 2026 NepFit. Premium Men's Fashion. All rights reserved.</p>
+            <div class="flex items-center gap-6 font-medium">
+                <span class="flex items-center gap-1.5">
+                    <i data-lucide="award" class="w-3.5 h-3.5 text-[#D4A017]"></i> Designed for Men
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#C1121F]"></i> Premium Craftsmanship
+                </span>
             </div>
         </div>
-
     </div>
 </footer>
