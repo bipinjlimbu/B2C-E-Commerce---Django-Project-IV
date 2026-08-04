@@ -3,46 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Failed | NepFit</title>
+    <title>Payment Failed | NepFit</title>
     {% load static %}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
 </head>
+<body class="bg-[#FAFAF9] text-[#4B5563] font-sans flex flex-col min-h-screen antialiased selection:bg-[#C1121F] selection:text-white">
 
-<body class="bg-[#F8F7F4] flex flex-col min-h-screen text-[#4B5563] font-sans antialiased">
     {% include 'components/_navbar.html' %}
 
     {% include 'components/_messages.html' %}
 
-    <main class="flex-grow flex items-center justify-center py-12 px-4">
-        <div class="max-w-md w-full bg-[#FFFFFF] p-10 rounded-3xl shadow-sm border border-[#E5E7EB] text-center">
-            
-            <div class="flex justify-center mb-6">
-                <div class="bg-[#B91C1C]/10 p-5 rounded-full border border-[#B91C1C]/20">
-                    <i data-lucide="alert-circle" class="w-16 h-16 text-[#B91C1C] stroke-[2px]"></i>
-                </div>
-            </div>
-            
-            <h2 class="text-3xl font-black text-[#111827] tracking-tight uppercase mb-2">
-                Checkout <span class="text-[#B91C1C]">Failed</span>
-            </h2>
-            
-            <p class="text-[#4B5563] mb-8 font-semibold leading-relaxed text-sm">
-                {% if messages %}
-                    {% for message in messages %}{{ message }}{% endfor %}
-                {% else %}
-                    The payment window timed out or your authorization was declined.
-                {% endif %}
-            </p>
-
-            <div class="space-y-4">
-                <a href="/cart/" class="w-full bg-[#C1121F] text-[#FFFFFF] font-extrabold py-4 rounded-xl hover:bg-[#9B0D18] shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-3 transition-all uppercase tracking-widest text-xs">
-                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-                    Review Bag
-                </a>
+    <main class="flex-grow flex items-center justify-center py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-lg">
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-3xl p-8 sm:p-10 shadow-xl relative overflow-hidden text-center">
                 
-                <a href="/" class="block text-[#4B5563] font-bold hover:text-[#111827] transition-colors uppercase text-xs tracking-widest">
-                    Return to Shop
-                </a>
+                <div class="h-1.5 bg-gradient-to-r from-[#B91C1C] via-[#C1121F] to-[#D4A017] absolute top-0 left-0 right-0"></div>
+
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F2937] text-[#D4A017] text-[11px] font-bold uppercase tracking-widest mb-6 border border-[#D4A017]/20 shadow-xs">
+                    <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-[#D4A017]"></i>
+                    Payment Unsuccessful
+                </div>
+
+                <div class="relative w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-[#B91C1C]/10 rounded-full animate-ping opacity-25"></div>
+                    <div class="w-20 h-20 bg-[#FAFAF9] border border-[#B91C1C]/30 rounded-full flex items-center justify-center shadow-inner relative z-10">
+                        <i data-lucide="x-circle" class="w-10 h-10 text-[#B91C1C]"></i>
+                    </div>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight mb-3">
+                    Payment <span class="text-[#B91C1C]">Failed</span>
+                </h1>
+
+                <div class="bg-[#FAFAF9] border border-[#E5E7EB] rounded-2xl p-4 mb-8 text-xs font-medium text-[#4B5563] leading-relaxed shadow-2xs">
+                    {% if messages %}
+                        {% for message in messages %}{{ message }}{% endfor %}
+                    {% else %}
+                        Your payment could not be processed at this time. This may be due to a session timeout, insufficient funds, or a canceled transaction.
+                    {% endif %}
+                </div>
+
+                <div class="space-y-3 mb-8">
+                    <a href="/cart/" class="w-full bg-[#C1121F] hover:bg-[#9B0D18] text-white font-bold py-3.5 px-6 rounded-xl text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer">
+                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                        <span>View Cart & Try Again</span>
+                    </a>
+
+                    <a href="/" class="w-full bg-[#FAFAF9] hover:bg-[#E5E7EB] text-[#111827] font-bold py-3.5 px-6 rounded-xl text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 border border-[#E5E7EB]">
+                        <i data-lucide="home" class="w-4 h-4 text-[#4B5563]"></i>
+                        <span>Go to Home</span>
+                    </a>
+                </div>
+
+                <div class="pt-6 border-t border-[#E5E7EB] flex items-center justify-center gap-2 text-[11px] text-[#4B5563] font-semibold">
+                    <i data-lucide="help-circle" class="w-4 h-4 text-[#D4A017]"></i>
+                    <span>Need assistance? Please contact our support team.</span>
+                </div>
+
             </div>
         </div>
     </main>

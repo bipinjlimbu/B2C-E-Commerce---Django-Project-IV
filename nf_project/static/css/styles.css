@@ -1234,6 +1234,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 64rem;
 }
 
+.max-w-lg {
+  max-width: 32rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1774,6 +1778,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(212 160 23 / 0.5);
 }
 
+.border-\[\#B91C1C\]\/30 {
+  border-color: rgb(185 28 28 / 0.3);
+}
+
 .border-t-transparent {
   border-top-color: transparent;
 }
@@ -1971,6 +1979,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(193 18 31 / 0));
 }
 
+.from-\[\#B91C1C\] {
+  --tw-gradient-from: #B91C1C;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(185 28 28 / 0));
+}
+
 .via-\[\#1F2937\] {
   --tw-gradient-stops: var(--tw-gradient-from), #1F2937, var(--tw-gradient-to, rgb(31 41 55 / 0));
 }
@@ -1985,6 +1998,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .via-\[\#D4A017\] {
   --tw-gradient-stops: var(--tw-gradient-from), #D4A017, var(--tw-gradient-to, rgb(212 160 23 / 0));
+}
+
+.via-\[\#C1121F\] {
+  --tw-gradient-stops: var(--tw-gradient-from), #C1121F, var(--tw-gradient-to, rgb(193 18 31 / 0));
 }
 
 .to-\[\#111827\] {
@@ -2690,6 +2707,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .opacity-75 {
   opacity: 0.75;
+}
+
+.opacity-25 {
+  opacity: 0.25;
 }
 
 .shadow-sm {
