@@ -615,6 +615,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: 1.5rem;
 }
 
+.-right-20 {
+  right: -5rem;
+}
+
+.-bottom-20 {
+  bottom: -5rem;
+}
+
+.-left-20 {
+  left: -5rem;
+}
+
+.-top-20 {
+  top: -5rem;
+}
+
 .z-\[100\] {
   z-index: 100;
 }
@@ -660,6 +676,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .my-12 {
   margin-top: 3rem;
   margin-bottom: 3rem;
+}
+
+.my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .mb-6 {
@@ -772,6 +793,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ml-1 {
   margin-left: 0.25rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
 }
 
 .block {
@@ -916,6 +941,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-96 {
   height: 24rem;
+}
+
+.h-80 {
+  height: 20rem;
 }
 
 .max-h-full {
@@ -1116,6 +1145,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .max-w-\[110px\] {
   max-width: 110px;
+}
+
+.max-w-5xl {
+  max-width: 64rem;
 }
 
 .flex-1 {
@@ -1419,6 +1452,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: calc(3rem * var(--tw-space-y-reverse));
 }
 
+.space-y-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
+}
+
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -1614,6 +1653,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .border-\[\#C1121F\]\/40 {
   border-color: rgb(193 18 31 / 0.4);
+}
+
+.border-\[\#111827\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(17 24 39 / var(--tw-border-opacity));
 }
 
 .border-t-transparent {
@@ -2390,6 +2434,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(209 213 219 / var(--tw-text-opacity));
 }
 
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration: underline;
 }
@@ -2435,6 +2484,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .placeholder-\[\#4B5563\]\/50::placeholder {
   color: rgb(75 85 99 / 0.5);
+}
+
+.placeholder-gray-400::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
+}
+
+.placeholder-gray-400::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
 }
 
 .opacity-0 {
@@ -2640,12 +2699,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 0.75rem;
 }
 
+.file\:mr-4::file-selector-button {
+  margin-right: 1rem;
+}
+
 .file\:cursor-pointer::file-selector-button {
   cursor: pointer;
 }
 
 .file\:rounded::file-selector-button {
   border-radius: 0.25rem;
+}
+
+.file\:rounded-lg::file-selector-button {
+  border-radius: 0.5rem;
 }
 
 .file\:border-0::file-selector-button {
@@ -2655,6 +2722,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .file\:bg-\[\#111827\]::file-selector-button {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
+.file\:bg-\[\#1F2937\]::file-selector-button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
 .file\:py-0\.5::file-selector-button {
@@ -2672,6 +2744,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 0px;
 }
 
+.file\:py-2::file-selector-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.file\:px-4::file-selector-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .file\:text-xs::file-selector-button {
   font-size: 0.75rem;
   line-height: 1rem;
@@ -2679,6 +2761,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .file\:font-semibold::file-selector-button {
   font-weight: 600;
+}
+
+.file\:font-bold::file-selector-button {
+  font-weight: 700;
+}
+
+.file\:uppercase::file-selector-button {
+  text-transform: uppercase;
+}
+
+.file\:tracking-wider::file-selector-button {
+  letter-spacing: 0.05em;
 }
 
 .file\:text-white::file-selector-button {
@@ -2955,6 +3049,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .focus\:bg-\[\#FFFFFF\]:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.focus\:bg-white:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
