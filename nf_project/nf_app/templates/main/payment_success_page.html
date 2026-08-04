@@ -8,44 +8,66 @@
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
 </head>
 
-<body class="bg-[#F8F7F4] flex flex-col min-h-screen text-[#4B5563] font-sans antialiased">
+<body class="bg-[#FAFAF9] text-[#4B5563] font-sans flex flex-col min-h-screen antialiased selection:bg-[#C1121F] selection:text-white">
+
     {% include 'components/_navbar.html' %}
 
     {% include 'components/_messages.html' %}
 
-    <main class="flex-grow flex items-center justify-center py-12 px-4">
-        <div class="bg-[#FFFFFF] rounded-3xl shadow-sm max-w-md w-full p-10 text-center border border-[#E5E7EB] border-b-[8px] border-b-[#16A34A]">
-            
-            <div class="flex justify-center mb-6">
-                <div class="bg-[#16A34A]/10 p-5 rounded-full relative border border-[#16A34A]/20">
-                    <i data-lucide="package-check" class="w-16 h-16 text-[#16A34A] stroke-[2px]"></i>
+    <main class="flex-grow flex items-center justify-center py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-lg">
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-3xl p-8 sm:p-10 shadow-xl relative overflow-hidden text-center">
+                
+                <div class="h-1.5 bg-gradient-to-r from-[#C1121F] via-[#D4A017] to-[#16A34A] absolute top-0 left-0 right-0"></div>
+
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#16A34A]/10 text-[#16A34A] border border-[#16A34A]/20 text-[11px] font-bold uppercase tracking-widest mb-6">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#16A34A]"></i>
+                    Order Successfully Placed
                 </div>
+
+                <div class="relative w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-[#16A34A]/10 rounded-full animate-ping opacity-30"></div>
+                    <div class="w-20 h-20 bg-[#FAFAF9] border border-[#16A34A]/30 rounded-full flex items-center justify-center shadow-inner relative z-10">
+                        <i data-lucide="package-check" class="w-10 h-10 text-[#16A34A]"></i>
+                    </div>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight mb-2">
+                    Thank You For Your Order!
+                </h1>
+
+                <p class="text-xs text-[#4B5563] font-medium leading-relaxed max-w-xs mx-auto mb-8">
+                    We have received your request and are preparing your fashion pieces with extreme care.
+                </p>
+
+                <div class="bg-[#FAFAF9] border border-[#E5E7EB] rounded-2xl p-5 mb-8 text-left space-y-3.5 shadow-2xs">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-[#4B5563] font-bold uppercase tracking-wider text-[10px]">Order ID</span>
+                        <span class="text-[#111827] font-extrabold text-sm">#{{ order.id }}</span>
+                    </div>
+                    
+                    <div class="border-t border-[#E5E7EB] pt-3 flex items-center justify-between text-xs">
+                        <span class="text-[#4B5563] font-bold uppercase tracking-wider text-[10px]">Transaction Ref</span>
+                        <span class="text-[#111827] font-bold text-xs truncate max-w-[180px] sm:max-w-[220px]">{{ order.transaction_id }}</span>
+                    </div>
+
+                    <div class="border-t border-[#E5E7EB] pt-3 flex items-center justify-between">
+                        <span class="text-[#4B5563] font-bold uppercase tracking-wider text-[10px]">Total Paid</span>
+                        <span class="text-[#16A34A] font-extrabold text-lg">Rs. {{ order.total_amount }}</span>
+                    </div>
+                </div>
+
+                <a href="/" class="w-full bg-[#C1121F] hover:bg-[#9B0D18] text-white font-bold py-3.5 px-6 rounded-xl text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg group">
+                    <span>Continue Shopping</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+
+                <div class="mt-6 pt-6 border-t border-[#E5E7EB] flex items-center justify-center gap-2 text-[11px] text-[#4B5563] font-semibold">
+                    <i data-lucide="truck" class="w-4 h-4 text-[#D4A017]"></i>
+                    <span>Fast delivery straight to your doorstep across Nepal.</span>
+                </div>
+
             </div>
-
-            <h2 class="text-3xl font-black text-[#111827] tracking-tight uppercase mb-1">
-                Order <span class="text-[#16A34A]">Confirmed</span>
-            </h2>
-            <p class="text-[#4B5563] mb-8 text-xs font-semibold">Your gear procurement has been processed successfully.</p>
-
-            <div class="bg-[#F8F7F4] rounded-2xl p-6 mb-8 text-left border border-[#E5E7EB] divide-y divide-[#E5E7EB]">
-                <p class="flex justify-between py-3 items-center">
-                    <strong class="text-[#4B5563] uppercase text-[10px] tracking-widest font-extrabold">Order ID</strong> 
-                    <span class="text-[#111827] font-extrabold text-sm">#{{ order.id }}</span>
-                </p>
-                <p class="flex justify-between py-3 items-center">
-                    <strong class="text-[#4B5563] uppercase text-[10px] tracking-widest font-extrabold">Transaction Ref</strong> 
-                    <span class="text-[#111827] text-xs font-bold truncate ml-4">{{ order.transaction_id }}</span>
-                </p>
-                <p class="flex justify-between py-3 pt-4 items-baseline">
-                    <strong class="text-[#4B5563] uppercase text-[10px] tracking-widest font-extrabold">Total Settled</strong> 
-                    <span class="text-[#16A34A] font-black text-xl">Rs. {{ order.total_amount }}</span>
-                </p>
-            </div>
-
-            <a href="/" class="group flex items-center justify-center w-full bg-[#C1121F] text-[#FFFFFF] py-4 rounded-xl font-extrabold uppercase tracking-widest text-xs hover:bg-[#9B0D18] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                Return to Shop
-                <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-            </a>
         </div>
     </main>
 

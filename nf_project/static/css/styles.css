@@ -1238,6 +1238,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 32rem;
 }
 
+.max-w-\[180px\] {
+  max-width: 180px;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1782,6 +1786,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(185 28 28 / 0.3);
 }
 
+.border-\[\#16A34A\]\/30 {
+  border-color: rgb(22 163 74 / 0.3);
+}
+
 .border-t-transparent {
   border-top-color: transparent;
 }
@@ -2014,6 +2022,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .to-\[\#1F2937\] {
   --tw-gradient-to: #1F2937;
+}
+
+.to-\[\#16A34A\] {
+  --tw-gradient-to: #16A34A;
 }
 
 .bg-clip-text {
@@ -2711,6 +2723,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .opacity-25 {
   opacity: 0.25;
+}
+
+.opacity-30 {
+  opacity: 0.3;
 }
 
 .shadow-sm {
@@ -3436,6 +3452,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:min-w-\[280px\] {
     min-width: 280px;
+  }
+
+  .sm\:max-w-\[220px\] {
+    max-width: 220px;
   }
 
   .sm\:flex-none {
