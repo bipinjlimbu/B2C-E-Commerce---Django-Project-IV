@@ -827,6 +827,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 0px;
 }
 
+.ml-0\.5 {
+  margin-left: 0.125rem;
+}
+
+.ml-0 {
+  margin-left: 0px;
+}
+
 .block {
   display: block;
 }
@@ -1878,6 +1886,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-\[\#FFFFFF\]\/5 {
   background-color: rgb(255 255 255 / 0.05);
+}
+
+.bg-\[\#D4A017\]\/20 {
+  background-color: rgb(212 160 23 / 0.2);
 }
 
 .bg-gradient-to-br {
