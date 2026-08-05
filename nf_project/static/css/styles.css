@@ -1964,6 +1964,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.625rem;
 }
 
+.p-0 {
+  padding: 0px;
+}
+
 .py-12 {
   padding-top: 3rem;
   padding-bottom: 3rem;

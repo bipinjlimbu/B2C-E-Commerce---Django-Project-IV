@@ -1,76 +1,106 @@
 <div class="space-y-6">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E5E7EB]">
         <div>
-            <h2 class="text-xs font-extrabold uppercase tracking-widest text-[#C1121F] mb-1">Feedback Audit</h2>
-            <h1 class="text-2xl font-black text-[#111827] tracking-tight uppercase">Product Reviews</h1>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#C1121F]"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#C1121F]">Customer Feedback</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight">Product Reviews</h1>
+            <p class="text-xs text-[#4B5563] mt-1">Manage and monitor customer reviews and product ratings.</p>
         </div>
         <div class="flex items-center gap-3">
-            <div class="bg-[#111827] text-[#FFFFFF] px-4 py-2.5 rounded-xl border border-[#1F2937] text-xs font-black shadow-sm">
-                Total Reviews: {{ reviews|length }}
+            <div class="bg-[#1F2937] text-[#FFFFFF] px-4 py-2.5 rounded-xl border border-[#1F2937] text-xs font-bold shadow-2xs flex items-center gap-2">
+                <i data-lucide="message-square" class="w-4 h-4 text-[#D4A017]"></i>
+                <span>Total Reviews:</span>
+                <span class="text-[#D4A017] font-extrabold">{{ reviews|length }}</span>
             </div>
         </div>
     </div>
 
-    <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl shadow-sm overflow-hidden">
+    <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl shadow-2xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 {% if reviews %}
                 <thead>
-                    <tr class="border-b border-[#E5E7EB] text-[10px] font-extrabold uppercase tracking-widest text-[#4B5563] bg-[#F8F7F4]">
-                        <th class="p-4 pl-6">Target Product</th>
-                        <th class="p-4">Customer Identity</th>
-                        <th class="p-4">Rating Assessment</th>
-                        <th class="p-4 max-w-xs">Feedback Entry</th>
-                        <th class="p-4">Timestamp</th>
-                        <th class="p-4 pr-6 text-right">System Actions</th>
+                    <tr class="border-b border-[#E5E7EB] text-[11px] font-extrabold uppercase tracking-wider text-[#4B5563] bg-[#FAFAF9]">
+                        <th class="py-4 px-6">Product</th>
+                        <th class="py-4 px-6">Customer</th>
+                        <th class="py-4 px-6">Rating</th>
+                        <th class="py-4 px-6 max-w-xs">Review</th>
+                        <th class="py-4 px-6">Date</th>
+                        <th class="py-4 px-6 text-right">Action</th>
                     </tr>
                 </thead>
                 {% endif %}
-                <tbody class="divide-y divide-[#E5E7EB] text-sm font-extrabold text-[#111827]">
+                <tbody class="divide-y divide-[#E5E7EB] text-sm text-[#111827]">
                     {% for review in reviews %}
-                        <tr class="hover:bg-[#F8F7F4]/80 transition-colors">
-                            <td class="p-4 pl-6">
-                                <span class="text-[#111827] block font-black text-sm">{{ review.product.name }}</span>
-                                <span class="text-[11px] font-bold text-[#4B5563] block">{{ review.product.sku }}</span>
-                            </td>
-                            <td class="p-4">
-                                <span class="text-[#111827] block font-black">{{ review.customer.get_full_name }}</span>
-                                <span class="text-[11px] font-bold text-[#C1121F] block">@{{ review.customer.username }}</span>
-                            </td>
-                            <td class="p-4">
-                                <div class="flex items-center gap-0.5 text-[#C1121F]">
-                                    {% for i in '12345' %}
-                                        {% if forloop.counter <= review.rating %}
-                                            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
-                                        {% else %}
-                                            <i data-lucide="star" class="w-3.5 h-3.5 text-[#E5E7EB]"></i>
-                                        {% endif %}
-                                    {% endfor %}
+                        <tr class="hover:bg-[#FAFAF9]/80 transition-colors">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-lg bg-[#FAFAF9] border border-[#E5E7EB] flex items-center justify-center shrink-0">
+                                        <i data-lucide="package" class="w-4 h-4 text-[#1F2937]"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-[#111827] block font-bold text-sm">{{ review.product.name }}</span>
+                                    </div>
                                 </div>
                             </td>
-                            <td class="p-4 max-w-xs text-xs text-[#4B5563] font-bold leading-relaxed">
-                                <p class="truncate hover:text-clip hover:whitespace-normal transition-all">{{ review.comment }}</p>
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-full bg-[#1F2937] text-[#FFFFFF] text-xs font-black flex items-center justify-center shrink-0">
+                                        {{ review.customer.get_full_name|slice:":1"|upper }}
+                                    </div>
+                                    <div>
+                                        <span class="text-[#111827] block font-bold text-xs">{{ review.customer.get_full_name }}</span>
+                                        <span class="text-[11px] font-medium text-[#C1121F] block">@{{ review.customer.username }}</span>
+                                    </div>
+                                </div>
                             </td>
-                            <td class="p-4 font-bold text-xs text-[#4B5563]">{{ review.created_at|date:"Y-m-d" }}</td>
-                            <td class="p-4 pr-6 text-right">
-                                <div class="flex items-center justify-end gap-2">
-                                    <a href="/review/delete/{{ review.id }}" title="Delete Review From Catalog" class="p-2 bg-[#F8F7F4] hover:bg-[#B91C1C]/10 text-[#4B5563] hover:text-[#B91C1C] rounded-xl border border-[#E5E7EB] hover:border-[#B91C1C]/20 transition-all">
-                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            <td class="py-4 px-6">
+                                <div class="inline-flex items-center gap-1 bg-[#FAFAF9] px-2.5 py-1 rounded-lg border border-[#E5E7EB]">
+                                    <div class="flex items-center gap-0.5 text-[#D4A017]">
+                                        {% for i in '12345' %}
+                                            {% if forloop.counter <= review.rating %}
+                                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current text-[#D4A017]"></i>
+                                            {% else %}
+                                                <i data-lucide="star" class="w-3.5 h-3.5 text-[#E5E7EB]"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <span class="text-xs font-extrabold text-[#111827] ml-1">{{ review.rating }}</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 max-w-xs text-xs text-[#4B5563] font-medium leading-relaxed">
+                                <p class="line-clamp-2 hover:line-clamp-none transition-all">{{ review.comment }}</p>
+                            </td>
+                            <td class="py-4 px-6 font-semibold text-xs text-[#4B5563]">
+                                <div class="flex items-center gap-1.5">
+                                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#4B5563]"></i>
+                                    <span>{{ review.created_at|date:"Y-m-d" }}</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-right">
+                                <a href="/review/delete/{{ review.id }}" title="Delete Review" class="inline-flex items-center justify-center p-2 bg-[#FAFAF9] hover:bg-[#B91C1C]/10 text-[#4B5563] hover:text-[#B91C1C] rounded-xl border border-[#E5E7EB] hover:border-[#B91C1C]/30 transition-all">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="p-0">
+                                <div class="flex flex-col items-center justify-center text-center py-20 px-4 bg-[#FFFFFF]">
+                                    <div class="w-16 h-16 bg-[#FAFAF9] rounded-2xl flex items-center justify-center border border-[#E5E7EB] mb-4">
+                                        <i data-lucide="message-square-off" class="w-8 h-8 text-[#4B5563]"></i>
+                                    </div>
+                                    <h3 class="text-[#111827] font-bold text-base tracking-tight">No Reviews Found</h3>
+                                    <p class="text-xs text-[#4B5563] mt-1 max-w-xs leading-relaxed mb-6">There are currently no customer reviews available for your products.</p>
+                                    <a href="/products/" class="inline-flex items-center gap-2 bg-[#1F2937] hover:bg-[#111827] text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shadow-2xs">
+                                        <i data-lucide="shopping-bag" class="w-4 h-4 text-[#D4A017]"></i>
+                                        <span>Explore Products</span>
                                     </a>
                                 </div>
                             </td>
                         </tr>
-                    {% empty %}
-                        <div class="flex flex-col items-center justify-center text-center py-24 border border-dashed border-[#E5E7EB] rounded-3xl bg-[#FFFFFF] shadow-sm">
-                            <div class="w-16 h-16 bg-[#F8F7F4] rounded-2xl flex items-center justify-center border border-[#E5E7EB] mb-4">
-                                <i data-lucide="message-square" class="w-7 h-7 text-[#4B5563]"></i>
-                            </div>
-                            <h3 class="text-[#111827] font-black text-base tracking-tight uppercase">No Reviews Available</h3>
-                            <p class="text-xs text-[#4B5563] mt-1 max-w-xs leading-relaxed mb-6 font-bold">There are currently no product reviews to display in the system.</p>
-                            <a href="/products/" class="bg-[#111827] hover:bg-[#1F2937] text-white font-extrabold px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest transition-all shadow-sm">
-                                Explore Store
-                            </a>
-                        </div>
                     {% endfor %}
                 </tbody>
             </table>
