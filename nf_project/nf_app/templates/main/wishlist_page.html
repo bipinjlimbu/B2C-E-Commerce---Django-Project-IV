@@ -43,11 +43,12 @@
                     {% for item in wishlist_items %}
                         <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group relative">
                             
-                            <a href="/wishlist/remove/{{ item.product.id }}/" 
-                               class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-[#FFFFFF]/90 hover:bg-[#B91C1C] text-[#4B5563] hover:text-white border border-[#E5E7EB] hover:border-[#B91C1C] flex items-center justify-center transition-all shadow-xs" 
-                               title="Remove from Wishlist">
+                            <button type="button" 
+                                    onclick="openRemoveWishlistModal('/wishlist/remove/{{ item.product.id }}/')" 
+                                    class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-[#FFFFFF]/90 hover:bg-[#B91C1C] text-[#4B5563] hover:text-white border border-[#E5E7EB] hover:border-[#B91C1C] flex items-center justify-center transition-all shadow-xs cursor-pointer" 
+                                    title="Remove from Wishlist">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </a>
+                            </button>
 
                             <a href="/products/{{ item.product.id }}/" class="block relative aspect-4/5 bg-[#FAFAF9] overflow-hidden">
                                 {% if item.product.product_image %}
@@ -122,11 +123,71 @@
         </div>
     </main>
 
+    <div id="removeWishlistModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="removeWishlistModalCard" class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-3xl max-w-sm w-full p-6 space-y-6 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-red-100 border border-red-200 flex items-center justify-center text-[#B91C1C] shrink-0">
+                    <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                </div>
+                <div class="space-y-1 pt-0.5">
+                    <h3 class="text-base font-extrabold text-[#111827]">Remove Item</h3>
+                    <p class="text-xs text-[#4B5563] leading-relaxed">
+                        Are you sure you want to remove this item from your wishlist?
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2 border-t border-[#E5E7EB]">
+                <button type="button" onclick="closeRemoveWishlistModal()" class="px-4 py-2.5 bg-[#FAFAF9] hover:bg-[#E5E7EB]/50 border border-[#E5E7EB] text-[#4B5563] hover:text-[#111827] font-bold text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer">
+                    Cancel
+                </button>
+                <a id="confirmRemoveWishlistBtn" href="#" class="px-5 py-2.5 bg-[#B91C1C] hover:bg-[#991B1B] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center gap-1.5">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    <span>Remove</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     {% include 'components/_footer.html' %}
 
     <script src="{% static 'js/lucide.min.js' %}"></script>
     <script>
         lucide.createIcons();
+
+        const removeWishlistModal = document.getElementById('removeWishlistModal');
+        const removeWishlistModalCard = document.getElementById('removeWishlistModalCard');
+        const confirmRemoveWishlistBtn = document.getElementById('confirmRemoveWishlistBtn');
+
+        function openRemoveWishlistModal(removeUrl) {
+            confirmRemoveWishlistBtn.setAttribute('href', removeUrl);
+            document.body.style.overflow = 'hidden';
+            
+            removeWishlistModal.classList.remove('opacity-0', 'pointer-events-none');
+            removeWishlistModalCard.classList.remove('scale-95');
+            removeWishlistModalCard.classList.add('scale-100');
+        }
+
+        function closeRemoveWishlistModal() {
+            removeWishlistModal.classList.add('opacity-0', 'pointer-events-none');
+            removeWishlistModalCard.classList.remove('scale-100');
+            removeWishlistModalCard.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        if (removeWishlistModal) {
+            removeWishlistModal.addEventListener('click', function(e) {
+                if (e.target === removeWishlistModal) {
+                    closeRemoveWishlistModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !removeWishlistModal.classList.contains('pointer-events-none')) {
+                    closeRemoveWishlistModal();
+                }
+            });
+        }
     </script>
 </body>
 </html>
