@@ -1713,6 +1713,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(255 255 255 / 0.1);
 }
 
+.border-\[\#C1121F\]\/10 {
+  border-color: rgb(193 18 31 / 0.1);
+}
+
 .border-t-transparent {
   border-top-color: transparent;
 }
@@ -1890,6 +1894,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-\[\#D4A017\]\/20 {
   background-color: rgb(212 160 23 / 0.2);
+}
+
+.bg-\[\#C1121F\]\/5 {
+  background-color: rgb(193 18 31 / 0.05);
 }
 
 .bg-gradient-to-br {
@@ -2279,6 +2287,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pt-5 {
   padding-top: 1.25rem;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem;
 }
 
 .text-left {

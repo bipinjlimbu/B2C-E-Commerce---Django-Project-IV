@@ -1,45 +1,52 @@
 <div class="space-y-8">
-    <div class="bg-[#1F2937] p-6 sm:p-8 rounded-2xl text-[#FFFFFF] border border-[#1F2937] shadow-lg relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div class="space-y-2 relative z-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C1121F]/20 border border-[#C1121F]/40 text-[#D4A017] text-xs font-bold tracking-wide">
-                <span class="w-2 h-2 rounded-full bg-[#C1121F] animate-pulse"></span>
-                <span>NepFit Men's Collection</span>
+    <div class="relative overflow-hidden rounded-2xl bg-[#1F2937] p-6 sm:p-8 border border-[#1F2937] shadow-xl">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-[#C1121F]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute right-1/3 -top-10 w-48 h-48 bg-[#D4A017]/10 rounded-full blur-2xl pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAFAF9]/10 border border-[#D4A017]/30 text-[#D4A017] text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-[#C1121F] animate-pulse"></span>
+                    <span class="uppercase tracking-widest text-[10px]">NepFit Active Orders</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black text-[#FFFFFF] tracking-tight">Active & Pending Orders</h1>
+                <p class="text-xs sm:text-sm text-[#E5E7EB]/80 max-w-xl font-normal">Track your active fashion deliveries, check real-time order progress, or confirm delivery upon receipt.</p>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-black text-[#FFFFFF] tracking-tight">Active & Pending Orders</h1>
-            <p class="text-xs sm:text-sm text-[#E5E7EB]/80 max-w-xl">Track your upcoming fashion deliveries, check current shipment status, or confirm receipt once delivered.</p>
-        </div>
-        <div class="relative z-10 flex items-center gap-3 bg-[#FFFFFF]/10 backdrop-blur-md border border-[#FFFFFF]/15 p-4 rounded-xl shrink-0">
-            <div class="w-10 h-10 rounded-lg bg-[#D4A017] text-[#1F2937] flex items-center justify-center font-bold">
-                <i data-lucide="package-check" class="w-5 h-5"></i>
-            </div>
-            <div>
-                <span class="text-[10px] font-bold uppercase tracking-wider text-[#D4A017] block">Delivery Status</span>
-                <span class="text-sm font-extrabold text-[#FFFFFF]">Real-Time Tracking</span>
+            
+            <div class="flex items-center gap-3 bg-[#FFFFFF]/5 backdrop-blur-md border border-[#FFFFFF]/10 px-5 py-3.5 rounded-xl shrink-0">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#D4A017] to-[#9B0D18] text-[#FFFFFF] flex items-center justify-center font-bold shadow-sm">
+                    <i data-lucide="package-check" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#D4A017] block">Delivery Status</span>
+                    <span class="text-xs font-extrabold text-[#FFFFFF]">Real-Time Tracking</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="space-y-5">
+    <div class="space-y-6">
         {% for order in pending_orders %}
-            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-7 shadow-sm hover:shadow-md hover:border-[#1F2937]/30 transition-all duration-200">
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-[#C1121F]"></div>
                 
-                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#E5E7EB] pb-4 mb-5">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#E5E7EB] pb-5 mb-6">
                     <div class="flex flex-wrap items-center gap-3">
-                        <div class="flex items-center gap-2 bg-[#FAFAF9] px-3 py-1.5 rounded-lg border border-[#E5E7EB]">
+                        <div class="flex items-center gap-2 bg-[#FAFAF9] px-3.5 py-1.5 rounded-xl border border-[#E5E7EB]">
                             <i data-lucide="hash" class="w-4 h-4 text-[#C1121F]"></i>
-                            <span class="font-black text-sm text-[#111827]">ORDER-{{ order.id }}</span>
+                            <span class="font-extrabold text-sm text-[#111827] tracking-tight">ORDER-{{ order.id }}</span>
                         </div>
 
                         {% if order.status == 'confirmed' %}
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 text-[#2563EB] text-xs font-bold">
-                                <span class="w-2 h-2 rounded-full bg-[#2563EB]"></span> {{ order.get_status_display }}
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4A017]/10 border border-[#D4A017]/30 text-[#D4A017] text-xs font-bold">
+                                <span class="w-2 h-2 rounded-full bg-[#D4A017]"></span> {{ order.get_status_display }}
                             </span>
                         {% elif order.status == 'shipping' %}
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#4F46E5]/10 border border-[#4F46E5]/20 text-[#4F46E5] text-xs font-bold">
-                                <span class="w-2 h-2 rounded-full bg-[#4F46E5]"></span> {{ order.get_status_display }}
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C1121F]/10 border border-[#C1121F]/30 text-[#C1121F] text-xs font-bold">
+                                <span class="w-2 h-2 rounded-full bg-[#C1121F]"></span> {{ order.get_status_display }}
                             </span>
                         {% elif order.status == 'completed' or order.status == 'delivered' %}
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/20 text-[#16A34A] text-xs font-bold">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/30 text-[#16A34A] text-xs font-bold">
                                 <span class="w-2 h-2 rounded-full bg-[#16A34A]"></span> {{ order.get_status_display }}
                             </span>
                         {% else %}
@@ -49,47 +56,50 @@
                         {% endif %}
                     </div>
 
-                    <div class="flex items-center gap-2 text-xs font-medium text-[#4B5563]">
-                        <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#4B5563]"></i>
+                    <div class="flex items-center gap-2 text-xs font-semibold text-[#4B5563] bg-[#FAFAF9] px-3 py-1.5 rounded-lg border border-[#E5E7EB]">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#C1121F]"></i>
                         <span>Order Date: <strong class="text-[#111827]">{{ order.created_at|date:"Y-m-d H:i" }}</strong></span>
                     </div>
                 </div>
 
-                <div class="space-y-3 mb-6">
-                    <span class="text-xs font-bold uppercase tracking-wider text-[#4B5563] block">Ordered Products</span>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div class="space-y-4 mb-6">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-[#111827]">Ordered Products</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {% for item in order.items.all %}
-                            <div class="flex items-center gap-3 bg-[#FAFAF9] border border-[#E5E7EB] p-2.5 rounded-xl hover:border-[#1F2937]/20 transition-colors">
-                                <div class="w-12 h-12 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg overflow-hidden flex items-center justify-center shrink-0">
+                            <div class="flex items-center gap-3.5 bg-[#FAFAF9] border border-[#E5E7EB] p-3 rounded-xl hover:border-[#C1121F]/30 transition-all">
+                                <div class="w-14 h-14 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg overflow-hidden flex items-center justify-center shrink-0 shadow-2xs">
                                     {% if item.product.product_image %}
-                                        <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover">
+                                        <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                                     {% else %}
-                                        <i data-lucide="shopping-bag" class="w-5 h-5 text-[#4B5563]"></i>
+                                        <i data-lucide="shopping-bag" class="w-6 h-6 text-[#4B5563]"></i>
                                     {% endif %}
                                 </div>
-                                <div class="min-w-0 flex-1">
-                                    <h4 class="text-xs font-bold text-[#111827] truncate">{{ item.product.name }}</h4>
-                                    <span class="text-xs font-bold text-[#C1121F]">Quantity: {{ item.quantity }}</span>
+                                <div class="min-w-0 flex-1 space-y-1">
+                                    <h4 class="text-xs font-bold text-[#111827] truncate leading-snug">{{ item.product.name }}</h4>
+                                    <span class="inline-block text-[11px] font-extrabold text-[#C1121F] bg-[#C1121F]/5 px-2 py-0.5 rounded border border-[#C1121F]/10">Quantity: {{ item.quantity }}</span>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-[#E5E7EB]">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-5 border-t border-[#E5E7EB]">
                     <div>
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-[#4B5563] block">Total Amount</span>
-                        <span class="text-xl font-black text-[#111827]">Rs. {{ order.total_amount|floatformat:2 }}</span>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-[#4B5563] block mb-0.5">Total Amount</span>
+                        <span class="text-2xl font-black text-[#111827] tracking-tight">Rs. {{ order.total_amount|floatformat:2 }}</span>
                     </div>
 
                     <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
                         {% if order.status == "confirmed" %}
-                            <div class="bg-[#FAFAF9] border border-[#E5E7EB] text-[#4B5563] font-bold h-11 px-4 rounded-xl flex items-center gap-2 text-xs">
+                            <div class="bg-[#FAFAF9] border border-[#E5E7EB] text-[#4B5563] font-bold h-11 px-4 rounded-xl flex items-center gap-2 text-xs shadow-2xs">
                                 <i data-lucide="clock" class="w-4 h-4 text-[#D4A017]"></i>
                                 <span>Preparing Order</span>
                             </div>
                         {% elif order.status == "shipping" %}
-                            <div class="bg-[#FAFAF9] border border-[#E5E7EB] text-[#4B5563] font-bold h-11 px-4 rounded-xl flex items-center gap-2 text-xs">
+                            <div class="bg-[#FAFAF9] border border-[#E5E7EB] text-[#4B5563] font-bold h-11 px-4 rounded-xl flex items-center gap-2 text-xs shadow-2xs">
                                 <i data-lucide="truck" class="w-4 h-4 text-[#C1121F]"></i>
                                 <span>Out for Delivery</span>
                             </div>
@@ -109,12 +119,12 @@
 
             </div>
         {% empty %}
-            <div class="flex flex-col items-center justify-center text-center p-12 sm:p-16 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl">
-                <div class="w-16 h-16 rounded-2xl bg-[#FAFAF9] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#4B5563]">
-                    <i data-lucide="shopping-bag" class="w-8 h-8 text-[#C1121F]"></i>
+            <div class="flex flex-col items-center justify-center text-center p-12 sm:p-16 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl shadow-2xs">
+                <div class="w-16 h-16 rounded-2xl bg-[#FAFAF9] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#C1121F] shadow-2xs">
+                    <i data-lucide="shopping-bag" class="w-8 h-8"></i>
                 </div>
                 <h3 class="text-base font-bold text-[#111827]">No Pending Orders</h3>
-                <p class="text-xs text-[#4B5563] mt-1 max-w-sm">You don't have any active deliveries at the moment. Explore our latest men's fashion collection to place a new order.</p>
+                <p class="text-xs text-[#4B5563] mt-1 max-w-sm leading-relaxed">You don't have any active deliveries at the moment. Explore our latest men's fashion collection to place a new order.</p>
             </div>
         {% endfor %}
     </div>
