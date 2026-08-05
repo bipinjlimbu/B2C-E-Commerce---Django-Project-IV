@@ -3,143 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deploy Product | NepFit</title>
+    <title>Add New Product | NepFit</title>
     {% load static %}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
 </head>
-<body class="bg-[#F8F7F4] font-sans min-h-screen flex flex-col text-[#111827]">
+<body class="bg-[#FAFAF9] font-sans min-h-screen flex flex-col text-[#111827]">
 
     {% include 'components/_navbar.html' %}
 
     {% include 'components/_messages.html' %}
 
-    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
-        <form method="POST" enctype="multipart/form-data" class="w-full max-w-4xl bg-white border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-xs p-8 lg:p-12 space-y-8">
+    <main class="flex-grow py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
+        
+        <div class="relative overflow-hidden rounded-2xl bg-[#1F2937] p-6 sm:p-8 border border-[#1F2937] shadow-xl mb-8">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-[#C1121F]/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute right-1/3 -top-10 w-48 h-48 bg-[#D4A017]/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAFAF9]/10 border border-[#D4A017]/30 text-[#D4A017] text-xs font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-[#C1121F]"></span>
+                        <span class="uppercase tracking-widest text-[10px]">Store Management</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-black text-[#FFFFFF] tracking-tight">Add New Product</h1>
+                    <p class="text-xs sm:text-sm text-[#E5E7EB]/80 max-w-xl font-normal">Add a new item to the NepFit menswear catalog with pricing, sizing, and details.</p>
+                </div>
+
+                <div class="flex items-center gap-3 bg-[#FFFFFF]/5 backdrop-blur-md border border-[#FFFFFF]/10 px-5 py-3.5 rounded-xl shrink-0">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#D4A017] to-[#C1121F] text-[#FFFFFF] flex items-center justify-center font-bold shadow-sm">
+                        <i data-lucide="package-plus" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-[#D4A017] block">Catalog</span>
+                        <span class="text-xs font-extrabold text-[#FFFFFF]">New Item</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
-            
-            <div>
-                <h2 class="text-xs font-bold uppercase tracking-widest text-[#4B5563] mb-1">Catalog Architecture</h2>
-                <h1 class="text-2xl font-extrabold text-[#111827] tracking-tight">Deploy New Asset</h1>
+
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-[#E5E7EB]">
+                    <div class="w-8 h-8 rounded-lg bg-[#C1121F]/10 text-[#C1121F] flex items-center justify-center">
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-[#111827]">Basic Information</h2>
+                        <p class="text-xs text-[#4B5563]">Enter the product name, brand, and category</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label for="id_name" class="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Product Name</label>
+                        <input type="text" id="id_name" name="name" value="{{ data.name|default:'' }}" maxlength="255" placeholder="e.g. Classic Oversized Cotton T-Shirt" class="w-full bg-[#FAFAF9] border border-[#E5E7EB] focus:border-[#C1121F] focus:bg-[#FFFFFF] focus:outline-none text-sm font-medium text-[#111827] rounded-xl px-4 py-3 transition-all placeholder-[#4B5563]/60">
+                        {% if errors.name %}
+                            <p class="text-[#B91C1C] text-xs mt-1.5 font-medium flex items-center gap-1">
+                                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                <span>{{ errors.name }}</span>
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="id_brand" class="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Brand</label>
+                        <input type="text" id="id_brand" name="brand" value="{{ data.brand|default:'NepFit' }}" maxlength="100" placeholder="NepFit" class="w-full bg-[#FAFAF9] border border-[#E5E7EB] focus:border-[#C1121F] focus:bg-[#FFFFFF] focus:outline-none text-sm font-medium text-[#111827] rounded-xl px-4 py-3 transition-all placeholder-[#4B5563]/60">
+                        {% if errors.brand %}
+                            <p class="text-[#B91C1C] text-xs mt-1.5 font-medium flex items-center gap-1">
+                                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                <span>{{ errors.brand }}</span>
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="id_category" class="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Category</label>
+                        <select id="id_category" name="category" class="w-full bg-[#FAFAF9] border border-[#E5E7EB] focus:border-[#C1121F] focus:bg-[#FFFFFF] focus:outline-none text-sm font-medium text-[#111827] rounded-xl px-4 py-3 transition-all cursor-pointer">
+                            <option value="" disabled selected class="bg-[#FFFFFF] text-[#4B5563]">Select Category</option>
+                            <option value="shirts" {% if data.category == 'shirts' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Shirts</option>
+                            <option value="t_shirts" {% if data.category == 't_shirts' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">T-Shirts</option>
+                            <option value="pants" {% if data.category == 'pants' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Pants</option>
+                            <option value="hoodies" {% if data.category == 'hoodies' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Hoodies</option>
+                            <option value="jackets" {% if data.category == 'jackets' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Jackets</option>
+                            <option value="sweatshirts" {% if data.category == 'sweatshirts' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Sweatshirts</option>
+                            <option value="joggers" {% if data.category == 'joggers' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Joggers</option>
+                            <option value="shorts" {% if data.category == 'shorts' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Shorts</option>
+                        </select>
+                        {% if errors.category %}
+                            <p class="text-[#B91C1C] text-xs mt-1.5 font-medium flex items-center gap-1">
+                                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                <span>{{ errors.category }}</span>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <div class="space-y-6 md:col-span-2">
-                    <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-xl focus-within:border-[#C1121F] transition-colors">
-                        <label for="id_name" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Product Title</label>
-                        <input type="text" id="id_name" name="name" value="{{ data.name|default:'' }}" maxlength="255" placeholder="e.g. Pro Performance Oversized Tee" class="w-full bg-transparent text-sm font-bold text-[#111827] focus:outline-none placeholder-[#4B5563]">
-                        {% if errors.name %}
-                            <p class="text-[#B91C1C] text-xs mt-1 font-medium">{{ errors.name }}</p>
-                        {% endif %}
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-[#E5E7EB]">
+                    <div class="w-8 h-8 rounded-lg bg-[#D4A017]/10 text-[#D4A017] flex items-center justify-center">
+                        <i data-lucide="tag" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-[#111827]">Pricing & Stock</h2>
+                        <p class="text-xs text-[#4B5563]">Set size, price, and available inventory</p>
                     </div>
                 </div>
 
-                <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-xl focus-within:border-[#C1121F] transition-colors">
-                    <label for="id_brand" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Brand Name</label>
-                    <input type="text" id="id_brand" name="brand" value="{{ data.brand|default:'NepFit' }}" maxlength="100" placeholder="NepFit" class="w-full bg-transparent text-sm font-bold text-[#111827] focus:outline-none placeholder-[#4B5563]">
-                    {% if errors.brand %}
-                        <p class="text-[#B91C1C] text-xs mt-1 font-medium">{{ errors.brand }}</p>
-                    {% endif %}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="id_size" class="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Default Size</label>
+                        <select id="id_size" name="size" class="w-full bg-[#FAFAF9] border border-[#E5E7EB] focus:border-[#C1121F] focus:bg-[#FFFFFF] focus:outline-none text-sm font-medium text-[#111827] rounded-xl px-4 py-3 transition-all cursor-pointer">
+                            <option value="S" {% if data.size == 'S' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Small (S)</option>
+                            <option value="M" {% if data.size == 'M' or not data.size %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Medium (M)</option>
+                            <option value="L" {% if data.size == 'L' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Large (L)</option>
+                            <option value="XL" {% if data.size == 'XL' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Extra Large (XL)</option>
+                            <option value="XXL" {% if data.size == 'XXL' %}selected{% endif %} class="bg-[#FFFFFF] text-[#111827]">Double Extra Large (XXL)</option>
+                        </select>
+                        {% if errors.size %}
+                            <p class="text-[#B91C1C] text-xs mt-1.5 font-medium flex items-center gap-1">
+                                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                <span>{{ errors.size }}</span>
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="id_price" class="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Price (Rs.)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#4B5563]">Rs.</span>
+                            <input type="number" id="id_price" name="price" step="0.01" min="0" value="{{ data.price|default:'' }}" placeholder="0.00" class="w-full bg-[#FAFAF9] border border-[#E5E7EB] focus:border-[#C1121F] focus:bg-[#FFFFFF] focus:outline-none text-sm font-bold text-[#111827] rounded-xl pl-12 pr-4 py-3 transition-all placeholder-[#4B5563]/60 font-mono">
+                        </div>
+                        {% if errors.price %}
+                            <p class="text-[#B91C1C] text-xs mt-1.5 font-medium flex items-center gap-1">
+                                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                <span>{{ errors.price }}</span>
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="id_stock" class="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Stock Quantity</label>
+                        <input type="number" id="id_stock" name="stock" min="0" value="{{ data.stock|default:'1' }}" placeholder="10" class="w-full bg-[#FAFAF9] border border-[#E5E7EB] focus:border-[#C1121F] focus:bg-[#FFFFFF] focus:outline-none text-sm font-bold text-[#111827] rounded-xl px-4 py-3 transition-all placeholder-[#4B5563]/60 font-mono">
+                        {% if errors.stock %}
+                            <p class="text-[#B91C1C] text-xs mt-1.5 font-medium flex items-center gap-1">
+                                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                <span>{{ errors.stock }}</span>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
+                <div class="flex items-center gap-3 pb-4 border-b border-[#E5E7EB]">
+                    <div class="w-8 h-8 rounded-lg bg-[#1F2937]/10 text-[#1F2937] flex items-center justify-center">
+                        <i data-lucide="file-text" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-[#111827]">Product Details & Image</h2>
+                        <p class="text-xs text-[#4B5563]">Provide a description and upload clothing photo</p>
+                    </div>
                 </div>
 
-                <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-xl focus-within:border-[#C1121F] transition-colors">
-                    <label for="id_category" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Category</label>
-                    <select id="id_category" name="category" class="w-full bg-transparent text-sm font-bold text-[#111827] focus:outline-none cursor-pointer">
-                        <option value="" disabled selected class="bg-white text-[#4B5563]">Select Category Segment</option>
-                        <option value="shirts" {% if data.category == 'shirts' %}selected{% endif %} class="bg-white text-[#111827]">Shirts</option>
-                        <option value="t_shirts" {% if data.category == 't_shirts' %}selected{% endif %} class="bg-white text-[#111827]">T-Shirts</option>
-                        <option value="pants" {% if data.category == 'pants' %}selected{% endif %} class="bg-white text-[#111827]">Pants</option>
-                        <option value="hoodies" {% if data.category == 'hoodies' %}selected{% endif %} class="bg-white text-[#111827]">Hoodies</option>
-                        <option value="jackets" {% if data.category == 'jackets' %}selected{% endif %} class="bg-white text-[#111827]">Jackets</option>
-                        <option value="sweatshirts" {% if data.category == 'sweatshirts' %}selected{% endif %} class="bg-white text-[#111827]">Sweatshirts</option>
-                        <option value="joggers" {% if data.category == 'joggers' %}selected{% endif %} class="bg-white text-[#111827]">Joggers</option>
-                        <option value="shorts" {% if data.category == 'shorts' %}selected{% endif %} class="bg-white text-[#111827]">Shorts</option>
-                    </select>
-                    {% if errors.category %}
-                        <p class="text-[#B91C1C] text-xs mt-1 font-medium">{{ errors.category }}</p>
-                    {% endif %}
-                </div>
-
-                <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-xl focus-within:border-[#C1121F] transition-colors">
-                    <label for="id_size" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Standard Size</label>
-                    <select id="id_size" name="size" class="w-full bg-transparent text-sm font-bold text-[#111827] focus:outline-none cursor-pointer">
-                        <option value="S" {% if data.size == 'S' %}selected{% endif %} class="bg-white text-[#111827]">Small (S)</option>
-                        <option value="M" {% if data.size == 'M' or not data.size %}selected{% endif %} class="bg-white text-[#111827]">Medium (M)</option>
-                        <option value="L" {% if data.size == 'L' %}selected{% endif %} class="bg-white text-[#111827]">Large (L)</option>
-                        <option value="XL" {% if data.size == 'XL' %}selected{% endif %} class="bg-white text-[#111827]">Extra Large (XL)</option>
-                        <option value="XXL" {% if data.size == 'XXL' %}selected{% endif %} class="bg-white text-[#111827]">Double Extra Large (XXL)</option>
-                    </select>
-                    {% if errors.size %}
-                        <p class="text-[#B91C1C] text-xs mt-1 font-medium">{{ errors.size }}</p>
-                    {% endif %}
-                </div>
-
-                <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-xl focus-within:border-[#C1121F] transition-colors">
-                    <label for="id_price" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Valuation Price (Rs.)</label>
-                    <input type="number" id="id_price" name="price" step="0.01" min="0" value="{{ data.price|default:'' }}" placeholder="0.00" class="w-full bg-transparent text-sm font-bold text-[#111827] focus:outline-none placeholder-[#4B5563] font-mono">
-                    {% if errors.price %}
-                        <p class="text-[#B91C1C] text-xs mt-1 font-medium">{{ errors.price }}</p>
-                    {% endif %}
-                </div>
-
-                <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-xl focus-within:border-[#C1121F] transition-colors md:col-span-2">
-                    <label for="id_stock" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Stock Metric Quantity</label>
-                    <input type="number" id="id_stock" name="stock" min="0" value="{{ data.stock|default:'1' }}" placeholder="10" class="w-full bg-transparent text-sm font-bold text-[#111827] focus:outline-none placeholder-[#4B5563] font-mono">
-                    {% if errors.stock %}
-                        <p class="text-[#B91C1C] text-xs mt-1 font-medium">{{ errors.stock }}</p>
-                    {% endif %}
-                </div>
-
-                <div class="space-y-6 md:col-span-2">
-                    <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-xl focus-within:border-[#C1121F] transition-colors">
-                        <label for="id_description" class="text-[10px] font-bold uppercase tracking-widest text-[#4B5563] block mb-1">Detailed Description & Materials</label>
-                        <textarea id="id_description" name="description" rows="5" placeholder="Product details, fabric materials, and sizing guide." class="w-full bg-transparent text-sm font-medium text-[#111827] focus:outline-none placeholder-[#4B5563] resize-none leading-relaxed">{{ data.description|default:'' }}</textarea>
+                <div class="space-y-6">
+                    <div>
+                        <label for="id_description" class="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Product Description</label>
+                        <textarea id="id_description" name="description" rows="4" placeholder="Describe fabric quality, fit, care instructions, or styling tips..." class="w-full bg-[#FAFAF9] border border-[#E5E7EB] focus:border-[#C1121F] focus:bg-[#FFFFFF] focus:outline-none text-sm font-normal text-[#111827] rounded-xl p-4 transition-all placeholder-[#4B5563]/60 resize-none leading-relaxed">{{ data.description|default:'' }}</textarea>
                         {% if errors.description %}
-                            <p class="text-[#B91C1C] text-xs mt-1 font-medium">{{ errors.description }}</p>
+                            <p class="text-[#B91C1C] text-xs mt-1.5 font-medium flex items-center gap-1">
+                                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                <span>{{ errors.description }}</span>
+                            </p>
                         {% endif %}
                     </div>
-                </div>
 
-                <div class="space-y-6 md:col-span-2">
-                    <div class="bg-[#F8F7F4] border border-[#E5E7EB] p-6 rounded-xl flex flex-col items-center justify-center text-center group transition-colors relative">
-                        <div class="space-y-2">
-                            <div class="w-12 h-12 rounded-xl bg-white border border-[#E5E7EB] flex items-center justify-center text-[#4B5563] mx-auto group-hover:border-[#C1121F] transition-colors shadow-xs">
-                                <i data-lucide="image" class="w-5 h-5"></i>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Product Image</label>
+                        <div class="bg-[#FAFAF9] border-2 border-dashed border-[#E5E7EB] hover:border-[#C1121F]/50 rounded-2xl p-6 text-center transition-all group relative">
+                            <div class="space-y-3">
+                                <div class="w-14 h-14 rounded-2xl bg-[#FFFFFF] border border-[#E5E7EB] flex items-center justify-center text-[#C1121F] mx-auto group-hover:scale-105 transition-transform shadow-2xs">
+                                    <i data-lucide="image-plus" class="w-7 h-7"></i>
+                                </div>
+                                <div class="space-y-1">
+                                    <label for="id_product_image" class="cursor-pointer font-bold text-sm text-[#C1121F] hover:text-[#9B0D18] inline-flex items-center gap-1">
+                                        <span>Upload Product Image</span>
+                                        <input id="id_product_image" name="product_image" type="file" accept="image/*" class="sr-only">
+                                    </label>
+                                    <p class="text-xs text-[#4B5563]">PNG, JPG or WEBP up to 10MB</p>
+                                </div>
                             </div>
-                            <div class="flex text-xs text-[#4B5563] justify-center">
-                                <label for="id_product_image" class="relative cursor-pointer rounded-md font-bold text-[#C1121F] hover:text-[#9B0D18] focus-within:outline-none">
-                                    <span>Upload asset imagery</span>
-                                    <input id="id_product_image" name="product_image" type="file" accept="image/*" class="sr-only">
-                                </label>
-                            </div>
-                            <p class="text-[10px] text-[#4B5563] uppercase tracking-wider">Image files up to 10MB</p>
                         </div>
                         {% if errors.product_image %}
-                            <p class="text-[#B91C1C] text-xs mt-2 font-medium">{{ errors.product_image }}</p>
+                            <p class="text-[#B91C1C] text-xs mt-1.5 font-medium flex items-center gap-1">
+                                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                <span>{{ errors.product_image }}</span>
+                            </p>
                         {% endif %}
                     </div>
                 </div>
-
-                <div class="md:col-span-2 bg-[#F8F7F4] border border-[#E5E7EB] p-4 rounded-xl flex items-center justify-between">
-                    <div>
-                        <label for="id_is_active" class="text-xs font-bold uppercase tracking-widest text-[#111827] block">Visibility Status</label>
-                        <p class="text-[10px] text-[#4B5563] uppercase tracking-wider">Toggle asset distribution inside active live storefront matrix</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="id_is_active" name="is_active" value="true" checked class="sr-only peer">
-                        <div class="w-8 h-4 bg-[#E5E7EB] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#C1121F]"></div>
-                    </label>
-                </div>
-
             </div>
 
-            <div class="flex items-center gap-3 pt-4 border-t border-[#E5E7EB]">
-                <button type="submit" class="flex-grow sm:flex-none bg-[#C1121F] hover:bg-[#9B0D18] text-white font-bold py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2 text-xs uppercase tracking-wider shadow-xs">
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-[#16A34A]/10 text-[#16A34A] flex items-center justify-center">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <label for="id_is_active" class="text-sm font-bold text-[#111827] block cursor-pointer">Show Product on Website</label>
+                        <p class="text-xs text-[#4B5563]">When active, customers can view and buy this item in your store</p>
+                    </div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                    <input type="checkbox" id="id_is_active" name="is_active" value="true" checked class="sr-only peer">
+                    <div class="w-11 h-6 bg-[#E5E7EB] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#C1121F]"></div>
+                </label>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                <button type="submit" class="w-full sm:w-auto bg-[#C1121F] hover:bg-[#9B0D18] text-[#FFFFFF] font-extrabold h-12 px-8 rounded-xl transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wider shadow-md active:scale-95">
                     <i data-lucide="plus" class="w-4 h-4"></i>
-                    Publish Asset
+                    <span>Add Product</span>
                 </button>
-                <a href="/dashboard/admin/?section=product-management" class="flex-grow sm:flex-none bg-white hover:bg-[#F8F7F4] text-[#4B5563] font-bold py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2 text-xs uppercase tracking-wider border border-[#E5E7EB] shadow-xs">
-                    Cancel
+                <a href="/dashboard/admin/?section=product-management" class="w-full sm:w-auto bg-[#FFFFFF] hover:bg-[#FAFAF9] text-[#4B5563] hover:text-[#111827] font-bold h-12 px-6 rounded-xl transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wider border border-[#E5E7EB] active:scale-95">
+                    <span>Cancel</span>
                 </a>
             </div>
         </form>
@@ -154,10 +243,10 @@
         document.getElementById('id_product_image').addEventListener('change', function(e) {
             const fileName = e.target.files[0]?.name;
             if (fileName) {
-                const labelContainer = e.target.closest('.space-y-2');
+                const labelContainer = e.target.closest('.space-y-3');
                 const textElement = labelContainer.querySelector('span');
                 textElement.textContent = fileName;
-                textElement.className = "text-[#16A34A] font-mono text-xs font-bold";
+                textElement.className = "text-[#16A34A] font-medium text-xs font-bold";
             }
         });
     </script> 
