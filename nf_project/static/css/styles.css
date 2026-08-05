@@ -416,7 +416,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
-.translate-x-\[120\%\], .-translate-x-full, .-translate-y-1\/2, .rotate-180, .transform, .hover\:translate-x-1, .hover\:scale-110, .active\:scale-95, .active\:scale-\[0\.98\], .group-hover\:-translate-x-1, .group-hover\:translate-x-1, .group-hover\:scale-105, .peer-checked\:after\:translate-x-full::after, .lg\:translate-x-0 {
+.translate-x-\[120\%\], .-translate-x-full, .-translate-y-1\/2, .rotate-180, .scale-95, .scale-100, .transform, .hover\:translate-x-1, .hover\:scale-110, .active\:scale-95, .active\:scale-\[0\.98\], .group-hover\:-translate-x-1, .group-hover\:translate-x-1, .group-hover\:scale-105, .peer-checked\:after\:translate-x-full::after, .lg\:translate-x-0 {
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -1271,6 +1271,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   transform: var(--tw-transform);
 }
 
+.scale-95 {
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  transform: var(--tw-transform);
+}
+
+.scale-100 {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: var(--tw-transform);
+}
+
 .transform {
   transform: var(--tw-transform);
 }
@@ -1935,6 +1947,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-\[\#C1121F\]\/5 {
   background-color: rgb(193 18 31 / 0.05);
+}
+
+.bg-\[\#1F2937\]\/60 {
+  background-color: rgb(31 41 55 / 0.6);
 }
 
 .bg-gradient-to-br {
