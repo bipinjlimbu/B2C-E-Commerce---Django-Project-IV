@@ -231,9 +231,10 @@
                                             <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
                                         </a>
                                     {% endif %}
-                                    <a href="/review/delete/{{ review.id }}/" class="w-7 h-7 bg-[#FAFAF9] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 rounded-lg flex items-center justify-center text-[#B91C1C] transition-colors" title="Delete Review">
+                                    
+                                    <button type="button" onclick="openDeleteReviewModal('/review/delete/{{ review.id }}/')" class="w-7 h-7 bg-[#FAFAF9] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 rounded-lg flex items-center justify-center text-[#B91C1C] transition-colors" title="Delete Review">
                                         <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             {% endif %}
 
@@ -287,11 +288,78 @@
         </div>
     </main>
 
+    <div id="deleteReviewModal" class="fixed inset-0 z-50 bg-[#1F2937]/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+        <div id="deleteReviewModalCard" class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-3xl max-w-sm w-full p-6 text-center space-y-6 shadow-2xl scale-95 transition-transform duration-300">
+            <div class="w-12 h-12 bg-[#B91C1C]/10 rounded-2xl flex items-center justify-center mx-auto text-[#B91C1C]">
+                <i data-lucide="trash-2" class="w-6 h-6"></i>
+            </div>
+            
+            <div class="space-y-1.5">
+                <h3 class="text-base font-black text-[#111827] uppercase tracking-tight">Delete Review</h3>
+                <p class="text-xs text-[#4B5563] leading-relaxed">
+                    Are you sure you want to delete this review? This action cannot be undone.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3 pt-2">
+                <button type="button" onclick="closeDeleteReviewModal()" class="flex-1 bg-[#FAFAF9] hover:bg-[#E5E7EB] text-[#4B5563] border border-[#E5E7EB] font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors">
+                    Cancel
+                </button>
+                <a id="confirmDeleteReviewBtn" href="#" class="flex-1 bg-[#B91C1C] hover:bg-[#9B0D18] text-white font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors shadow-sm flex items-center justify-center">
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+
     {% include 'components/_footer.html' %}
 
     <script src="{% static 'js/lucide.min.js' %}"></script>
     <script>
         lucide.createIcons();
+
+        function openDeleteReviewModal(deleteUrl) {
+            const modal = document.getElementById('deleteReviewModal');
+            const card = document.getElementById('deleteReviewModalCard');
+            const confirmBtn = document.getElementById('confirmDeleteReviewBtn');
+
+            if (!modal || !card || !confirmBtn) return;
+
+            confirmBtn.href = deleteUrl;
+            document.body.style.overflow = 'hidden';
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-95');
+            card.classList.add('scale-100');
+        }
+
+        function closeDeleteReviewModal() {
+            const modal = document.getElementById('deleteReviewModal');
+            const card = document.getElementById('deleteReviewModalCard');
+
+            if (!modal || !card) return;
+
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+
+            setTimeout(() => {
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('deleteReviewModal');
+            if (e.target === modal) {
+                closeDeleteReviewModal();
+            }
+        });
+
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeDeleteReviewModal();
+            }
+        });
     </script>
 </body>
 </html>
