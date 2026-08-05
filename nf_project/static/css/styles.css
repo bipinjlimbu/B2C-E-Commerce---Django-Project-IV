@@ -671,6 +671,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: -2.5rem;
 }
 
+.-right-12 {
+  right: -3rem;
+}
+
+.-top-12 {
+  top: -3rem;
+}
+
+.-bottom-12 {
+  bottom: -3rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1395,6 +1407,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 0px;
 }
 
+.gap-3\.5 {
+  gap: 0.875rem;
+}
+
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1685,6 +1701,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(193 18 31 / 0.2);
 }
 
+.border-\[\#FFFFFF\]\/10 {
+  border-color: rgb(255 255 255 / 0.1);
+}
+
 .border-t-transparent {
   border-top-color: transparent;
 }
@@ -1850,6 +1870,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-\[\#FFFFFF\]\/10 {
   background-color: rgb(255 255 255 / 0.1);
+}
+
+.bg-\[\#FAFAF9\]\/10 {
+  background-color: rgb(250 250 249 / 0.1);
+}
+
+.bg-\[\#FFFFFF\]\/5 {
+  background-color: rgb(255 255 255 / 0.05);
 }
 
 .bg-gradient-to-br {
@@ -2237,6 +2265,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1.5rem;
 }
 
+.pt-5 {
+  padding-top: 1.25rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2508,6 +2540,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-\[\#D97706\] {
   --tw-text-opacity: 1;
   color: rgb(217 119 6 / var(--tw-text-opacity));
+}
+
+.text-\[\#E5E7EB\]\/70 {
+  color: rgb(229 231 235 / 0.7);
+}
+
+.text-\[\#FAFAF9\]\/80 {
+  color: rgb(250 250 249 / 0.8);
 }
 
 .underline {
@@ -2958,6 +2998,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .hover\:border-\[\#1F2937\]\/20:hover {
   border-color: rgb(31 41 55 / 0.2);
+}
+
+.hover\:border-\[\#D4A017\]\/50:hover {
+  border-color: rgb(212 160 23 / 0.5);
+}
+
+.hover\:border-\[\#D4A017\]\/60:hover {
+  border-color: rgb(212 160 23 / 0.6);
 }
 
 .hover\:bg-\[\#9B0D18\]:hover {
