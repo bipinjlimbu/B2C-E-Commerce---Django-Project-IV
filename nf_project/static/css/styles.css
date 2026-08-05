@@ -2946,6 +2946,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(185 28 28 / 0.2);
 }
 
+.hover\:border-\[\#1F2937\]\/20:hover {
+  border-color: rgb(31 41 55 / 0.2);
+}
+
 .hover\:bg-\[\#9B0D18\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(155 13 24 / var(--tw-bg-opacity));
@@ -3321,6 +3325,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:p-16 {
     padding: 4rem;
+  }
+
+  .sm\:p-7 {
+    padding: 1.75rem;
   }
 
   .sm\:px-6 {
