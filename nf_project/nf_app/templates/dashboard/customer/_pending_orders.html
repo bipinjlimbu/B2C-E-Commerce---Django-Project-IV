@@ -110,10 +110,13 @@
                             </a>
                         {% endif %}
 
-                        <a href="/order/cancel/{{ order.id }}" class="bg-[#FFFFFF] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 text-[#B91C1C] font-bold h-11 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-xs active:scale-95" title="Cancel Order">
+                        <button type="button" 
+                                onclick="openCancelOrderModal('/order/cancel/{{ order.id }}/', 'ORDER-{{ order.id }}')" 
+                                class="bg-[#FFFFFF] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 text-[#B91C1C] font-bold h-11 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-xs active:scale-95" 
+                                title="Cancel Order">
                             <i data-lucide="x-circle" class="w-4 h-4"></i>
                             <span class="hidden sm:inline">Cancel Order</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -129,3 +132,76 @@
         {% endfor %}
     </div>
 </div>
+
+<div id="cancelOrderModal" class="fixed inset-0 z-50 bg-[#1F2937]/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+    <div id="cancelOrderModalCard" class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-3xl max-w-sm w-full p-6 text-center space-y-6 shadow-2xl scale-95 transition-transform duration-300">
+        <div class="w-12 h-12 bg-[#B91C1C]/10 rounded-2xl flex items-center justify-center mx-auto text-[#B91C1C]">
+            <i data-lucide="x-circle" class="w-6 h-6"></i>
+        </div>
+        
+        <div class="space-y-1.5">
+            <h3 id="cancelOrderModalTitle" class="text-base font-black text-[#111827] uppercase tracking-tight">Cancel Order</h3>
+            <p class="text-xs text-[#4B5563] leading-relaxed">
+                Are you sure you want to cancel this order? This action cannot be undone.
+            </p>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="button" onclick="closeCancelOrderModal()" class="flex-1 bg-[#FAFAF9] hover:bg-[#E5E7EB] text-[#4B5563] border border-[#E5E7EB] font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors">
+                Keep Order
+            </button>
+            <a id="confirmCancelOrderBtn" href="#" class="flex-1 bg-[#B91C1C] hover:bg-[#9B0D18] text-white font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors shadow-sm flex items-center justify-center">
+                Confirm
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCancelOrderModal(cancelUrl, orderLabel) {
+        const modal = document.getElementById('cancelOrderModal');
+        const card = document.getElementById('cancelOrderModalCard');
+        const confirmBtn = document.getElementById('confirmCancelOrderBtn');
+        const titleElem = document.getElementById('cancelOrderModalTitle');
+
+        if (!modal || !card || !confirmBtn) return;
+
+        confirmBtn.href = cancelUrl;
+        if (titleElem && orderLabel) {
+            titleElem.textContent = 'Cancel ' + orderLabel;
+        }
+        document.body.style.overflow = 'hidden';
+
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+    }
+
+    function closeCancelOrderModal() {
+        const modal = document.getElementById('cancelOrderModal');
+        const card = document.getElementById('cancelOrderModalCard');
+
+        if (!modal || !card) return;
+
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+
+        setTimeout(() => {
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('cancelOrderModal');
+        if (e.target === modal) {
+            closeCancelOrderModal();
+        }
+    });
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeCancelOrderModal();
+        }
+    });
+</script>
