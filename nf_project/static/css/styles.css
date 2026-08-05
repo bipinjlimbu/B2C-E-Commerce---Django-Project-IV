@@ -1223,6 +1223,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 150px;
 }
 
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.max-w-\[160px\] {
+  max-width: 160px;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -3392,6 +3400,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:max-w-\[220px\] {
     max-width: 220px;
+  }
+
+  .sm\:max-w-\[180px\] {
+    max-width: 180px;
   }
 
   .sm\:flex-none {
