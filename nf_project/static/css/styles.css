@@ -454,7 +454,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-shadow-colored: 0 0 #0000;
 }
 
-.blur-3xl, .blur-xl {
+.blur-3xl, .blur-xl, .blur-2xl {
   --tw-blur: var(--tw-empty,/*!*/ /*!*/);
   --tw-brightness: var(--tw-empty,/*!*/ /*!*/);
   --tw-contrast: var(--tw-empty,/*!*/ /*!*/);
@@ -661,6 +661,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bottom-3 {
   bottom: 0.75rem;
+}
+
+.right-1\/3 {
+  right: 33.333333%;
+}
+
+.-top-10 {
+  top: -2.5rem;
 }
 
 .z-10 {
@@ -955,6 +963,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 3.5rem;
 }
 
+.h-48 {
+  height: 12rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1091,6 +1103,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 3.5rem;
 }
 
+.w-48 {
+  width: 12rem;
+}
+
 .min-w-\[320px\] {
   min-width: 320px;
 }
@@ -1117,6 +1133,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .min-w-\[800px\] {
   min-width: 800px;
+}
+
+.min-w-\[700px\] {
+  min-width: 700px;
 }
 
 .max-w-4xl {
@@ -1657,6 +1677,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(31 41 55 / 0.3);
 }
 
+.border-\[\#C1121F\]\/20 {
+  border-color: rgb(193 18 31 / 0.2);
+}
+
 .border-t-transparent {
   border-top-color: transparent;
 }
@@ -1816,6 +1840,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(31 41 55 / 0.05);
 }
 
+.bg-\[\#C1121F\]\/20 {
+  background-color: rgb(193 18 31 / 0.2);
+}
+
+.bg-\[\#FFFFFF\]\/10 {
+  background-color: rgb(255 255 255 / 0.1);
+}
+
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -1848,6 +1880,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(193 18 31 / 0));
 }
 
+.from-\[\#1F2937\] {
+  --tw-gradient-from: #1F2937;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(31 41 55 / 0));
+}
+
+.from-\[\#D4A017\] {
+  --tw-gradient-from: #D4A017;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(212 160 23 / 0));
+}
+
 .via-\[\#D4A017\] {
   --tw-gradient-stops: var(--tw-gradient-from), #D4A017, var(--tw-gradient-to, rgb(212 160 23 / 0));
 }
@@ -1866,6 +1908,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .via-\[\#1F2937\] {
   --tw-gradient-stops: var(--tw-gradient-from), #1F2937, var(--tw-gradient-to, rgb(31 41 55 / 0));
+}
+
+.via-\[\#111827\] {
+  --tw-gradient-stops: var(--tw-gradient-from), #111827, var(--tw-gradient-to, rgb(17 24 39 / 0));
 }
 
 .to-\[\#9B0D18\] {
@@ -2608,6 +2654,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   filter: var(--tw-filter);
 }
 
+.blur-2xl {
+  --tw-blur: blur(40px);
+  filter: var(--tw-filter);
+}
+
 .backdrop-blur-md {
   --tw-backdrop-blur: blur(12px);
   backdrop-filter: var(--tw-backdrop-filter);
@@ -3262,6 +3313,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:p-10 {
     padding: 2.5rem;
+  }
+
+  .sm\:p-5 {
+    padding: 1.25rem;
+  }
+
+  .sm\:p-16 {
+    padding: 4rem;
   }
 
   .sm\:px-6 {
