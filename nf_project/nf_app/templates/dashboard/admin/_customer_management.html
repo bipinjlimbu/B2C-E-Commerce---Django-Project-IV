@@ -1,13 +1,21 @@
 <div class="space-y-6">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E5E7EB]">
-        <div>
-            <h1 class="text-2xl font-extrabold text-[#111827] tracking-tight">Customer Directory</h1>
-            <p class="text-xs text-[#4B5563] mt-1">View and manage registered shopper accounts</p>
+    <div class="bg-gradient-to-r from-[#1F2937] via-[#111827] to-[#1F2937] p-6 sm:p-8 rounded-2xl text-[#FFFFFF] shadow-md border border-[#1F2937] relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="space-y-1.5 relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C1121F]/20 border border-[#C1121F]/30 text-[#FAFAF9] text-xs font-semibold">
+                <span class="w-2 h-2 rounded-full bg-[#D4A017] animate-pulse"></span>
+                <span>NepFit Shopper Accounts</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#FFFFFF] tracking-tight">Customer Directory</h1>
+            <p class="text-xs sm:text-sm text-[#E5E7EB]/80 font-normal max-w-xl">View and manage registered shoppers, contact info, and delivery addresses.</p>
         </div>
-        <div class="flex items-center gap-2">
-            <div class="bg-[#FFFFFF] border border-[#E5E7EB] px-4 py-2 rounded-xl text-xs font-bold text-[#111827] shadow-2xs flex items-center gap-2">
-                <span class="text-[#4B5563]">Total Customers:</span> 
-                <span class="font-bold text-[#C1121F] bg-[#FAFAF9] px-2.5 py-0.5 rounded-lg border border-[#E5E7EB]">
+
+        <div class="relative z-10 flex items-center gap-4 bg-[#FFFFFF]/10 backdrop-blur-md border border-[#FFFFFF]/15 p-4 rounded-xl shrink-0 shadow-lg">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#C1121F] to-[#9B0D18] flex items-center justify-center text-[#FFFFFF] shadow-md shrink-0">
+                <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-[#D4A017] block">Total Customers</span>
+                <span class="text-xl sm:text-2xl font-black text-[#FFFFFF] tracking-tight">
                     {{ customers|length|default:"0" }}
                 </span>
             </div>
@@ -15,11 +23,26 @@
     </div>
 
     {% if customers %}
-    <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl shadow-2xs overflow-hidden">
+    <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl shadow-sm overflow-hidden">
+        <div class="p-5 sm:p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#FAFAF9]">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-[#C1121F]/10 border border-[#C1121F]/20 flex items-center justify-center text-[#C1121F]">
+                    <i data-lucide="user-check" class="w-4 h-4"></i>
+                </div>
+                <div>
+                    <h2 class="text-base font-bold text-[#111827]">Registered Shoppers</h2>
+                    <p class="text-xs text-[#4B5563]">Manage account details and active profiles</p>
+                </div>
+            </div>
+            <span class="text-xs font-semibold px-3 py-1 bg-[#1F2937] text-[#FFFFFF] rounded-lg">
+                Active Accounts
+            </span>
+        </div>
+
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="w-full text-left border-collapse min-w-[750px]">
                 <thead>
-                    <tr class="border-b border-[#E5E7EB] text-[11px] font-extrabold uppercase tracking-wider text-[#4B5563] bg-[#FAFAF9]">
+                    <tr class="border-b border-[#E5E7EB] text-[11px] font-bold uppercase tracking-wider text-[#4B5563] bg-[#FAFAF9]">
                         <th class="py-4 px-6">Customer</th>
                         <th class="py-4 px-4">Email</th>
                         <th class="py-4 px-4">Phone</th>
@@ -30,23 +53,44 @@
                 </thead>
                 <tbody class="divide-y divide-[#E5E7EB] text-xs text-[#4B5563]">
                     {% for customer in customers %}
-                        <tr class="hover:bg-[#FAFAF9]/80 transition-colors">
-                            <td class="py-4 px-6 flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-[#FAFAF9] border border-[#E5E7EB] overflow-hidden flex items-center justify-center shrink-0 shadow-2xs">
-                                    {% if customer.profile_picture %}
-                                        <img src="{{ customer.profile_picture.url }}" alt="{{ customer.first_name }}" class="w-full h-full object-cover">
-                                    {% else %}
-                                        <i data-lucide="user" class="w-5 h-5 text-[#4B5563]"></i>
-                                    {% endif %}
-                                </div>
-                                <div>
-                                    <span class="text-[#111827] block font-bold text-sm">{{ customer.first_name }} {{ customer.last_name }}</span>
-                                    <span class="text-[11px] text-[#C1121F] block font-semibold">@{{ customer.username }}</span>
+                        <tr class="hover:bg-[#FAFAF9] transition-colors group">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-[#FAFAF9] border border-[#E5E7EB] overflow-hidden flex items-center justify-center shrink-0 shadow-2xs group-hover:border-[#D4A017]/60 transition-colors">
+                                        {% if customer.profile_picture %}
+                                            <img src="{{ customer.profile_picture.url }}" alt="{{ customer.first_name }}" class="w-full h-full object-cover">
+                                        {% else %}
+                                            <i data-lucide="user" class="w-5 h-5 text-[#111827]"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <span class="text-[#111827] block font-bold text-sm tracking-tight group-hover:text-[#C1121F] transition-colors">
+                                            {{ customer.first_name }} {{ customer.last_name }}
+                                        </span>
+                                        <span class="text-[11px] text-[#C1121F] block font-semibold">
+                                            @{{ customer.username }}
+                                        </span>
+                                    </div>
                                 </div>
                             </td>
-                            <td class="py-4 px-4 font-medium text-[#111827]">{{ customer.email }}</td>
-                            <td class="py-4 px-4 font-medium text-[#111827]">{{ customer.phone }}</td>
-                            <td class="py-4 px-4 max-w-xs truncate text-[#4B5563]">{{ customer.address }}</td>
+                            <td class="py-4 px-4 font-medium text-[#111827]">
+                                <div class="flex items-center gap-1.5">
+                                    <i data-lucide="mail" class="w-3.5 h-3.5 text-[#4B5563] shrink-0"></i>
+                                    <span>{{ customer.email }}</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4 font-medium text-[#111827]">
+                                <div class="flex items-center gap-1.5">
+                                    <i data-lucide="phone" class="w-3.5 h-3.5 text-[#4B5563] shrink-0"></i>
+                                    <span>{{ customer.phone }}</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4 max-w-xs truncate text-[#4B5563] font-normal" title="{{ customer.address }}">
+                                <div class="flex items-center gap-1.5">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#4B5563] shrink-0"></i>
+                                    <span class="truncate">{{ customer.address }}</span>
+                                </div>
+                            </td>
                             <td class="py-4 px-4">
                                 <span class="inline-flex items-center gap-1.5 bg-[#16A34A]/10 text-[#16A34A] text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full border border-[#16A34A]/20 tracking-wider">
                                     <span class="w-1.5 h-1.5 rounded-full bg-[#16A34A]"></span>
@@ -55,7 +99,7 @@
                             </td>
                             <td class="py-4 px-6 text-right">
                                 <div class="flex items-center justify-end">
-                                    <a href="/profile/delete/{{ customer.id }}/" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#B91C1C] text-[#B91C1C] hover:text-white rounded-xl border border-[#E5E7EB] hover:border-[#B91C1C] text-xs font-bold transition-all shadow-2xs">
+                                    <a href="/profile/delete/{{ customer.id }}/" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#B91C1C] text-[#B91C1C] hover:text-[#FFFFFF] rounded-xl border border-[#E5E7EB] hover:border-[#B91C1C] text-xs font-bold transition-all shadow-2xs active:scale-95">
                                         <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                                         <span>Delete</span>
                                     </a>
@@ -68,12 +112,12 @@
         </div>
     </div>
     {% else %}
-    <div class="bg-[#FFFFFF] border border-[#E5E7EB] text-[#4B5563] p-10 rounded-2xl text-center shadow-2xs max-w-md mx-auto my-8">
-        <div class="w-12 h-12 rounded-xl bg-[#FAFAF9] border border-[#E5E7EB] flex items-center justify-center mx-auto text-[#4B5563] mb-3">
-            <i data-lucide="user-x" class="w-6 h-6 text-[#C1121F]"></i>
+    <div class="flex flex-col items-center justify-center text-center p-12 sm:p-16 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl shadow-2xs max-w-lg mx-auto my-6">
+        <div class="w-16 h-16 rounded-2xl bg-[#FAFAF9] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#4B5563]">
+            <i data-lucide="user-x" class="w-8 h-8 text-[#C1121F]"></i>
         </div>
-        <h3 class="text-[#111827] font-extrabold text-base mb-1">No Customers Found</h3>
-        <p class="text-xs text-[#4B5563]">There are currently no registered customers in the system.</p>
+        <h3 class="text-base font-bold text-[#111827]">No Customers Found</h3>
+        <p class="text-xs text-[#4B5563] mt-1 max-w-sm">There are currently no registered customer accounts available in the directory.</p>
     </div>
     {% endif %}
 </div>
