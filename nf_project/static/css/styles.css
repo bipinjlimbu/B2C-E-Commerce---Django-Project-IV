@@ -1986,6 +1986,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-to: #16A34A;
 }
 
+.to-\[\#C1121F\] {
+  --tw-gradient-to: #C1121F;
+}
+
 .bg-clip-text {
   -webkit-background-clip: text;
           background-clip: text;
