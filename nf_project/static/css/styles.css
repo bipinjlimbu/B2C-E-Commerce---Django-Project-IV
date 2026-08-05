@@ -687,6 +687,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-column: 1 / -1;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .m-0 {
   margin: 0px;
 }
@@ -1649,6 +1653,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(193 18 31 / 0.3);
 }
 
+.border-\[\#1F2937\]\/30 {
+  border-color: rgb(31 41 55 / 0.3);
+}
+
 .border-t-transparent {
   border-top-color: transparent;
 }
@@ -1800,6 +1808,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#1F2937\]\/10 {
+  background-color: rgb(31 41 55 / 0.1);
+}
+
+.bg-\[\#1F2937\]\/5 {
+  background-color: rgb(31 41 55 / 0.05);
+}
+
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -1942,6 +1958,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-10 {
   padding: 2.5rem;
+}
+
+.p-2\.5 {
+  padding: 0.625rem;
 }
 
 .py-12 {
@@ -3124,6 +3144,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @media (min-width: 640px) {
+  .sm\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
   .sm\:-mt-16 {
     margin-top: -4rem;
   }
