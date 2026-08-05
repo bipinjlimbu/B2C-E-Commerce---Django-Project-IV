@@ -1999,6 +1999,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   fill: currentColor;
 }
 
+.fill-\[\#D4A017\] {
+  fill: #D4A017;
+}
+
 .stroke-1 {
   stroke-width: 1;
 }
@@ -3034,6 +3038,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .hover\:border-\[\#D4A017\]\/60:hover {
   border-color: rgb(212 160 23 / 0.6);
+}
+
+.hover\:border-\[\#1F2937\]:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(31 41 55 / var(--tw-border-opacity));
 }
 
 .hover\:bg-\[\#9B0D18\]:hover {

@@ -1,60 +1,87 @@
-<div class="space-y-6">
-    <div>
-        <h2 class="text-xs font-extrabold uppercase tracking-widest text-[#C1121F] mb-1">Feedback Hub</h2>
-        <h1 class="text-2xl font-black tracking-tight text-[#111827] uppercase">Product Reviews Matrix</h1>
+<div class="space-y-8">
+    <div class="relative overflow-hidden rounded-2xl bg-[#1F2937] p-6 sm:p-8 border border-[#1F2937] shadow-xl">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-[#C1121F]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute right-1/3 -top-10 w-48 h-48 bg-[#D4A017]/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAFAF9]/10 border border-[#D4A017]/30 text-[#D4A017] text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-[#C1121F]"></span>
+                    <span class="uppercase tracking-widest text-[10px]">NepFit Feedback</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black text-[#FFFFFF] tracking-tight">My Product Reviews</h1>
+                <p class="text-xs sm:text-sm text-[#E5E7EB]/80 max-w-xl font-normal">View, edit, and manage your ratings and comments on purchased NepFit clothing.</p>
+            </div>
+
+            <div class="flex items-center gap-3 bg-[#FFFFFF]/5 backdrop-blur-md border border-[#FFFFFF]/10 px-5 py-3.5 rounded-xl shrink-0">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#D4A017] to-[#C1121F] text-[#FFFFFF] flex items-center justify-center font-bold shadow-sm">
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#D4A017] block">Your Feedback</span>
+                    <span class="text-xs font-extrabold text-[#FFFFFF]">Verified Reviews</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="space-y-4">
+    <div class="space-y-6">
         {% for review in reviews %}
-            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 hover:border-[#1F2937]/30 transition-all shadow-sm">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E5E7EB] pb-4 mb-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-[#F8F7F4] rounded-xl border border-[#E5E7EB] flex items-center justify-center font-black text-[#111827] text-xs overflow-hidden">
+            <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E5E7EB] pb-5 mb-5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-[#FAFAF9] rounded-xl border border-[#E5E7EB] flex items-center justify-center font-black text-[#111827] overflow-hidden shrink-0 shadow-2xs">
                             {% if review.product.product_image %}
-                                <img src="{{ review.product.product_image.url }}" alt="Product Image" class="w-full h-full object-cover">
+                                <img src="{{ review.product.product_image.url }}" alt="{{ review.product.name }}" class="w-full h-full object-cover">
                             {% else %}
-                                <i data-lucide="dumbbell" class="w-4 h-4 text-[#4B5563]"></i>
+                                <i data-lucide="shopping-bag" class="w-6 h-6 text-[#4B5563]"></i>
                             {% endif %}
                         </div>
-                        <div>
-                            <h4 class="text-xs font-black text-[#111827] uppercase">{{ review.product.name }}</h4>
-                            <p class="text-[10px] text-[#4B5563] font-bold mt-0.5">Reviewed on: {{ review.created_at | date:"Y-m-d" }} </p>
+                        <div class="space-y-1">
+                            <h3 class="text-sm font-extrabold text-[#111827] leading-snug">{{ review.product.name }}</h3>
+                            <div class="flex items-center gap-2 text-xs font-medium text-[#4B5563]">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#C1121F]"></i>
+                                <span>Reviewed on: <strong class="text-[#111827]">{{ review.created_at | date:"Y-m-d" }}</strong></span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="flex items-center gap-1 bg-[#F8F7F4] border border-[#E5E7EB] px-2.5 py-1 rounded-lg">
+
+                    <div class="flex items-center gap-1.5 bg-[#FAFAF9] border border-[#E5E7EB] px-3.5 py-2 rounded-xl shrink-0">
                         {% for i in '12345' %}
                             {% if forloop.counter <= review.rating %}
-                                <i data-lucide="star" class="w-3.5 h-3.5 text-[#C1121F] fill-current"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-[#D4A017] fill-[#D4A017]"></i>
                             {% else %}
-                                <i data-lucide="star" class="w-3.5 h-3.5 text-[#E5E7EB]"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-[#E5E7EB]"></i>
                             {% endif %}
                         {% endfor %}
                     </div>
                 </div>
 
-                <div class="space-y-2">
-                    <p class="text-xs text-[#4B5563] leading-relaxed font-bold">{{ review.comment }}</p>
+                <div class="bg-[#FAFAF9] border border-[#E5E7EB] rounded-xl p-4 mb-5">
+                    <p class="text-xs sm:text-sm text-[#4B5563] leading-relaxed font-normal">{{ review.comment }}</p>
                 </div>
 
-                <div class="flex justify-end gap-2 mt-4 pt-4 border-t border-[#E5E7EB]">
-                    <a href="/review/edit/{{review.id}}" class="bg-[#F8F7F4] hover:bg-[#E5E7EB] text-[#111827] font-extrabold h-8 px-3 rounded-lg text-[10px] uppercase tracking-widest border border-[#E5E7EB] transition-all flex items-center gap-1.5">
-                        <i data-lucide="edit-3" class="w-3 h-3 text-[#C1121F]"></i> Edit
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#E5E7EB]">
+                    <a href="/review/edit/{{review.id}}" class="bg-[#FAFAF9] hover:bg-[#1F2937] text-[#111827] hover:text-[#FFFFFF] border border-[#E5E7EB] hover:border-[#1F2937] font-bold h-9 px-4 rounded-xl text-xs transition-all flex items-center gap-2 shadow-2xs active:scale-95">
+                        <i data-lucide="edit-3" class="w-3.5 h-3.5 text-[#C1121F] group-hover:text-[#D4A017]"></i>
+                        <span>Edit Review</span>
                     </a>
-                    <a href="/review/delete/{{review.id}}" class="bg-[#F8F7F4] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/20 text-[#4B5563] hover:text-[#B91C1C] h-8 w-8 rounded-lg transition-all flex items-center justify-center">
+                    <a href="/review/delete/{{review.id}}" class="bg-[#FFFFFF] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 text-[#B91C1C] font-bold h-9 px-3.5 rounded-xl transition-all flex items-center justify-center gap-1.5 text-xs active:scale-95" title="Delete Review">
                         <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                        <span class="hidden sm:inline">Delete</span>
                     </a>
                 </div>
             </div>
         {% empty %}
-            <div class="flex flex-col items-center justify-center text-center p-12 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl min-h-[220px]">
-                <div class="w-12 h-12 rounded-xl bg-[#F8F7F4] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#4B5563]">
-                    <i data-lucide="message-square" class="w-6 h-6"></i>
+            <div class="flex flex-col items-center justify-center text-center p-12 sm:p-16 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl shadow-2xs">
+                <div class="w-16 h-16 rounded-2xl bg-[#FAFAF9] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#C1121F] shadow-2xs">
+                    <i data-lucide="message-square" class="w-8 h-8"></i>
                 </div>
-                <p class="text-sm font-black text-[#111827]">No Reviews Found</p>
-                <p class="text-xs text-[#4B5563] mt-1 font-bold">You haven't submitted any product reviews yet.</p>
-                <a href="/products/" class="bg-[#111827] hover:bg-[#1F2937] text-white font-extrabold px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest transition-all shadow-sm mt-4">
-                    Explore Products
+                <h3 class="text-base font-bold text-[#111827]">No Reviews Yet</h3>
+                <p class="text-xs text-[#4B5563] mt-1 max-w-sm leading-relaxed">You haven't submitted any product reviews yet. Share your experience with your purchased NepFit menswear!</p>
+                <a href="/products/" class="mt-6 bg-[#C1121F] hover:bg-[#9B0D18] text-[#FFFFFF] font-extrabold px-6 py-3 rounded-xl text-xs transition-all shadow-md flex items-center gap-2 active:scale-95">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span>Shop Now</span>
                 </a>
             </div>
         {% endfor %}
