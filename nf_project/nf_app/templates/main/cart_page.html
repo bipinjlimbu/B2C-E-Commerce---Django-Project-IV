@@ -75,9 +75,12 @@
                                     <span class="text-sm font-extrabold text-[#111827]">Rs. {{ item.total_price|floatformat:2 }}</span>
                                 </div>
 
-                                <a href="/cart/remove/{{ item.product.id }}/" class="w-9 h-9 bg-[#FAFAF9] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 text-[#4B5563] hover:text-[#B91C1C] rounded-xl transition-all flex items-center justify-center shrink-0" title="Remove Item">
+                                <button type="button" 
+                                        onclick="openRemoveCartModal('/cart/remove/{{ item.product.id }}/')" 
+                                        class="w-9 h-9 bg-[#FAFAF9] hover:bg-[#B91C1C]/10 border border-[#E5E7EB] hover:border-[#B91C1C]/30 text-[#4B5563] hover:text-[#B91C1C] rounded-xl transition-all flex items-center justify-center shrink-0 cursor-pointer" 
+                                        title="Remove Item">
                                     <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                </a>
+                                </button>
                             </div>
 
                         </div>
@@ -193,6 +196,32 @@
 
     </main>
 
+    <div id="removeCartModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="removeCartModalCard" class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-3xl max-w-sm w-full p-6 space-y-6 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-red-100 border border-red-200 flex items-center justify-center text-[#B91C1C] shrink-0">
+                    <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                </div>
+                <div class="space-y-1 pt-0.5">
+                    <h3 class="text-base font-extrabold text-[#111827]">Remove Item</h3>
+                    <p class="text-xs text-[#4B5563] leading-relaxed">
+                        Are you sure you want to remove this item from your shopping bag?
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2 border-t border-[#E5E7EB]">
+                <button type="button" onclick="closeRemoveCartModal()" class="px-4 py-2.5 bg-[#FAFAF9] hover:bg-[#E5E7EB]/50 border border-[#E5E7EB] text-[#4B5563] hover:text-[#111827] font-bold text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer">
+                    Cancel
+                </button>
+                <a id="confirmRemoveCartBtn" href="#" class="px-5 py-2.5 bg-[#B91C1C] hover:bg-[#991B1B] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md flex items-center gap-1.5">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    <span>Remove</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     {% include 'components/_footer.html' %}
 
     <script src="{% static 'js/lucide.min.js' %}"></script>
@@ -212,6 +241,40 @@
         const selectedText = document.getElementById('selected_option_text');
         const hiddenPaymentInput = document.getElementById('id_payment_method');
         const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+        const removeCartModal = document.getElementById('removeCartModal');
+        const removeCartModalCard = document.getElementById('removeCartModalCard');
+        const confirmRemoveCartBtn = document.getElementById('confirmRemoveCartBtn');
+
+        function openRemoveCartModal(removeUrl) {
+            confirmRemoveCartBtn.setAttribute('href', removeUrl);
+            document.body.style.overflow = 'hidden';
+            
+            removeCartModal.classList.remove('opacity-0', 'pointer-events-none');
+            removeCartModalCard.classList.remove('scale-95');
+            removeCartModalCard.classList.add('scale-100');
+        }
+
+        function closeRemoveCartModal() {
+            removeCartModal.classList.add('opacity-0', 'pointer-events-none');
+            removeCartModalCard.classList.remove('scale-100');
+            removeCartModalCard.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        if (removeCartModal) {
+            removeCartModal.addEventListener('click', function(e) {
+                if (e.target === removeCartModal) {
+                    closeRemoveCartModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !removeCartModal.classList.contains('pointer-events-none')) {
+                    closeRemoveCartModal();
+                }
+            });
+        }
 
         if (dropdownBtn) {
             dropdownBtn.addEventListener('click', function(e) {
