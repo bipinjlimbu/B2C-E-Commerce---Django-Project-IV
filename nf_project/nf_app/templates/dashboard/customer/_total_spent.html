@@ -1,68 +1,110 @@
-<div class="space-y-6">
-    <div>
-        <h2 class="text-xs font-extrabold uppercase tracking-widest text-[#C1121F] mb-1">Financial Overview</h2>
-        <h1 class="text-2xl font-black tracking-tight text-[#111827] uppercase">Total Investment</h1>
-    </div>
+<div class="space-y-8">
+    <div class="relative overflow-hidden rounded-2xl bg-[#1F2937] p-6 sm:p-8 border border-[#1F2937] shadow-xl">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-[#C1121F]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute right-1/3 -top-10 w-48 h-48 bg-[#D4A017]/10 rounded-full blur-2xl pointer-events-none"></div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-[#FFFFFF] border-2 border-[#C1121F]/30 rounded-2xl p-6 shadow-sm relative overflow-hidden group">
-            <div class="absolute top-0 right-0 p-4 opacity-10">
-                <i data-lucide="wallet" class="w-16 h-16 text-[#C1121F]"></i>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAFAF9]/10 border border-[#D4A017]/30 text-[#D4A017] text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-[#C1121F]"></span>
+                    <span class="uppercase tracking-widest text-[10px]">NepFit Summary</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black text-[#FFFFFF] tracking-tight">My Spending Overview</h1>
+                <p class="text-xs sm:text-sm text-[#E5E7EB]/80 max-w-xl font-normal">Track your total purchases, order averages, and completed shopping history with NepFit.</p>
             </div>
-            <p class="text-[10px] font-extrabold uppercase tracking-widest text-[#C1121F] mb-2">Total Amount Spent</p>
-            <div class="flex items-baseline gap-1">
-                <span class="text-sm font-extrabold text-[#C1121F] mr-0.5">Rs.</span>
-                <span class="text-3xl font-black text-[#111827]">{{ gross_spent | floatformat:2 | default:"0" }}</span>
-            </div>
-        </div>
 
-        <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-sm relative overflow-hidden group">
-            <div class="absolute top-0 right-0 p-4 opacity-5">
-                <i data-lucide="package-check" class="w-16 h-16 text-[#111827]"></i>
-            </div>
-            <p class="text-[10px] font-extrabold uppercase tracking-widest text-[#4B5563] mb-2">Acquired Gear</p>
-            <span class="text-3xl font-black text-[#111827]">{{ total_spent.count | default:"0" }}</span>
-        </div>
-
-        <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-sm relative overflow-hidden group">
-            <div class="absolute top-0 right-0 p-4 opacity-5">
-                <i data-lucide="trending-up" class="w-16 h-16 text-[#111827]"></i>
-            </div>
-            <p class="text-[10px] font-extrabold uppercase tracking-widest text-[#4B5563] mb-2">Average Order Value</p>
-            <div class="flex items-baseline gap-1">
-                <span class="text-xs font-extrabold text-[#4B5563] mr-0.5">Rs.</span>
-                <span class="text-3xl font-black text-[#111827]">{{ average_spent | floatformat:2 | default:"0" }}</span>
+            <div class="flex items-center gap-3 bg-[#FFFFFF]/5 backdrop-blur-md border border-[#FFFFFF]/10 px-5 py-3.5 rounded-xl shrink-0">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#D4A017] to-[#C1121F] text-[#FFFFFF] flex items-center justify-center font-bold shadow-sm">
+                    <i data-lucide="wallet" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#D4A017] block">Total Spent</span>
+                    <span class="text-xs font-extrabold text-[#FFFFFF]">Rs. {{ gross_spent | floatformat:2 | default:"0" }}</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="space-y-4 pt-4">
-        <h3 class="text-xs font-extrabold uppercase tracking-widest text-[#4B5563]">Completed Transactions</h3>
-        
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#4B5563]">Total Spent</span>
+                <div class="w-10 h-10 rounded-xl bg-[#C1121F]/10 text-[#C1121F] flex items-center justify-center">
+                    <i data-lucide="credit-card" class="w-5 h-5"></i>
+                </div>
+            </div>
+            <div class="flex items-baseline gap-1.5">
+                <span class="text-xs font-extrabold text-[#C1121F]">Rs.</span>
+                <span class="text-2xl sm:text-3xl font-black text-[#111827] tracking-tight">{{ gross_spent | floatformat:2 | default:"0" }}</span>
+            </div>
+        </div>
+
+        <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#4B5563]">Completed Orders</span>
+                <div class="w-10 h-10 rounded-xl bg-[#1F2937]/10 text-[#1F2937] flex items-center justify-center">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                </div>
+            </div>
+            <span class="text-2xl sm:text-3xl font-black text-[#111827] tracking-tight">{{ total_spent.count | default:"0" }}</span>
+        </div>
+
+        <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#4B5563]">Average Per Order</span>
+                <div class="w-10 h-10 rounded-xl bg-[#D4A017]/10 text-[#D4A017] flex items-center justify-center">
+                    <i data-lucide="trending-up" class="w-5 h-5"></i>
+                </div>
+            </div>
+            <div class="flex items-baseline gap-1.5">
+                <span class="text-xs font-extrabold text-[#4B5563]">Rs.</span>
+                <span class="text-2xl sm:text-3xl font-black text-[#111827] tracking-tight">{{ average_spent | floatformat:2 | default:"0" }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="space-y-4 pt-2">
+        <div class="flex items-center justify-between">
+            <h3 class="text-sm font-extrabold uppercase tracking-wider text-[#111827]">Order Details</h3>
+            <span class="text-xs text-[#4B5563] font-medium">History of paid orders</span>
+        </div>
+
         <div class="space-y-3">
             {% for log in total_spent %}
-                <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-4 flex flex-row items-center justify-between hover:border-[#1F2937]/30 transition-all shadow-sm">
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <span class="font-black text-sm text-[#111827]">#ORDER-{{ log.id }}</span>
-                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#16A34A]/10 border border-[#16A34A]/20 text-[#16A34A] text-[9px] font-extrabold uppercase tracking-wider">
-                                Settled
-                            </span>
+                <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-[#C1121F]/30 hover:shadow-md transition-all duration-300">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-[#FAFAF9] rounded-xl border border-[#E5E7EB] flex items-center justify-center text-[#C1121F] shrink-0">
+                            <i data-lucide="check-circle-2" class="w-6 h-6"></i>
                         </div>
-                        <p class="text-[10px] text-[#4B5563] font-bold">Date: {{ log.created_at | date:"Y-m-d H:i" }}</p>
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2.5">
+                                <span class="font-extrabold text-sm text-[#111827]">ORDER-{{ log.id }}</span>
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/30 text-[#16A34A] text-[10px] font-extrabold uppercase tracking-wider">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#16A34A]"></span> Paid
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-medium text-[#4B5563]">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#C1121F]"></i>
+                                <span>Date: <strong class="text-[#111827]">{{ log.created_at | date:"Y-m-d H:i" }}</strong></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <span class="text-[9px] uppercase font-extrabold tracking-wider text-[#4B5563] block">Amount</span>
-                        <span class="text-base font-black text-[#111827]">Rs. {{ log.total_amount | floatformat:2 }}</span>
+
+                    <div class="flex sm:flex-col items-center sm:items-end justify-between border-t sm:border-t-0 border-[#E5E7EB] pt-3 sm:pt-0 shrink-0">
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-[#4B5563]">Total Paid</span>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-xs font-extrabold text-[#4B5563]">Rs.</span>
+                            <span class="text-lg font-black text-[#111827] tracking-tight">{{ log.total_amount | floatformat:2 }}</span>
+                        </div>
                     </div>
                 </div>
             {% empty %}
-                <div class="flex flex-col items-center justify-center text-center p-12 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl min-h-[220px]">
-                    <div class="w-12 h-12 rounded-xl bg-[#F8F7F4] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#4B5563]">
-                        <i data-lucide="activity" class="w-5 h-5"></i>
+                <div class="flex flex-col items-center justify-center text-center p-12 sm:p-16 bg-[#FFFFFF] border border-dashed border-[#E5E7EB] rounded-2xl shadow-2xs">
+                    <div class="w-16 h-16 rounded-2xl bg-[#FAFAF9] border border-[#E5E7EB] flex items-center justify-center mb-4 text-[#C1121F] shadow-2xs">
+                        <i data-lucide="receipt" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-sm font-black text-[#111827] uppercase tracking-wider mb-1">No Investment History</h3>
-                    <p class="text-xs text-[#4B5563] max-w-xs font-bold">No completed purchases or settlements have been recorded in your account ledger.</p>
+                    <h3 class="text-base font-bold text-[#111827]">No Purchase History</h3>
+                    <p class="text-xs text-[#4B5563] mt-1 max-w-sm leading-relaxed">You haven't completed any orders yet. Start shopping to build your NepFit wardrobe!</p>
                 </div>
             {% endfor %}
         </div>
