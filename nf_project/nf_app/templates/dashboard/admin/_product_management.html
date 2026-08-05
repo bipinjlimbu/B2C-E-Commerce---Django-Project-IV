@@ -1,61 +1,67 @@
 <div class="space-y-6">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E5E7EB]">
         <div>
-            <h2 class="text-xs font-bold uppercase tracking-widest text-[#4B5563] mb-1">Catalog Architecture</h2>
-            <h1 class="text-2xl font-extrabold text-[#111827] tracking-tight">Product Master</h1>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="w-2 h-2 rounded-full bg-[#D4A017]"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#C1121F]">Inventory Management</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight">Product Catalog</h1>
+            <p class="text-xs text-[#4B5563] mt-1">Manage your apparel collections, stock levels, and store listings.</p>
         </div>
         <div>
-            <a href="/products/add/" class="bg-[#C1121F] hover:bg-[#9B0D18] text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2 shadow-xs">
+            <a href="/products/add/" class="inline-flex items-center gap-2 bg-[#C1121F] hover:bg-[#9B0D18] text-white text-xs font-bold uppercase tracking-wider px-5 py-3 rounded-xl transition-all shadow-md hover:shadow-lg">
                 <i data-lucide="plus" class="w-4 h-4"></i>
-                Deploy New Product
+                <span>Add New Product</span>
             </a>
         </div>
     </div>
 
     {% if products %}
-    <div class="bg-white border border-[#E5E7EB] rounded-2xl shadow-xs overflow-hidden">
+    <div class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="border-b border-[#E5E7EB] text-[10px] font-bold uppercase tracking-widest text-[#4B5563] bg-[#F8F7F4]">
-                        <th class="p-4 pl-6">Asset Details</th>
-                        <th class="p-4">Category Segment</th>
-                        <th class="p-4">Valuation</th>
-                        <th class="p-4">Stock Metric</th>
-                        <th class="p-4">Active Status</th>
-                        <th class="p-4 pr-6 text-right">Actions</th>
+                    <tr class="border-b border-[#E5E7EB] text-[11px] font-extrabold uppercase tracking-wider text-[#4B5563] bg-[#FAFAF9]">
+                        <th class="py-4 px-6">Product Details</th>
+                        <th class="py-4 px-4">Category</th>
+                        <th class="py-4 px-4">Price</th>
+                        <th class="py-4 px-4">Stock</th>
+                        <th class="py-4 px-4">Status</th>
+                        <th class="py-4 px-6 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#E5E7EB] text-sm text-[#111827]">
+                <tbody class="divide-y divide-[#E5E7EB] text-xs text-[#4B5563]">
                     {% for product in products %}
-                        <tr class="hover:bg-[#F8F7F4]/60 transition-colors">
-                            <td class="p-4 pl-6 flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-[#F8F7F4] border border-[#E5E7EB] overflow-hidden flex items-center justify-center text-[#4B5563] shrink-0">
+                        <tr class="hover:bg-[#FAFAF9]/80 transition-colors">
+                            <td class="py-4 px-6 flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-xl bg-[#FAFAF9] border border-[#E5E7EB] overflow-hidden flex items-center justify-center shrink-0 shadow-2xs">
                                     {% if product.product_image %}
                                         <img src="{{ product.product_image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
                                     {% else %}
-                                        <i data-lucide="image" class="w-5 h-5 text-[#4B5563]"></i>
+                                        <i data-lucide="image" class="w-6 h-6 text-[#4B5563]"></i>
                                     {% endif %}
                                 </div>
                                 <div>
                                     <span class="text-[#111827] block font-bold text-sm">{{ product.name }}</span>
-                                    <div class="flex items-center gap-2 mt-0.5">
-                                        <span class="text-[10px] font-bold text-[#C1121F] uppercase tracking-wider">{{ product.brand }}</span>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] font-extrabold text-[#C1121F] uppercase tracking-wider bg-[#C1121F]/10 px-2 py-0.5 rounded-md">{{ product.brand }}</span>
                                         <span class="text-[#E5E7EB]">•</span>
-                                        <span class="text-[10px] text-[#4B5563] font-medium uppercase tracking-wider">SIZE: {{ product.size }}</span>
+                                        <span class="text-[10px] text-[#4B5563] font-semibold uppercase tracking-wider">Size: {{ product.size }}</span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="p-4">
-                                <span class="bg-[#F8F7F4] text-[#111827] border border-[#E5E7EB] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                            <td class="py-4 px-4">
+                                <span class="bg-[#1F2937] text-white border border-[#1F2937] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg inline-block">
                                     {{ product.get_category_display }}
                                 </span>
                             </td>
-                            <td class="p-4 font-mono text-sm font-black text-[#111827]">Rs.{{ product.price|floatformat:2 }}</td>
-                            <td class="p-4">
-                                <div class="flex items-center gap-1.5 text-xs">
+                            <td class="py-4 px-4 font-black text-sm text-[#111827]">
+                                Rs. {{ product.price|floatformat:2 }}
+                            </td>
+                            <td class="py-4 px-4">
+                                <div class="flex items-center gap-1.5">
                                     <span class="w-2 h-2 rounded-full {% if product.stock > 0 %}bg-[#16A34A]{% else %}bg-[#B91C1C]{% endif %}"></span>
-                                    <span class="font-mono text-xs font-bold {% if product.stock > 0 %}text-[#111827]{% else %}text-[#B91C1C]{% endif %}">
+                                    <span class="font-bold text-xs {% if product.stock > 0 %}text-[#111827]{% else %}text-[#B91C1C]{% endif %}">
                                         {% if product.stock > 0 %}
                                             {{ product.stock }} In Stock
                                         {% else %}
@@ -64,19 +70,19 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="p-4">
+                            <td class="py-4 px-4">
                                 <label class="relative inline-flex items-center cursor-pointer select-none" title="Toggle Active Status">
                                     <input type="checkbox" name="is_active" {% if product.is_active %}checked{% endif %} class="sr-only peer" onchange="window.location.href='/products/toggle/status/{{ product.id }}/'">
-                                    <div class="w-8 h-4 bg-[#E5E7EB] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#C1121F]"></div>
+                                    <div class="w-9 h-5 bg-[#E5E7EB] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#C1121F]"></div>
                                 </label>
                             </td>
-                            <td class="p-4 pr-6 text-right">
-                                <div class="flex items-center justify-end gap-1.5">
-                                    <a href="/products/edit/{{ product.id }}/" class="p-2 bg-white hover:bg-[#1F2937] text-[#4B5563] hover:text-white rounded-xl border border-[#E5E7EB] transition-colors shadow-xs" title="Edit Product">
-                                        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                            <td class="py-4 px-6 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <a href="/products/edit/{{ product.id }}/" class="p-2 bg-[#FFFFFF] hover:bg-[#1F2937] text-[#4B5563] hover:text-white rounded-xl border border-[#E5E7EB] transition-all shadow-2xs" title="Edit Product">
+                                        <i data-lucide="pencil" class="w-4 h-4"></i>
                                     </a>
-                                    <a href="/products/delete/{{ product.id }}/" class="p-2 bg-white hover:bg-[#B91C1C] text-[#4B5563] hover:text-white rounded-xl border border-[#E5E7EB] hover:border-[#B91C1C] transition-colors shadow-xs" title="Delete Product">
-                                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                    <a href="/products/delete/{{ product.id }}/" class="p-2 bg-[#FFFFFF] hover:bg-[#B91C1C] text-[#4B5563] hover:text-white rounded-xl border border-[#E5E7EB] hover:border-[#B91C1C] transition-all shadow-2xs" title="Delete Product">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
                                     </a>
                                 </div>
                             </td>
@@ -87,15 +93,15 @@
         </div>
     </div>
     {% else %}
-    <div class="bg-white border border-[#E5E7EB] text-[#4B5563] p-8 rounded-2xl text-center shadow-xs max-w-md mx-auto my-12">
-        <div class="w-12 h-12 rounded-2xl bg-[#F8F7F4] border border-[#E5E7EB] flex items-center justify-center mx-auto text-[#4B5563] mb-3">
-            <i data-lucide="box" class="w-5 h-5"></i>
+    <div class="bg-[#FFFFFF] border border-[#E5E7EB] text-[#4B5563] p-10 rounded-2xl text-center shadow-2xs max-w-md mx-auto my-8">
+        <div class="w-12 h-12 rounded-xl bg-[#FAFAF9] border border-[#E5E7EB] flex items-center justify-center mx-auto text-[#4B5563] mb-3">
+            <i data-lucide="package-x" class="w-6 h-6 text-[#C1121F]"></i>
         </div>
-        <h3 class="text-[#111827] font-bold mb-1">Architecture Bare</h3>
-        <p class="text-xs text-[#4B5563] mb-4">No assets deployed to the catalog infrastructure.</p>
-        <a href="/products/add/" class="inline-flex items-center gap-2 bg-[#C1121F] hover:bg-[#9B0D18] text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-colors shadow-xs">
-            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-            Deploy First Asset
+        <h3 class="text-[#111827] font-extrabold text-base mb-1">No Products Found</h3>
+        <p class="text-xs text-[#4B5563] mb-5">Your store catalog is currently empty. Start adding products to showcase your collection.</p>
+        <a href="/products/add/" class="inline-flex items-center gap-2 bg-[#C1121F] hover:bg-[#9B0D18] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-all shadow-sm">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Add First Product</span>
         </a>
     </div>
     {% endif %}
