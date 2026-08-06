@@ -99,10 +99,12 @@
                             </td>
                             <td class="py-4 px-6 text-right">
                                 <div class="flex items-center justify-end">
-                                    <a href="/profile/delete/{{ customer.id }}/" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#B91C1C] text-[#B91C1C] hover:text-[#FFFFFF] rounded-xl border border-[#E5E7EB] hover:border-[#B91C1C] text-xs font-bold transition-all shadow-2xs active:scale-95">
+                                    <button type="button" 
+                                            onclick="openDeleteCustomerModal('/profile/delete/{{ customer.id }}/', '{{ customer.first_name }} {{ customer.last_name }}')" 
+                                            class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#B91C1C] text-[#B91C1C] hover:text-[#FFFFFF] rounded-xl border border-[#E5E7EB] hover:border-[#B91C1C] text-xs font-bold transition-all shadow-2xs active:scale-95">
                                         <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                                         <span>Delete</span>
-                                    </a>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -121,3 +123,76 @@
     </div>
     {% endif %}
 </div>
+
+<div id="deleteCustomerModal" class="fixed inset-0 z-50 bg-[#1F2937]/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+    <div id="deleteCustomerModalCard" class="bg-[#FFFFFF] border border-[#E5E7EB] rounded-3xl max-w-sm w-full p-6 text-center space-y-6 shadow-2xl scale-95 transition-transform duration-300">
+        <div class="w-12 h-12 bg-[#B91C1C]/10 rounded-2xl flex items-center justify-center mx-auto text-[#B91C1C]">
+            <i data-lucide="user-x" class="w-6 h-6"></i>
+        </div>
+        
+        <div class="space-y-1.5">
+            <h3 id="deleteCustomerModalTitle" class="text-base font-black text-[#111827] uppercase tracking-tight">Delete Customer</h3>
+            <p class="text-xs text-[#4B5563] leading-relaxed">
+                Are you sure you want to delete this customer account? This action cannot be undone.
+            </p>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="button" onclick="closeDeleteCustomerModal()" class="flex-1 bg-[#FAFAF9] hover:bg-[#E5E7EB] text-[#4B5563] border border-[#E5E7EB] font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors">
+                Cancel
+            </button>
+            <a id="confirmDeleteCustomerBtn" href="#" class="flex-1 bg-[#B91C1C] hover:bg-[#9B0D18] text-white font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors shadow-sm flex items-center justify-center">
+                Confirm
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDeleteCustomerModal(deleteUrl, customerName) {
+        const modal = document.getElementById('deleteCustomerModal');
+        const card = document.getElementById('deleteCustomerModalCard');
+        const confirmBtn = document.getElementById('confirmDeleteCustomerBtn');
+        const titleElem = document.getElementById('deleteCustomerModalTitle');
+
+        if (!modal || !card || !confirmBtn) return;
+
+        confirmBtn.href = deleteUrl;
+        if (titleElem && customerName) {
+            titleElem.textContent = 'Delete ' + customerName;
+        }
+        document.body.style.overflow = 'hidden';
+
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+    }
+
+    function closeDeleteCustomerModal() {
+        const modal = document.getElementById('deleteCustomerModal');
+        const card = document.getElementById('deleteCustomerModalCard');
+
+        if (!modal || !card) return;
+
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+
+        setTimeout(() => {
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('deleteCustomerModal');
+        if (e.target === modal) {
+            closeDeleteCustomerModal();
+        }
+    });
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeDeleteCustomerModal();
+        }
+    });
+</script>
